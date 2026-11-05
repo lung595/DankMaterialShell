@@ -1,0 +1,14 @@
+$ dms ipc call island activity backup live '{"title":"Backup","icon":"backup","text":"Copying","progress":0.3}'
+script:backup:1
+$ dms ipc call island activityStatus script:backup:1
+{"state":"shown","action":""}
+$ dms ipc call island activityUpdate script:backup:1 '{"title":"Backup","icon":"backup","text":"Copying","progress":0.8}'
+ISLAND_ACTIVITY_UPDATED
+$ dms ipc call island activityUpdate script:backup:1 '{"text":"no title and no icon"}'
+ISLAND_ACTIVITY_NO_CONTENT
+$ dms ipc call island activity backup live '{not json'
+ISLAND_ACTIVITY_BAD_DATA
+$ dms ipc call island activityEnd script:backup:1
+ISLAND_ACTIVITY_ENDED
+$ dms ipc call island activityStatus script:backup:1
+ISLAND_ACTIVITY_UNKNOWN
