@@ -1,6 +1,14 @@
 # Médias de la PR 3 « island: arrival, wing, cards, tiles, notifications and plugin activities »
 
-Captures et GIF des bulles, faits au banc seulement (instance `pr123-media-bulles`), le 5/11. Base : `island/2-api` (b302f1df6), tête : `island/3-bubbles` (130fc3ad1).
+Captures et GIF des bulles, faits au banc seulement (instance `pr123-media-bulles` le 5/11, `c123-media-bulles` le 6/11). Pointes actuelles : base `island/2-api` (b222553ef), tête `island/3-bubbles` (0463985bd).
+
+## Mise à jour du 6/11 (corrections des PR 1, 2 et 3)
+
+Les corrections ont déplacé les pointes (base b302f1df6 vers b222553ef, tête 130fc3ad1 vers 0463985bd). Toutes les scènes ont été rejouées au banc `c123-media-bulles` (mêmes réglages, fond uni neutre, noms fictifs), la tête puis la base, thèmes clair et sombre, et comparées aux médias du 5/11 :
+
+- **Images fixes (24)** : identiques pixel à pixel (tolérance de 3 %, relevés de processeur et de mémoire de la barre masqués), sauf ce qui vit seul à l'instant de la prise : la barre de progression de la notification, le sable de l'alerte du plugin, l'anneau de focus du champ de recherche du lanceur sur la tuile sombre. Elles sont gardées telles quelles.
+- **GIF de l'arrivée, de l'aile, de la carte, de la notification et du plugin (10)** : même mouvement, image par image, aux quelques images près d'un départ de commande (décalage de 0 à 3 images). Gardés tels quels.
+- **GIF de la tuile (2)** : la bulle devient tuile en une chorégraphie plus courte (le mouvement de la bulle vers la tuile dure environ 0,45 s au lieu de 0,85 s, sans l'ondulation de la version précédente). Refaits sur la tête 0463985bd, thèmes sombre et clair ; ce sont les seuls fichiers changés.
 
 ## Comment ils ont été faits
 
@@ -39,8 +47,8 @@ La base a déjà la face d'activité de l'API et une notification en face compac
 | `tuile-apres-sombre.png` | Tuile, après, thème sombre : L'île descend sous le lanceur et la bulle devient une tuile verticale à côté de lui ; à la fermeture du lanceur la tuile se range. (1280x340) | 49 Ko |
 | `tuile-avant-clair.png` | Tuile, avant (base `island/2-api`), thème clair : Le lanceur s'ouvre seul, aucune bulle ni tuile à côté. (1280x340) | 47 Ko |
 | `tuile-avant-sombre.png` | Tuile, avant (base `island/2-api`), thème sombre : Le lanceur s'ouvre seul, aucune bulle ni tuile à côté. (1280x340) | 47 Ko |
-| `tuile-clair.gif` | Tuile, GIF, thème clair : Le lanceur s'ouvre pendant que des bulles sont en aile (« Tea » et « Pasta »). L'île descend sous le lanceur et la bulle devient une tuile verticale à côté de lui ; à la fermeture du lanceur la tuile se range. (760x340) | 271 Ko |
-| `tuile-sombre.gif` | Tuile, GIF, thème sombre : Le lanceur s'ouvre pendant que des bulles sont en aile (« Tea » et « Pasta »). L'île descend sous le lanceur et la bulle devient une tuile verticale à côté de lui ; à la fermeture du lanceur la tuile se range. (760x340) | 254 Ko |
+| `tuile-clair.gif` | Tuile, GIF, thème clair : Le lanceur s'ouvre pendant que des bulles sont en aile (« Tea » et « Pasta »). L'île descend sous le lanceur et la bulle devient une tuile verticale à côté de lui ; à la fermeture du lanceur la tuile se range. (760x340) | 248 Ko |
+| `tuile-sombre.gif` | Tuile, GIF, thème sombre : Le lanceur s'ouvre pendant que des bulles sont en aile (« Tea » et « Pasta »). L'île descend sous le lanceur et la bulle devient une tuile verticale à côté de lui ; à la fermeture du lanceur la tuile se range. (760x340) | 231 Ko |
 | `notif-apres-clair.png` | Notification, après, thème clair : Elle arrive comme une carte courte dans l'île (titre et texte), puis se réduit en face compacte, puis l'île reprend l'horloge. (1280x250) | 20 Ko |
 | `notif-apres-sombre.png` | Notification, après, thème sombre : Elle arrive comme une carte courte dans l'île (titre et texte), puis se réduit en face compacte, puis l'île reprend l'horloge. (1280x250) | 19 Ko |
 | `notif-avant-clair.png` | Notification, avant (base `island/2-api`), thème clair : L'île ne montre que la face compacte (application et titre), sans l'arrivée en carte. (1280x250) | 16 Ko |
@@ -55,6 +63,12 @@ La base a déjà la face d'activité de l'API et une notification en face compac
 | `plugin-sombre.gif` | Activité de plugin, GIF, thème sombre : `request live` (« Tea »), puis `request alert` (« Pasta » avec son sable), puis `release`, retour à l'horloge. (640x370) | 90 Ko |
 
 Total : 36 fichiers, 3.5 Mo. Chaque GIF fait moins de 8 Mo (le plus gros : 439 Ko), de 3,5 à 8 secondes, 25 images par seconde.
+
+## Vérifications du 6/11
+
+- Aucun fond d'écran, chemin ni nom personnel : fond uni (un PNG d'une seule couleur écrit dans le HOME du banc), applications de DMS seules dans le lanceur, noms fictifs. Recherche, dans les octets des fichiers de ce dossier, d'un chemin de dossier personnel, du nom du propriétaire et d'un dossier de session : aucune.
+- Symétrie (`symetrie.py`, tolérance de 1 px) : la pilule de l'aile (encre à 2 px de chaque bord), l'icône de notification (8 et 9 px à gauche et à droite, 6 et 7 px en haut et en bas) et la tuile (icône à 10 px de chaque côté), en clair et en sombre : centrées. Le haut et le bas de la tuile ne sont pas jugés : l'icône est en tête et le point en pied, par construction.
+- GIF : 12 fichiers, tous sous 8 Mo, 25 images par seconde, boucle infinie ; première et dernière image identiques (à un pixel près pour la tuile sombre) ; chaque film refait tient dans la même minute, pour que l'horloge de l'île ne change pas entre la première et la dernière image.
 
 ## Reste à savoir
 

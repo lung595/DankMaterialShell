@@ -4,8 +4,9 @@ Tout est pris au banc (instance `pr123-media-api`, écran virtuel 1280x720, fond
 barre réduite au lanceur, aux espaces de travail et à deux boutons, aucun appareil). Cadrage : la bande de l'île, agrandie
 deux fois pour les PNG.
 
-- **Avant** : base `island/1-kit` (36a043958), la PR en moins.
-- **Après** : tête `island/2-api` (b302f1df6).
+- **Avant** : base `island/1-kit`, la PR en moins. Prise sur 36a043958 ; la base est maintenant 6a58a5818 (voir
+  « Mise à jour du 6/11 » : rien n'a changé à l'image).
+- **Après** : tête `island/2-api`. Prise sur b302f1df6 ; la tête est maintenant b222553ef (idem).
 - Ce que la PR rend visible : un script (ou un plugin) montre une activité sur l'île avec `dms ipc call island activity`,
   la met à jour, la termine. Avant, l'appel est refusé et l'île reste sur son horloge.
 
@@ -40,9 +41,33 @@ Tous les GIF font moins de 200 Ko (limite : 8 Mo) ; le dossier entier fait envir
 - Plusieurs écrans (`activityOn`, écran `*`), la priorité alert > live > glance et le délai d'une activité « glance » :
   couverts par les tests de la PR, pas filmés.
 
+## Mise à jour du 6/11 (C4-MEDIAS-api, boucle de correction)
+
+Depuis les captures du 5/11, la PR a été corrigée (pointe `b302f1df6` devenue `b222553ef`, base du kit `36a043958`
+devenue `6a58a5818`) : le diff touche 32 fichiers hors tests, dont les faces prêtes (`ReadyActivityCompact`,
+`ReadyActivityExpanded`, `ReadyActivityRing`), le kit (`IslandAlertWave`, `IslandButton`, `IslandNoticeIcon`,
+`IslandAppIcon`) et la nouvelle `IslandPluginActivity.qml`. Avant de refaire quoi que ce soit, le rendu a été comparé à la
+nouvelle pointe, au banc `c123-media-api` (mêmes réglages : fond uni neutre, 1280x720, aucun appareil) :
+
+- Les 8 PNG de l'après, refaits à neuf puis comparés pixel à pixel aux fichiers du dossier : écart de 1 à 2 sur 255 sur
+  quelques pixels (lissage), rien d'autre.
+- Les 4 GIF, refilmés à neuf puis comparés image à image (au début, à 10, 30, 50, 70, 90 % et à la fin) : même nombre
+  d'images (199 contre 199 en sombre, 201 contre 199 en clair, 132 contre 132 pour les deux alertes), mêmes scènes. Les
+  seules différences sont l'heure de l'horloge au repos (celle du banc) et l'avancement de l'anneau à un instant donné
+  (minutage de la prise). Boucle propre et animés, comme avant.
+- L'avant (île sur son horloge) : entre `36a043958` et `6a58a5818` le kit ne change que des fichiers de `Kit/`, des
+  calculs (`IslandKit.js`, `IslandClock.js`, `FrameCadence.js`), un nom de constante dans `Theme.qml` et des
+  commentaires ; aucun fichier de l'île ne se sert encore des composants du kit sans la PR 2, donc l'horloge au repos ne
+  change pas. Pas refait.
+- Conclusion : aucune capture ni aucun GIF remplacé, les fichiers de ce dossier restent ceux du 5/11 et valent pour la
+  nouvelle pointe. Les refaits de contrôle ne sont pas gardés.
+
 ## Reproduire
 
-Scripts dans `page-niri/outils/ile/` (préfixe `pr123-media-api-`) :
+Scripts dans `page-niri/outils/ile/` (préfixe `pr123-media-api-`). Le 6/11, les mêmes scripts sous l'instance
+`c123-media-api` (préfixe `c123-media-api-`, copies faites par `c123-media-api-copie.sh`), la comparaison des GIF par
+`c123-media-api-gifcmp.sh <ancien> <nouveau> <dossier>` et le contrôle des données et des tailles par
+`c123-media-api-prive.sh <dossier média> <dossier de travail>` :
 
 | Script | Rôle |
 |---|---|
@@ -57,9 +82,21 @@ Scripts dans `page-niri/outils/ile/` (préfixe `pr123-media-api-`) :
 ## Schéma et mesures
 
 - `schema.md` : deux schémas Mermaid (chemin d'une activité, vie d'une activité de script), chaque nœud relié au code.
-- `mesures.md` : processeur, mémoire, démarrage, poids, tests et porte ; temps par image et allocations non mesurés.
+  Relevé sur `b302f1df6` le 5/11, puis de nouveau sur `b222553ef` le 6/11 (C4-TEXTE-api) : toutes les lignes citées ont
+  été recomptées sur la pointe (`beginPluginActivity` est devenu `IslandPluginActivity.qml:40-63`), deux cases ajoutées
+  (face du shell vide retirée par `dropIfEmpty`, tenue d'arrivée de 5 s d'une barre cachée) ; les deux schémas sont
+  les mêmes que dans `description.en.md` et `description.fr.md`, vérifiés par `pr123-mermaid-check.mjs`.
+- `mesures.md` : remis à jour le 6/11 depuis la fiche perf finale (90/100, `b222553ef`) : processeur, mémoire,
+  démarrage, poids, tests et porte ; temps de rendu par image et allocations mesurés sur la tête seule, au banc (62
+  images par seconde), jamais à 240 Hz.
 
-## Vérification (P7-SCHEMA-api, 5/11)
+## Vérification (P7-SCHEMA-api, 5/11 ; refaite le 6/11)
+
+Refaite le 6/11 sur ce dossier et sur les captures et GIF neufs de `b222553ef` (`pr123-schema-api-verif.py` et
+`c123-media-api-prive.sh`) : mêmes tailles (le plus gros GIF : 170 Ko, dossier entier environ 0,7 Mo, la limite est de 8 Mo),
+mêmes boucles propres, aucun chemin, nom d'utilisateur ni nom de machine dans les textes, les octets et les métadonnées,
+et les quatre coins de chaque PNG et de chaque image de GIF sont les deux fonds unis du banc (aucun fond d'écran). Les
+mesures de symétrie ci-dessous sont les mêmes sur les captures neuves.
 
 - Tailles : tout sous 8 Mo (le plus gros GIF : 170 Ko). GIF : boucle propre (première image = dernière) et animés
   tous les quatre ; images à 10, 50 et 90 % regardées, lisibles.
@@ -70,8 +107,8 @@ Scripts dans `page-niri/outils/ile/` (préfixe `pr123-media-api-`) :
   rien (même géométrie qu'en sombre).
   - Bulle compacte live et les quatre accents : gauche/droite à 1 px près (43/44 à 1x), haut/bas égaux. OK.
   - Feuille d'alerte : gauche/droite 12/12 à 1x, haut/bas 15/12. L'icône sans progression garde la case de l'anneau
-    (`ReadyActivityRing.qml:19-25`), son glyphe commence 3 px plus bas que la marge du bas des boutons. Écart de code,
-    pas de capture : à corriger ou à dire dans « Known limits ».
+    (`ReadyActivityRing.qml:21-27`, `ringInset`), son glyphe commence 3 px plus bas que la marge du bas des boutons. Écart de code,
+    pas de capture : à corriger ou à dire dans « Known limits ». Toujours là à `b222553ef` (30/24 à 2x sur la capture neuve).
   - Feuille live : gauche/droite 9/12 et haut/bas 12/9 à 1x, dus à l'anneau de focus clavier du premier bouton (voulu
     sur cette capture), qui déborde de 3 px ; sous l'anneau, le bouton tombe aux mêmes marges que ceux de la feuille
     d'alerte (lu sur l'image, l'outil ne sait pas retirer l'anneau).

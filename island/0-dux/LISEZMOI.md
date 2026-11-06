@@ -4,6 +4,8 @@ PR 0 « loading indicator (Material shapes) » : branche `island/common`, tête 
 
 Ce que la PR change pour qui regarde : `DLoadingIndicator` laisse l'appelant choisir ses formes (`shapes`, noms du catalogue ou rayons polaires), et piloter lui-même le morphing (`fromShape`, `toShape`, `morph`, `angle` avec `running: false`). Le rendu par défaut ne change pas.
 
+Revu le 6/11 (étape C4 de la boucle de correction) : la tête `island/common` est toujours `2a60fbc`, aucun commit depuis la prise des médias. Les 4 planches et les 4 GIF sont donc inchangés et valides (aucune nouvelle capture). Contrôles refaits : aucune chaîne personnelle (chemin, nom, fond d'écran) dans les images ni dans les textes ; fond uni, formes seules ; GIF de 119 à 196 Ko, bien sous 8 Mo ; `symetrie.py` sur la forme ronde de la planche ne trouve aucune icône à mesurer (la PR 0 ne dessine ni bulle, ni pastille, ni face de l'île).
+
 ## Fichiers
 
 | Fichier | Ce qu'il montre | Taille |
