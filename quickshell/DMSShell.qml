@@ -536,6 +536,8 @@ Item {
         function onAuthenticationRequestStarted() {
             if (PopoutService.systemUpdatePopout?.shouldBeVisible)
                 return;
+            if (PolkitService.islandClaim && PolkitService.islandClaim())
+                return;
             polkitAuthModalLoader.active = true;
             if (polkitAuthModalLoader.loadedModal)
                 polkitAuthModalLoader.loadedModal.show();

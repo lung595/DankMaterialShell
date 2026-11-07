@@ -1,0 +1,3 @@
+module qs.DCommon.Widgets
+StyledText 1.0 StyledText.qml
+DIcon 1.0 DIcon.qml

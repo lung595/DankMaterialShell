@@ -154,7 +154,9 @@ PanelWindow {
     color: "transparent"
     exclusiveZone: -1
     WlrLayershell.namespace: "dms:dankisland"
-    WlrLayershell.layer: LayerShell.fromEnv("DMS_DANKISLAND_LAYER", body.usesOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top)
+    // Read by the island body as its host layer, like the bar and frame windows.
+    readonly property int dBarLayer: LayerShell.fromEnv("DMS_DANKISLAND_LAYER", body.usesOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top)
+    WlrLayershell.layer: dBarLayer
     WlrLayershell.keyboardFocus: islandChrome.keyboardFocusPolicy
     BackgroundEffect.blurRegion: root.blurWanted && BlurService.enabled && BlurService.available && body.surfaceOpacity > 0 && body.surfaceOpacity < 1 ? surfaceBlurRegion : null
 
@@ -273,7 +275,7 @@ PanelWindow {
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-            onClicked: body.islandController.requestCollapse()
+            onClicked: body.islandController.requestDismiss()
         }
     }
 

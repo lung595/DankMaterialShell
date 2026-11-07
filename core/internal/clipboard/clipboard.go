@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"syscall"
 
 	"github.com/duxlabs-dev/dux-go/wayland/ext_data_control"
@@ -100,6 +101,19 @@ func FileOffers(uriPath, path string, data []byte) []wlclipboard.Offer {
 		offers = append(offers, wlclipboard.Offer{MimeType: "image/" + imgFormat, Data: data})
 	}
 	return offers
+}
+
+// FilesOffers builds the offers for copying several files at once; uriPaths are their (possibly exported) uri paths.
+func FilesOffers(uriPaths, paths []string) []wlclipboard.Offer {
+	uris := make([]string, len(uriPaths))
+	for i, p := range uriPaths {
+		uris[i] = (&url.URL{Scheme: "file", Path: p}).String()
+	}
+	return []wlclipboard.Offer{
+		{MimeType: "x-special/gnome-copied-files", Data: []byte("copy\n" + strings.Join(uris, "\n"))},
+		{MimeType: "text/uri-list", Data: []byte(strings.Join(uris, "\r\n") + "\r\n")},
+		{MimeType: "text/plain", Data: []byte(strings.Join(paths, "\n"))},
+	}
 }
 
 func newForkCmd(mimeType string, pasteOnce bool, extra ...string) *exec.Cmd {

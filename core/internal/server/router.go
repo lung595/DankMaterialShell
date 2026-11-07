@@ -235,6 +235,8 @@ func newRequestMux(readiness *systemd.Readiness) *ipc.Mux {
 		wellbeing.HandleRequest(conn, req, wellbeingManager)
 	}))
 
+	mux.HandlePrefix("transfers.", requestHandler(handleTransfers))
+
 	mux.HandlePrefix("notify.", requestHandler(func(conn *ipc.ConnWriter, req ipc.Request) {
 		if notifyActionsManager == nil {
 			conn.RespondError(req.ID, "notification action manager not initialized")

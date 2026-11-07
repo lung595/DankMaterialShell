@@ -1699,6 +1699,92 @@ var LOCAL_SPEC = {
     launcherPluginOrder: {
         def: []
     },
+    islandPluginsBlocked: {
+        def: []
+    },
+    islandSystemFaces: {
+        def: {}
+    },
+    islandLevelBubbles: {
+        def: false
+    },
+    islandBriefBubbles: {
+        def: false
+    },
+    islandArrivalStyle: {
+        def: "bc"
+    },
+    // Per tier: brief, normal, important (IslandArrival.js).
+    islandArrivalBounce: {
+        def: ["light", "light", "medium"]
+    },
+    islandArrivalTint: {
+        def: ["light", "normal", "strong"]
+    },
+    islandArrivalWheel: {
+        def: true
+    },
+    islandArrivalWheelInverted: {
+        def: false
+    },
+    islandBubbleOutline: {
+        def: false
+    },
+    islandBubbleMotion: {
+        def: 80
+    },
+    islandBubbleDialStyle: {
+        def: "wave"
+    },
+    islandBubbleCorners: {
+        def: "island"
+    },
+    islandBubbleLauncherTransition: {
+        def: "liquid"
+    },
+    islandBubbleShapeStyle: {
+        def: "flat"
+    },
+    islandBubbleShapeTone: {
+        def: "theme"
+    },
+    islandBubbleOutlineWidth: {
+        def: 1
+    },
+    // The weather kinds that raise an alert bubble.
+    islandWeatherAlerts: {
+        def: ["rain", "hail", "storm", "snow", "fog", "heat"]
+    },
+    // The shelf's drop zones, in order ({id, enabled}; empty: Convert, Share, Cloud) and the synced folders of its Cloud zone.
+    islandShelfZones: {
+        def: []
+    },
+    islandShelfClouds: {
+        def: []
+    },
+    // How the shelf's card groups its files: "kind" (Images, Documents, Folders, Archives, Media), "day" or "app"; the
+    // last two are one shelf for now, nothing keeps a drop's date or source app (N2).
+    islandShelfGroup: {
+        def: "kind"
+    },
+    islandReopenApps: {
+        def: "signal, discord, steam, telegram, element, slack"
+    },
+    islandBubbleOutlineOpacity: {
+        def: 100
+    },
+    islandBubbleOutlineColor: {
+        def: "type"
+    },
+    islandEyeBreak: {
+        def: false
+    },
+    islandEyeBreakInterval: {
+        def: 20
+    },
+    islandEyeBreakDuration: {
+        def: 20
+    },
     launcherKeybinds: {
         def: {}
     },

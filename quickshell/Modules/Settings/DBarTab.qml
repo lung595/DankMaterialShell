@@ -349,6 +349,22 @@ Item {
             visible: dankBarTab.selectedIslandEnabled
         }
 
+        IslandPluginsCard {
+            shown: dankBarTab.selectedIslandEnabled
+        }
+
+        IslandBubblesCard {
+            visible: dankBarTab.selectedIslandEnabled
+        }
+
+        IslandShelfCard {
+            shown: dankBarTab.selectedIslandEnabled
+        }
+
+        IslandArrivalCard {
+            shown: dankBarTab.selectedIslandEnabled
+        }
+
         SettingsCard {
             iconName: "border_outer"
             title: I18n.tr("Frame")

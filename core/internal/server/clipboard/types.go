@@ -1,6 +1,7 @@
 package clipboard
 
 import (
+	"crypto/sha256"
 	"encoding/json"
 	"os"
 	"path/filepath"
@@ -123,6 +124,9 @@ type State struct {
 	Enabled bool    `json:"enabled"`
 	History []Entry `json:"history"`
 	Current *Entry  `json:"current,omitempty"`
+	// Secret counts the password manager copies seen (never stored); SecretActive is true while the clipboard holds one.
+	Secret       uint64 `json:"secret,omitempty"`
+	SecretActive bool   `json:"secretActive,omitempty"`
 }
 
 type Manager struct {
@@ -144,8 +148,13 @@ type Manager struct {
 	offerMimeTypes map[any][]string
 	offerMutex     sync.RWMutex
 
-	isOwner        bool
-	ownerLock      sync.Mutex
+	isOwner   bool
+	ownedSum  [sha256.Size]byte // SHA-256 of what the daemon serves, so a secret's wipe never empties another copy
+	ownerLock sync.Mutex
+
+	secretOffer    any
+	secretSeq      uint64
+	secretMutex    sync.Mutex
 	pasteSupported bool
 
 	initialized bool

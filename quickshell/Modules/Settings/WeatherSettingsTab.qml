@@ -3,6 +3,7 @@ import qs.Common
 import qs.Services
 import qs.DCommon.Widgets
 import qs.Modules.Settings.Widgets
+import "../../Common/IslandWeather.js" as IslandWeather
 
 Item {
     id: root
@@ -49,6 +50,87 @@ Item {
                 text: I18n.tr("Wind speed in m/s")
                 checked: SettingsData.windSpeedUnit === "ms"
                 onToggled: checked => SettingsData.set("windSpeedUnit", checked ? "ms" : "kmh")
+            }
+        }
+
+        // One box per island weather alert. An event the forecast cannot tell is greyed, never silently off: its row says
+        // so.
+        SettingsCard {
+            id: alerts
+
+            readonly property var gaps: IslandWeather.missing(SettingsData.weatherEnabled ? WeatherService.weather : null)
+            readonly property var ticked: SettingsData.islandWeatherAlerts ?? []
+
+            title: I18n.tr("Island alerts", "weather settings: the island's weather alerts")
+            iconName: "rainy"
+            tab: "weather"
+            settingKey: "islandWeatherAlerts"
+            tags: ["weather", "island", "alert", "rain", "hail", "snow", "ice", "storm", "wind", "fog", "heat", "uv"]
+
+            Repeater {
+                model: [
+                    {
+                        "id": "rain",
+                        "icon": "rainy",
+                        "text": I18n.tr("Rain", "island weather alert")
+                    },
+                    {
+                        "id": "hail",
+                        "icon": "weather_hail",
+                        "text": I18n.tr("Hail", "island weather alert")
+                    },
+                    {
+                        "id": "snow",
+                        "icon": "weather_snowy",
+                        "text": I18n.tr("Snow and ice", "island weather alert")
+                    },
+                    {
+                        "id": "storm",
+                        "icon": "thunderstorm",
+                        "text": I18n.tr("Storm and strong wind", "island weather alert")
+                    },
+                    {
+                        "id": "fog",
+                        "icon": "foggy",
+                        "text": I18n.tr("Fog", "island weather alert")
+                    },
+                    {
+                        "id": "heat",
+                        "icon": "sunny",
+                        "text": I18n.tr("Heat and UV", "island weather alert")
+                    }
+                ]
+
+                SettingsRow {
+                    id: alertRow
+
+                    required property var modelData
+                    readonly property bool gap: alerts.gaps.indexOf(modelData.id) >= 0
+                    readonly property bool on: alerts.ticked.indexOf(modelData.id) >= 0
+
+                    tab: "weather"
+                    tags: ["weather", "alert", modelData.id]
+                    iconName: modelData.icon
+                    title: modelData.text
+                    titleColor: alertRow.gap ? Theme.surfaceVariantText : contentColor
+                    iconColor: alertRow.gap ? Theme.surfaceVariantText : Theme.primary
+                    subtitle: !alertRow.gap ? "" : SettingsData.weatherEnabled ? I18n.tr("Not in your forecast", "weather settings: an alert the forecast cannot give") : I18n.tr("Needs the weather on", "weather settings: alerts need the weather")
+                    clickable: !alertRow.gap
+                    onClicked: {
+                        const rest = alerts.ticked.filter(e => e !== alertRow.modelData.id);
+                        SettingsData.set("islandWeatherAlerts", alertRow.on ? rest : rest.concat([alertRow.modelData.id]));
+                    }
+                    Accessible.role: Accessible.CheckBox
+                    Accessible.checkable: !alertRow.gap
+                    Accessible.checked: alertRow.on && !alertRow.gap
+
+                    DIcon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: alertRow.on && !alertRow.gap ? "check_box" : "check_box_outline_blank"
+                        size: Theme.iconSize
+                        color: alertRow.gap ? Theme.withAlpha(Theme.surfaceText, 0.38) : alertRow.on ? Theme.primary : Theme.surfaceVariantText
+                    }
+                }
             }
         }
 

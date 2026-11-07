@@ -56,7 +56,7 @@ PanelWindow {
         return body.containsGlobalPoint(gx, gy, padding);
     }
 
-    readonly property bool usesOverlayLayer: CompositorService.framePeerSurfacesUseOverlayForScreen(barWindow.screen) || (isIsland ? LayerShell.envUsesOverlay("DMS_DANKISLAND_LAYER", SettingsData.islandSetting(barConfig, "islandUseOverlayLayer")) : (barConfig?.useOverlayLayer ?? false))
+    readonly property bool usesOverlayLayer: CompositorService.framePeerSurfacesUseOverlayForScreen(barWindow.screen) || (isIsland ? LayerShell.envUsesOverlay("DMS_DANKISLAND_LAYER", islandHost?.wantsOverlay ?? SettingsData.islandSetting(barConfig, "islandUseOverlayLayer")) : (barConfig?.useOverlayLayer ?? false))
     // A hosted sheet must paint over Top-layer surfaces on its edge until it has sprung back, the same as the frame does.
     readonly property int dBarLayer: LayerShell.fromEnv(isIsland ? "DMS_DANKISLAND_LAYER" : "DMS_DANKBAR_LAYER", barWindow.usesOverlayLayer || (!isIsland && islandChrome.sheetOut) ? WlrLayer.Overlay : WlrLayer.Top)
 

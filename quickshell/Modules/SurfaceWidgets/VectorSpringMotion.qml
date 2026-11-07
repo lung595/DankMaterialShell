@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import "../../Common/FrameCadence.js" as FrameCadence
 
 QtObject {
     id: root
@@ -45,6 +46,12 @@ QtObject {
     property real velocityTopRightRadius: 0
     property real velocityBottomLeftRadius: 0
     property real velocityBottomRightRadius: 0
+    // Cadence rule K7: seconds of frames above 120 a second, folded into the next step (FrameCadence.fold).
+    property real _foldedTime: 0
+    // The eight axes as their [target, current, velocity] property names, and one frame's integrated [current, velocity]
+    // per axis: both made once, so advance() allocates nothing per frame.
+    readonly property var _axes: ["Width", "Height", "OffsetAlong", "OffsetCross", "TopLeftRadius", "TopRightRadius", "BottomLeftRadius", "BottomRightRadius"].map(n => ["target" + n, "current" + n, "velocity" + n])
+    readonly property var _frame: new Float64Array(16)
 
     // One per integration step, so consumers copy the body once instead of binding to eight currents.
     signal stepped()
@@ -153,39 +160,30 @@ QtObject {
         const step = frameTime / steps;
         const k = stiffness;
         const c = damping;
-        const target = [targetWidth, targetHeight, targetOffsetAlong, targetOffsetCross, targetTopLeftRadius, targetTopRightRadius, targetBottomLeftRadius, targetBottomRightRadius];
-        const current = [currentWidth, currentHeight, currentOffsetAlong, currentOffsetCross, currentTopLeftRadius, currentTopRightRadius, currentBottomLeftRadius, currentBottomRightRadius];
-        const velocity = [velocityWidth, velocityHeight, velocityOffsetAlong, velocityOffsetCross, velocityTopLeftRadius, velocityTopRightRadius, velocityBottomLeftRadius, velocityBottomRightRadius];
+        const f = root._frame;
 
-        // Integrate in locals and write once per frame; every property write re-runs its bindings.
-        for (let i = 0; i < steps; i++) {
-            for (let j = 0; j < 8; j++) {
-                velocity[j] += (k * (target[j] - current[j]) - c * velocity[j]) * inverseMass * step;
-                current[j] += velocity[j] * step;
+        // The axes are independent: each is integrated in plain locals, then all are written once per frame (no array
+        // per frame), since every property write re-runs its bindings.
+        for (let j = 0; j < root._axes.length; j++) {
+            const axis = root._axes[j];
+            const target = root[axis[0]];
+            let x = root[axis[1]], v = root[axis[2]];
+            for (let i = 0; i < steps; i++) {
+                v += (k * (target - x) - c * v) * inverseMass * step;
+                x += v * step;
             }
+            // A sum is finite only when both terms are (NaN and infinities carry through).
+            if (!Number.isFinite(x + v)) {
+                settle();
+                return;
+            }
+            f[2 * j] = x;
+            f[2 * j + 1] = v;
         }
-
-        if (!current.every(Number.isFinite) || !velocity.every(Number.isFinite)) {
-            settle();
-            return;
+        for (let j = 0; j < root._axes.length; j++) {
+            root[root._axes[j][2]] = f[2 * j + 1];
+            root[root._axes[j][1]] = f[2 * j];
         }
-
-        velocityWidth = velocity[0];
-        velocityHeight = velocity[1];
-        velocityOffsetAlong = velocity[2];
-        velocityOffsetCross = velocity[3];
-        velocityTopLeftRadius = velocity[4];
-        velocityTopRightRadius = velocity[5];
-        velocityBottomLeftRadius = velocity[6];
-        velocityBottomRightRadius = velocity[7];
-        currentWidth = current[0];
-        currentHeight = current[1];
-        currentOffsetAlong = current[2];
-        currentOffsetCross = current[3];
-        currentTopLeftRadius = current[4];
-        currentTopRightRadius = current[5];
-        currentBottomLeftRadius = current[6];
-        currentBottomRightRadius = current[7];
 
         if (isSettled())
             settle();
@@ -204,6 +202,12 @@ QtObject {
 
     property FrameAnimation frameAnimation: FrameAnimation {
         running: root.enabled && root.running && !root.reducedMotion
-        onTriggered: root.advance(frameTime)
+        onRunningChanged: root._foldedTime = 0
+        onTriggered: {
+            const time = FrameCadence.fold(root._foldedTime, frameTime);
+            root._foldedTime = Math.max(0, -time);
+            if (time > 0)
+                root.advance(time);
+        }
     }
 }

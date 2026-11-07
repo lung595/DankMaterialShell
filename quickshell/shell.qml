@@ -4,6 +4,9 @@
 //@ pragma Env QT_FFMPEG_DECODING_HW_DEVICE_TYPES=vaapi
 //@ pragma Env QT_FFMPEG_ENCODING_HW_DEVICE_TYPES=vaapi
 //@ pragma Env QT_QUICK_CONTROLS_STYLE=Material
+// The ms the JS engine spends in each incremental garbage collection step (Qt, "Configuring the JavaScript Engine"):
+// 1 keeps a step well within a 240 Hz frame (4.17 ms); 0 would make the collection non-incremental.
+//@ pragma Env QV4_GC_TIMELIMIT=1
 //@ pragma UseQApplication
 //@ pragma AppId dev.duxlabs.shell
 

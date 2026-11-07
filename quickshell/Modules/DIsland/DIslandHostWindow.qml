@@ -40,7 +40,8 @@ Item {
         id: dismissWindow
 
         screen: root.screen
-        visible: !!root.islandController && root.islandController.outsideClickCollapses && !PopoutManager.screenshotActive
+        // A card held open: the first click beside it only lets the keyboard go, the next ones reach the windows.
+        visible: !!root.islandController && root.islandController.outsideClickCollapses && !((root.islandController?.holdOpen ?? false) && root.islandController.keyboardYielded) && !PopoutManager.screenshotActive
         color: "transparent"
         exclusiveZone: -1
 
@@ -56,7 +57,8 @@ Item {
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
         mask: Region {
-            item: dismissMask
+            // A file dragged out of the shelf card must land on the windows beneath: the layer takes no input meanwhile.
+            item: (root.body?.shelf?.takingOut ?? false) ? null : dismissMask
 
             Region {
                 item: islandHole
@@ -148,7 +150,7 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
             onPressed: mouse => {
-                root.islandController?.requestCollapse();
+                root.islandController?.requestDismiss();
                 mouse.accepted = true;
             }
         }

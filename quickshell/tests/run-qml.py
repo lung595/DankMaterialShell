@@ -32,18 +32,19 @@ def run(name, command):
 def main():
     parser = argparse.ArgumentParser(description="Run shell logic and Qt unit tests")
     parser.add_argument("--jobs", type=int, default=3)
-    parser.add_argument("suites", nargs="*", choices=["qt", "lock", "logic"])
+    parser.add_argument("suites", nargs="*", choices=["qt", "lock", "island", "logic"])
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    selected = args.suites or ["qt", "lock", "logic"]
+    selected = args.suites or ["qt", "lock", "island", "logic"]
     commands = {
         "logic": ["node", "--test", *sorted(str(path.relative_to(repo)) for path in (repo / "quickshell/tests").glob("*.test.mjs"))],
     }
-    if {"qt", "lock"} & set(selected):
+    if {"qt", "lock", "island"} & set(selected):
         runner = qml_test_runner()
         commands["qt"] = [runner, "-input", "quickshell/tests/unit", "-o", "-,txt"]
         commands["lock"] = [runner, "-import", "quickshell/tests/lock/mocks", "-input", "quickshell/tests/lock", "-o", "-,txt"]
+        commands["island"] = [runner, "-import", "quickshell/tests/island/mocks", "-input", "quickshell/tests/island", "-o", "-,txt"]
     started = time.monotonic()
     failed = False
     with ThreadPoolExecutor(max_workers=min(args.jobs, len(selected))) as pool:

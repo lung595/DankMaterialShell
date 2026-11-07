@@ -318,8 +318,12 @@ printf 'uwsm=%s\nelogind=%s\nloginctl=%s\nsystemctl=%s\nusermgr=%s\nhibernate=%s
             "path": path
         }, response => {
             const entry = resolveDesktopId(response?.result?.desktopId);
+            // No default app: the "Open with" picker, never xdg-open's guess (a browser that downloads the file).
             if (!entry) {
-                fallback();
+                DMSService.appPickerRequested({
+                    "target": path,
+                    "requestType": "file"
+                });
                 return;
             }
             launchDesktopEntry(entry, false, [path]);

@@ -26,6 +26,7 @@ var ISLAND_DEFAULTS = {
     islandRouteWeather: "island",
     islandRouteWallpaper: "island",
     islandUseOverlayLayer: false,
+    islandOverlayOnRequest: true,
     islandReserveThickness: 40,
     islandCompactThickness: 38,
     islandOuterGap: 4,

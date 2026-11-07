@@ -26,6 +26,9 @@ func HandleRequest(conn *ipc.ConnWriter, req ipc.Request, m *Manager) {
 		handleDeleteEntries(conn, req, m)
 	case "clipboard.clearHistory":
 		handleClearHistory(conn, req, m)
+	case "clipboard.clearSecret":
+		m.ClearSecret()
+		conn.Respond(req.ID, models.SuccessResult{Success: true, Message: "secret cleared"})
 	case "clipboard.copy":
 		handleCopy(conn, req, m)
 	case "clipboard.copyEntry":
@@ -54,6 +57,8 @@ func HandleRequest(conn *ipc.ConnWriter, req ipc.Request, m *Manager) {
 		handleGetPinnedCount(conn, req, m)
 	case "clipboard.copyFile":
 		handleCopyFile(conn, req, m)
+	case "clipboard.copyFiles":
+		handleCopyFiles(conn, req, m)
 	default:
 		conn.RespondError(req.ID, "unknown method: "+req.Method)
 	}
@@ -183,7 +188,11 @@ func handleCopy(conn *ipc.ConnWriter, req ipc.Request, m *Manager) {
 		return
 	}
 
-	if err := m.CopyText(text); err != nil {
+	copyText := m.CopyText
+	if params.BoolOpt(req.Params, "secret", false) {
+		copyText = m.CopySecret
+	}
+	if err := copyText(text); err != nil {
 		conn.RespondError(req.ID, err.Error())
 		return
 	}
@@ -381,6 +390,15 @@ func handleCopyFile(conn *ipc.ConnWriter, req ipc.Request, m *Manager) {
 	}
 
 	if err := m.CopyFile(filePath); err != nil {
+		conn.RespondError(req.ID, err.Error())
+		return
+	}
+
+	conn.Respond(req.ID, models.SuccessResult{Success: true, Message: "copied"})
+}
+
+func handleCopyFiles(conn *ipc.ConnWriter, req ipc.Request, m *Manager) {
+	if err := m.CopyFiles(params.StringSlice(req.Params, "filePaths")); err != nil {
 		conn.RespondError(req.ID, err.Error())
 		return
 	}

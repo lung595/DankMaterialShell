@@ -1065,6 +1065,73 @@ func TestCopyFile_DisabledTrackingRefusesCopy(t *testing.T) {
 	assert.Empty(t, m.GetHistory())
 }
 
+func TestSetSecret_CountsEachPasswordCopyAndClearsOnNext(t *testing.T) {
+	m := newTestManagerWithDB(t)
+	first, second := new(int), new(int)
+
+	m.setSecret(first)
+	s := m.GetState()
+	assert.Equal(t, uint64(1), s.Secret)
+	assert.True(t, s.SecretActive)
+
+	m.setSecret(first)
+	assert.Equal(t, uint64(1), m.GetState().Secret, "same offer is not a new copy")
+
+	m.setSecret(nil)
+	s = m.GetState()
+	assert.Equal(t, uint64(1), s.Secret)
+	assert.False(t, s.SecretActive)
+	assert.Empty(t, s.History, "a password copy is never stored")
+
+	m.setSecret(second)
+	assert.Equal(t, uint64(2), m.GetState().Secret)
+}
+
+func TestStateEqual_SecretDiffers(t *testing.T) {
+	assert.False(t, stateEqual(&State{Secret: 1}, &State{Secret: 2}))
+	assert.False(t, stateEqual(&State{SecretActive: true}, &State{}))
+}
+
+// The island shelf copies several kept files at once: one uri-list entry for them all, and one file stays CopyFile.
+func TestCopyFiles_SeveralFilesOneURIList(t *testing.T) {
+	m := newTestManagerWithDB(t)
+	dir := t.TempDir()
+	a := filepath.Join(dir, "a b.pdf")
+	b := filepath.Join(dir, "c#.txt")
+	require.NoError(t, os.WriteFile(a, []byte("pdf"), 0o644))
+	require.NoError(t, os.WriteFile(b, []byte("txt"), 0o644))
+
+	require.NoError(t, m.CopyFiles([]string{a, b}))
+
+	history := m.GetHistory()
+	require.Len(t, history, 1)
+	require.Equal(t, "text/uri-list", history[0].MimeType)
+	assert.Equal(t, "[[ 2 files ]]", history[0].Preview)
+	entry, err := m.GetEntry(history[0].ID)
+	require.NoError(t, err)
+	assert.Equal(t, encodeFileURI(a)+"\r\n"+encodeFileURI(b)+"\r\n", string(entry.Data))
+
+	require.ErrorContains(t, m.CopyFiles([]string{a, filepath.Join(dir, "gone")}), "file not found")
+	require.ErrorContains(t, m.CopyFiles([]string{a, "c#.txt"}), "not an absolute path")
+	require.Error(t, m.CopyFiles(nil))
+}
+
+func TestCopyFiles_OneFileIsCopyFile(t *testing.T) {
+	m := newTestManagerWithDB(t)
+	path := filepath.Join(t.TempDir(), "shot.png")
+	var buf bytes.Buffer
+	require.NoError(t, png.Encode(&buf, image.NewRGBA(image.Rect(0, 0, 4, 4))))
+	require.NoError(t, os.WriteFile(path, buf.Bytes(), 0o644))
+
+	require.NoError(t, m.CopyFiles([]string{path}))
+
+	history := m.GetHistory()
+	require.Len(t, history, 1)
+	assert.True(t, history[0].IsImage)
+
+	require.ErrorContains(t, m.CopyFiles([]string{"shot.png"}), "not an absolute path")
+}
+
 func TestApplyConfigChange_DisableReleasesDataDevice(t *testing.T) {
 	sock := filepath.Join(t.TempDir(), "wayland-test")
 	ln, err := net.Listen("unix", sock)

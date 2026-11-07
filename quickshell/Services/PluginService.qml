@@ -21,6 +21,8 @@ Singleton {
     property var pluginDesktopComponents: ({})
     property var pluginDashComponents: ({})
     property var pluginDashCardComponents: ({})
+    property var pluginIslandComponents: ({})
+    property var pluginIslandSystemComponents: ({})
     property var availablePluginsList: []
     readonly property string pluginDirectory: Paths.strip(Paths.config) + "/plugins"
 
@@ -233,7 +235,7 @@ Singleton {
         }
     }
 
-    readonly property var pluginSurfaceKeys: ["widget", "desktop", "daemon", "launcher", "dash", "dashCard"]
+    readonly property var pluginSurfaceKeys: ["widget", "desktop", "daemon", "launcher", "dash", "dashCard", "island", "islandSystem"]
 
     Connections {
         target: I18n
@@ -496,6 +498,19 @@ Singleton {
         });
     }
 
+    // The island's two plugin surfaces of pluginId, set from comps (a loaded plugin's) or cleared (an empty one).
+    function setIslandComponents(pluginId, comps) {
+        const island = Object.assign({}, pluginIslandComponents), system = Object.assign({}, pluginIslandSystemComponents);
+        delete island[pluginId];
+        delete system[pluginId];
+        if (comps.island)
+            island[pluginId] = comps.island;
+        if (comps.islandSystem)
+            system[pluginId] = comps.islandSystem;
+        pluginIslandComponents = island;
+        pluginIslandSystemComponents = system;
+    }
+
     function loadPlugin(pluginId, bustCache) {
         const plugin = availablePlugins[pluginId];
         if (!plugin) {
@@ -581,6 +596,7 @@ Singleton {
             pluginDesktopComponents = newDesktop;
             pluginDashComponents = newDash;
             pluginDashCardComponents = newDashCards;
+            setIslandComponents(pluginId, comps);
             pluginDaemonComponents = newDaemons;
             pluginLauncherComponents = newLaunchers;
             pluginInstances = newInstances;
@@ -643,7 +659,7 @@ Singleton {
         }
 
         try {
-            const components = [pluginDaemonComponents, pluginLauncherComponents, pluginDesktopComponents, pluginWidgetComponents, pluginDashComponents, pluginDashCardComponents].map(map => map[pluginId]).filter(comp => !!comp);
+            const components = [pluginDaemonComponents, pluginLauncherComponents, pluginDesktopComponents, pluginWidgetComponents, pluginDashComponents, pluginDashCardComponents, pluginIslandComponents, pluginIslandSystemComponents].map(map => map[pluginId]).filter(comp => !!comp);
             const instance = pluginInstances[pluginId];
             if (instance) {
                 instance.destroy();
@@ -690,6 +706,7 @@ Singleton {
                 delete newDashCards[pluginId];
                 pluginDashCardComponents = newDashCards;
             }
+            setIslandComponents(pluginId, {});
 
             plugin.loaded = false;
             const newLoaded = Object.assign({}, loadedPlugins);

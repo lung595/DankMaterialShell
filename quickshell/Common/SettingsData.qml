@@ -128,6 +128,58 @@ Singleton {
         return launcherPluginVisibility[pluginId].allowWithoutTrigger !== false;
     }
 
+    property var islandPluginsBlocked: Spec.SPEC.islandPluginsBlocked.def
+    property var islandSystemFaces: Spec.SPEC.islandSystemFaces.def
+    property bool islandLevelBubbles: Spec.SPEC.islandLevelBubbles.def
+    property bool islandBriefBubbles: Spec.SPEC.islandBriefBubbles.def
+    property string islandArrivalStyle: Spec.SPEC.islandArrivalStyle.def
+    property var islandArrivalBounce: Spec.SPEC.islandArrivalBounce.def
+    property var islandArrivalTint: Spec.SPEC.islandArrivalTint.def
+    property bool islandArrivalWheel: Spec.SPEC.islandArrivalWheel.def
+    property bool islandArrivalWheelInverted: Spec.SPEC.islandArrivalWheelInverted.def
+    property string islandReopenApps: Spec.SPEC.islandReopenApps.def
+    property var islandWeatherAlerts: Spec.SPEC.islandWeatherAlerts.def
+    property var islandShelfZones: Spec.SPEC.islandShelfZones.def
+    property var islandShelfClouds: Spec.SPEC.islandShelfClouds.def
+    property string islandShelfGroup: Spec.SPEC.islandShelfGroup.def
+    property bool islandBubbleOutline: Spec.SPEC.islandBubbleOutline.def
+    property real islandBubbleMotion: Spec.SPEC.islandBubbleMotion.def
+    property string islandBubbleCorners: Spec.SPEC.islandBubbleCorners.def
+    property string islandBubbleDialStyle: Spec.SPEC.islandBubbleDialStyle.def
+    property string islandBubbleLauncherTransition: Spec.SPEC.islandBubbleLauncherTransition.def
+    property string islandBubbleShapeStyle: Spec.SPEC.islandBubbleShapeStyle.def
+    property string islandBubbleShapeTone: Spec.SPEC.islandBubbleShapeTone.def
+    property real islandBubbleOutlineWidth: Spec.SPEC.islandBubbleOutlineWidth.def
+    property real islandBubbleOutlineOpacity: Spec.SPEC.islandBubbleOutlineOpacity.def
+    property string islandBubbleOutlineColor: Spec.SPEC.islandBubbleOutlineColor.def
+    property bool islandEyeBreak: Spec.SPEC.islandEyeBreak.def
+    property real islandEyeBreakInterval: Spec.SPEC.islandEyeBreakInterval.def
+    property real islandEyeBreakDuration: Spec.SPEC.islandEyeBreakDuration.def
+
+    function islandPluginAllowed(pluginId) {
+        return islandPluginsBlocked.indexOf(pluginId) === -1;
+    }
+
+    function setIslandPluginAllowed(pluginId, allowed) {
+        const others = islandPluginsBlocked.filter(id => id !== pluginId);
+        islandPluginsBlocked = allowed ? others : others.concat([pluginId]);
+        saveSettings();
+    }
+
+    function islandSystemFace(kind) {
+        return islandSystemFaces[kind] ?? "";
+    }
+
+    function setIslandSystemFace(kind, pluginId) {
+        const next = Object.assign({}, islandSystemFaces);
+        if (pluginId)
+            next[kind] = pluginId;
+        else
+            delete next[kind];
+        islandSystemFaces = next;
+        saveSettings();
+    }
+
     function setPluginAllowWithoutTrigger(pluginId, allow) {
         const updated = JSON.parse(JSON.stringify(launcherPluginVisibility));
         if (!updated[pluginId])

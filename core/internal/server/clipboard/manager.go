@@ -106,6 +106,7 @@ func NewManager(wlCtx wlcontext.WaylandContext, config Config) (*Manager, error)
 	}
 
 	m.alive = true
+	m.resumeWipes()
 	m.updateState()
 
 	if !config.Disabled && m.dataControlMgr != nil && m.seat != nil {
@@ -297,6 +298,8 @@ func (m *Manager) setupDataDeviceSync() {
 func (m *Manager) syncTracking() {
 	if m.getConfig().Disabled {
 		m.releaseDataDevice()
+		// No tracking, no copy known to be a password's.
+		m.setSecret(nil)
 		return
 	}
 	if m.dataDevice != nil {
@@ -378,6 +381,7 @@ func (m *Manager) bindDataDevice() bool {
 		m.ownerLock.Unlock()
 
 		if wasOwner {
+			m.setSecret(nil)
 			return
 		}
 
@@ -389,11 +393,13 @@ func (m *Manager) bindDataDevice() bool {
 		}
 
 		if offer == nil {
+			m.setSecret(nil)
 			return
 		}
 
 		// An event can land between a runtime disable and the posted release.
 		if m.getConfig().Disabled {
+			m.setSecret(nil)
 			return
 		}
 
@@ -403,11 +409,13 @@ func (m *Manager) bindDataDevice() bool {
 
 		m.mimeTypes = mimes
 
-		if len(mimes) == 0 {
+		if m.hasSensitiveMimeType(mimes) {
+			m.setSecret(offer)
 			return
 		}
+		m.setSecret(nil)
 
-		if m.hasSensitiveMimeType(mimes) {
+		if len(mimes) == 0 {
 			return
 		}
 
@@ -533,6 +541,7 @@ func (m *Manager) readAndStore(r *os.File, mimeType string, altR *os.File, altMi
 	}
 
 	if !cfg.Disabled && m.db != nil {
+		m.forgetSecret(data)
 		m.storeClipboardEntry(data, mimeType, altData, altMime)
 	}
 
@@ -1015,10 +1024,16 @@ func (m *Manager) updateState() {
 		current = &c
 	}
 
+	m.secretMutex.Lock()
+	secret, secretActive := m.secretSeq, m.secretOffer != nil
+	m.secretMutex.Unlock()
+
 	newState := &State{
-		Enabled: m.alive,
-		History: history,
-		Current: current,
+		Enabled:      m.alive,
+		History:      history,
+		Current:      current,
+		Secret:       secret,
+		SecretActive: secretActive,
 	}
 
 	m.stateMutex.Lock()
@@ -1058,7 +1073,7 @@ func stateEqual(a, b *State) bool {
 	if a == nil || b == nil {
 		return false
 	}
-	if a.Enabled != b.Enabled {
+	if a.Enabled != b.Enabled || a.Secret != b.Secret || a.SecretActive != b.SecretActive {
 		return false
 	}
 	if len(a.History) != len(b.History) {
@@ -1553,9 +1568,7 @@ func (m *Manager) takeSelection(offers []wlclipboard.Offer) {
 		m.releaseCurrentSource()
 		m.currentSource = source
 
-		m.ownerLock.Lock()
-		m.isOwner = true
-		m.ownerLock.Unlock()
+		m.setOwned(offers[0].Data)
 
 		device := m.dataDevice.(*ext_data_control.ExtDataControlDeviceV1)
 		if err := device.SetSelection(source); err != nil {
@@ -2348,6 +2361,56 @@ func (m *Manager) CopyFile(filePath string) error {
 	return nil
 }
 
+// CopyFiles copies several files as one selection (the island shelf); a single one goes through CopyFile.
+func (m *Manager) CopyFiles(filePaths []string) error {
+	if len(filePaths) == 0 {
+		return errors.New("no files")
+	}
+	for _, p := range filePaths {
+		if !filepath.IsAbs(p) {
+			return fmt.Errorf("not an absolute path: %s", p)
+		}
+	}
+	if len(filePaths) == 1 {
+		return m.CopyFile(filePaths[0])
+	}
+	if !m.canTakeSelection() {
+		return errSelectionUnavailable
+	}
+	// Every path is checked before any is exported for Flatpak: a missing one leaves no export behind (and every path
+	// is absolute, checked above, even a single one).
+	for _, p := range filePaths {
+		if _, err := os.Stat(p); err != nil {
+			return fmt.Errorf("file not found: %w", err)
+		}
+	}
+	uriPaths := make([]string, len(filePaths))
+	var list strings.Builder
+	for i, p := range filePaths {
+		uriPaths[i] = p
+		if exported, err := m.ExportFileForFlatpak(p); err == nil {
+			uriPaths[i] = exported
+		}
+		list.WriteString(encodeFileURI(p) + "\r\n")
+	}
+
+	entry := Entry{
+		Data:      []byte(list.String()),
+		MimeType:  "text/uri-list",
+		Size:      list.Len(),
+		Timestamp: time.Now(),
+		Preview:   fmt.Sprintf("[[ %d files ]]", len(filePaths)),
+	}
+	if err := m.storeEntry(entry); err != nil {
+		log.Errorf("Failed to store files entry: %v", err)
+	}
+	m.updateState()
+	m.notifySubscribers()
+
+	m.takeSelection(clipboardstore.FilesOffers(uriPaths, filePaths))
+	return nil
+}
+
 func (m *Manager) EntryToFile(entry *Entry) string {
 	switch {
 	case entry.MimeType == "text/uri-list":
@@ -2454,9 +2517,12 @@ func (m *Manager) ExportFileForFlatpak(filePath string) (string, error) {
 		).Err
 	}
 
-	uid := os.Getuid()
-	basename := filepath.Base(filePath)
-	exportedPath := fmt.Sprintf("/run/user/%d/doc/%s/%s", uid, docId, basename)
+	// The document portal mounts under the session's runtime dir, not always /run/user/<uid>.
+	runtimeDir := os.Getenv("XDG_RUNTIME_DIR")
+	if runtimeDir == "" {
+		runtimeDir = fmt.Sprintf("/run/user/%d", os.Getuid())
+	}
+	exportedPath := filepath.Join(runtimeDir, "doc", docId, filepath.Base(filePath))
 
 	return exportedPath, nil
 }

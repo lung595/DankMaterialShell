@@ -16,6 +16,8 @@ Singleton {
 
     property bool authFailed: false
     property bool _switchingIdentity: false
+    // Set by the island while it is on: returns true when it shows the request itself, so the dialog stays closed.
+    property var islandClaim: null
 
     function currentUserIdentity(flow) {
         const identities = flow?.identities;

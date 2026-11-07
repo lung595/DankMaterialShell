@@ -210,4 +210,15 @@ SettingsCard {
         checked: root.store.setting("islandMediaAutoSwitch")
         onToggled: checked => root.store.apply("islandMediaAutoSwitch", checked)
     }
+
+    // A hosted island keeps its bar's layer, a dot and "Use overlay layer" already ride the overlay layer.
+    SettingsToggleRow {
+        settingKey: root.keyPrefix + "OverlayOnRequest"
+        tags: ["island", "fullscreen", "overlay", "layer", "polkit", "authentication", "plugin"]
+        visible: !root.hosted && !root.isDot && !root.store.setting("islandUseOverlayLayer")
+        text: I18n.tr("Show requests over fullscreen", "island settings: overlay layer during a fullscreen request toggle")
+        description: I18n.tr("Authentication prompts and plugins that ask for it stay visible above fullscreen windows", "island settings: overlay layer during a fullscreen request toggle description")
+        checked: root.store.setting("islandOverlayOnRequest")
+        onToggled: checked => root.store.apply("islandOverlayOnRequest", checked)
+    }
 }

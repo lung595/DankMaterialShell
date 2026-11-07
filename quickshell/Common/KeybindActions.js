@@ -77,6 +77,10 @@ const DMS_ACTIONS = [
         label: "DankIsland: Cycle Activity"
     },
     {
+        id: "spawn dms ipc call island shelf toggle",
+        label: "DankIsland: Toggle Shelf"
+    },
+    {
         id: "spawn dms ipc call island close",
         label: "DankIsland: Close"
     },

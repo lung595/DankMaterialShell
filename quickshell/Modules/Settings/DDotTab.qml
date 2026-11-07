@@ -310,6 +310,22 @@ Item {
             badgeGated: false
         }
 
+        IslandPluginsCard {
+            keyPrefix: "dot"
+        }
+
+        IslandBubblesCard {
+            keyPrefix: "dot"
+        }
+
+        IslandShelfCard {
+            keyPrefix: "dot"
+        }
+
+        IslandArrivalCard {
+            keyPrefix: "dot"
+        }
+
         IslandMotionCard {
             store: dot
             keyPrefix: "dot"

@@ -64,8 +64,20 @@ func handleGetDefault(conn *ipc.ConnWriter, req ipc.Request) {
 	}
 	conn.Respond(req.ID, defaultResult{
 		MimeType:  mimeType,
-		DesktopID: desktop.GetDefault(mimeType),
+		DesktopID: defaultFor(mimeType),
 	})
+}
+
+// defaultFor is the type's default app, else the default of one of its aliases (an ISO's application/x-cd-image).
+func defaultFor(mimeType string) string {
+	id := desktop.GetDefault(mimeType)
+	for _, alias := range mimeAliases(mimeType) {
+		if id != "" {
+			break
+		}
+		id = desktop.GetDefault(alias)
+	}
+	return id
 }
 
 func handleSetDefault(conn *ipc.ConnWriter, req ipc.Request) {
@@ -127,8 +139,16 @@ func handleHandlersForMime(conn *ipc.ConnWriter, req ipc.Request) {
 		return
 	}
 	entries := desktop.HandlersForMime(mimeType)
+	for _, alias := range mimeAliases(mimeType) {
+		entries = append(entries, desktop.HandlersForMime(alias)...)
+	}
 	apps := make([]handlerApp, 0, len(entries))
+	seen := map[string]bool{}
 	for _, entry := range entries {
+		if seen[entry.ID] {
+			continue
+		}
+		seen[entry.ID] = true
 		apps = append(apps, handlerApp{
 			ID:   entry.ID,
 			Name: entry.Name,

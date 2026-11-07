@@ -32,6 +32,22 @@ Column {
         keyPrefix: "islandWidget"
     }
 
+    IslandPluginsCard {
+        keyPrefix: "islandWidget"
+    }
+
+    IslandBubblesCard {
+        keyPrefix: "islandWidget"
+    }
+
+    IslandShelfCard {
+        keyPrefix: "islandWidget"
+    }
+
+    IslandArrivalCard {
+        keyPrefix: "islandWidget"
+    }
+
     IslandMotionCard {
         store: widgetStore
         keyPrefix: "islandWidget"
