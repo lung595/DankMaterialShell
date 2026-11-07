@@ -81,6 +81,7 @@ fois l'écart de deux images voisines, nul ou presque pour les boutons et les ic
   onde d'alerte) ; les liquides sont hors norme (front en mouvement). En clair, trois tuiles pâles (Dismiss enfoncé,
   courrier, notification désactivée) sont sous le seuil de forme de `symetrie.py` : mesurées avec un seuil plus fin.
   Aucune bulle dans cette PR.
+- Reprise du 7/11 : la pointe est toujours `6a58a5818` (aucun commit depuis), le rendu n'a pas changé, aucune capture refaite ; `mesures.md` est remis à jour depuis `perf-final-2.md` (01:32), `testeur-final-2.md` et `relecteur-final-2.md`. Vérification et symétrie rejouées, « OK ».
 
 ## Refaire
 

@@ -1,6 +1,14 @@
 # Médias de la PR 3 « island: arrival, wing, cards, tiles, notifications and plugin activities »
 
-Captures et GIF des bulles, faits au banc seulement (instance `pr123-media-bulles` le 5/11, `c123-media-bulles` le 6/11). Pointes actuelles : base `island/2-api` (b222553ef), tête `island/3-bubbles` (0463985bd).
+Captures et GIF des bulles, faits au banc seulement (instance `pr123-media-bulles` le 5/11, `c123-media-bulles` le 6/11). Pointes actuelles : base `island/2-api` (c9b7850d9), tête `island/3-bubbles` (b79b3934d).
+
+## Mise à jour du 7/11 (passe finale, pointe b79b3934d)
+
+La base n'a pas bougé (c9b7850d9). La tête est passée de a4f96802b à b79b3934d par un seul fixup de 2 lignes : `island.userHeld = false;` dans `begin()` de `IslandPluginActivity.qml` (1 fichier, +2 lignes ; le `range-diff` ne montre de différence que sur les deux premiers commits de la pile, les cinq autres sont identiques). C'est une remise à faux d'un drapeau qui ne sert qu'à poser ou non la couche de clic dehors : ni couleur, ni taille, ni forme, ni durée, ni image (`boucle-correction-123/controles/bulles/accessibilite-final-3.md`). Aucune scène n'a donc été rejouée : les 24 images fixes et les 12 GIF sont gardés tels quels, aux mêmes noms (dates inchangées, 5/11 et 6/11). Seul `mesures.md` est remis à jour (fiche `perf-final-3.md` : chiffres de perf repris de `perf-final-2.md`, poids recalculé à +376 534 octets, porte et tests de la pointe b79b3934d), et l'en-tête de `schema.md` (aucune ligne citée ne bouge : le fichier changé n'y est pas cité). Les vérifications ci-dessous (section du 7/11, passe finale) sont rejouées sur les 36 fichiers.
+
+## Mise à jour du 7/11 (passe précédente, pointe a4f96802b)
+
+Les pointes ont encore bougé (base b222553ef vers c9b7850d9, tête 0463985bd vers a4f96802b), par quelques lignes de logique seulement : 4 fichiers, 9 lignes côté bulles (`IslandArrivalState.qml` : `drainMs` devient une propriété ; `IslandBarHost.qml` : `holdsHost` tient aussi l'hôte pendant une bulle machine ; `IslandController.qml` : `outsideClickCollapses` ne vaut pas pour une bulle ramenée par l'utilisateur ; `IslandFreeHostWindow.qml` : l'île libre se réveille quand l'hôte est tenu) et 6 lignes côté base (4 ajoutées, 2 retirées, `IslandController.qml` et `IslandFreeHostWindow.qml`). Aucune couleur, taille, forme, durée ni image n'a changé : la comparaison de 21 vues des deux pointes (`boucle-correction-123/controles/bulles/accessibilite-final-2.md`) ne montre que la barre amont et l'état du banc. Aucune scène n'a donc été rejouée : les 24 images fixes et les 12 GIF du 6/11 sont gardés tels quels, aux mêmes noms. Seuls `mesures.md` (chiffres des dernières fiches perf, pointe a4f96802b) et `schema.md` (numéros de ligne décalés de 2 à 3 dans `IslandController.qml` et `IslandArrivalState.qml`) sont remis à jour.
 
 ## Mise à jour du 6/11 (corrections des PR 1, 2 et 3)
 
@@ -69,6 +77,22 @@ Total : 36 fichiers, 3.5 Mo. Chaque GIF fait moins de 8 Mo (le plus gros : 439 K
 - Aucun fond d'écran, chemin ni nom personnel : fond uni (un PNG d'une seule couleur écrit dans le HOME du banc), applications de DMS seules dans le lanceur, noms fictifs. Recherche, dans les octets des fichiers de ce dossier, d'un chemin de dossier personnel, du nom du propriétaire et d'un dossier de session : aucune.
 - Symétrie (`symetrie.py`, tolérance de 1 px) : la pilule de l'aile (encre à 2 px de chaque bord), l'icône de notification (8 et 9 px à gauche et à droite, 6 et 7 px en haut et en bas) et la tuile (icône à 10 px de chaque côté), en clair et en sombre : centrées. Le haut et le bas de la tuile ne sont pas jugés : l'icône est en tête et le point en pied, par construction.
 - GIF : 12 fichiers, tous sous 8 Mo, 25 images par seconde, boucle infinie ; première et dernière image identiques (à un pixel près pour la tuile sombre) ; chaque film refait tient dans la même minute, pour que l'horloge de l'île ne change pas entre la première et la dernière image.
+
+## Vérifications du 7/11
+
+Les 36 fichiers sont ceux du 6/11, intacts (dates inchangées) ; les vérifications sont rejouées sur eux, sans nouvelle capture :
+
+- Recherche, dans les octets des 36 fichiers, d'un chemin de dossier personnel, d'un nom de fond d'écran ou d'un dossier de configuration : rien.
+- Symétrie (`symetrie.py`, tolérance de 1 px) : mêmes marges qu'au 6/11, pilule de l'aile, icône de notification et tuile (gauche et droite à 10 px), en clair et en sombre. L'écart haut et bas de la tuile (10 et 66 px) est voulu : le point de la tuile est à son pied, son icône à sa tête.
+- GIF : 12 fichiers, 25 images par seconde, de 3,96 à 8,24 secondes, le plus gros à 449 777 octets (moins de 8 Mo), première et dernière image identiques (à un pixel près pour la tuile sombre).
+
+## Vérifications du 7/11, passe finale (pointe b79b3934d)
+
+Les 36 fichiers sont toujours ceux du 5/11 (34) et du 6/11 (2 GIF de la tuile), intacts ; rejoué sans nouvelle capture avec `c123b-media-bulles-verif.sh` :
+
+- Aucun fond d'écran, chemin ni nom personnel : recherche, dans les octets des 36 fichiers, d'un chemin de dossier personnel, du nom du propriétaire, du nom de la machine, d'un nom de fond d'écran, d'un dossier de configuration ou de session : rien ; métadonnées des PNG et des GIF sans commentaire ni chemin ; coins de toutes les images et de toutes les images des GIF aux deux seules couleurs unies du banc (gris foncé et gris clair, à 1 près).
+- Symétrie (`symetrie.py`, tolérance de 1 px) : pilule de l'aile (encre à 2 px de chaque bord), icône de notification (8 et 9 px à gauche et à droite, 6 et 7 px en haut et en bas) et tuile (10 px à gauche et à droite), en clair et en sombre : centrées. Le haut et le bas de la tuile (10 et 66 px) ne sont pas jugés : l'icône est en tête et le point en pied, par construction.
+- GIF : 12 fichiers, tous moins de 8 Mo (le plus gros : 449 777 octets, `aile-clair.gif`), 25 images par seconde, de 3,96 à 8,24 secondes, boucle infinie (extension de boucle présente dans les 12), première et dernière image identiques (0 pixel de différence, sauf `tuile-sombre.gif` : 1 pixel).
 
 ## Reste à savoir
 
