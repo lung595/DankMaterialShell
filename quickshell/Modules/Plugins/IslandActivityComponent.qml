@@ -23,6 +23,11 @@ Item {
     property real compactLength: 240
     property real expandedWidth: 460
     property real expandedHeight: 200
+    // While the activity waits beside the island: its bubble and the bubble's card row. 0 keeps the shell's size.
+    property Component bubbleContent: null
+    property Component cardContent: null
+    property real bubbleLength: 0
+    property real cardHeight: 0
 
     visible: false
 

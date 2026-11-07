@@ -320,6 +320,9 @@ Item {
     // ReadyActivityRing's stroke (its ringWidth): the ready sheet's ring is the icon and four of them.
     readonly property real readyRingWidth: 3
     readonly property var readyFace: root.pluginRevision >= 0 && root.pluginEntry && !root.pluginActivity?.compactContent ? Input.readyFace(root.pluginEntry.data) : null
+    // The ready sheet's header: the ring, or a title line and the text's lines (ReadyActivityExpanded) if taller.
+    readonly property int readyLines: root.readyFace?.lines.length ?? 0
+    readonly property real readyHeaderHeight: Math.max(Theme.iconSize + 4 * root.readyRingWidth, (NotificationMetrics.summarySize + root.readyLines * NotificationMetrics.bodySize) * NotificationMetrics.lineHeight + root.readyLines * NotificationMetrics.contentSpacing / 2)
     readonly property int pluginRevision: IslandActivityService.revision
     readonly property bool quiet: SessionData.doNotDisturb
     readonly property bool sessionLocked: SessionService.locked
@@ -736,10 +739,12 @@ Item {
                 "source": "plugin",
                 "kind": entry.kind,
                 "token": entry.token,
+                "pluginId": entry.pluginId,
                 "seq": entry.seq,
                 "icon": face.icon || "extension",
+                "image": ready.image,
                 "title": ready.title,
-                "detail": ready.text
+                "detail": ready.detail
             }));
         }
         notificationSource.heldWrappers.filter(wrapper => !progress.owns(wrapper)).forEach((wrapper, index) => list.push({
@@ -1362,9 +1367,8 @@ Item {
         systemFaceExpandedHeight: systemFaceLoader.item?.expandedHeight > 0 ? Math.min(dashboardAvailableHeight, Input.faceSize(systemFaceLoader.item, "expandedHeight")) : 0
         pluginCompactLength: Input.faceSize(root.pluginActivity, "compactLength")
         pluginExpandedWidth: Math.min(dashboardAvailableWidth, Input.faceSize(root.pluginActivity, "expandedWidth"))
-        // The ready sheet on the card grid: margins, the header (one line each beside the ring, which is the icon and four
-        // of its strokes: ReadyActivityRing.ringWidth, 3 px), then the button row.
-        pluginExpandedHeight: Math.min(dashboardAvailableHeight, root.readyFace ? NotificationMetrics.cardPadding * 2 + Theme.iconSize + 4 * root.readyRingWidth + (root.readyFace.actions.length > 0 ? Theme.spacingS + Theme.buttonHeightS : 0) : Input.faceSize(root.pluginActivity, "expandedHeight"))
+        // The ready sheet on the card grid: margins, the header, then the button row.
+        pluginExpandedHeight: Math.min(dashboardAvailableHeight, root.readyFace ? NotificationMetrics.cardPadding * 2 + root.readyHeaderHeight + (root.readyFace.actions.length > 0 ? Theme.spacingS + Theme.buttonHeightS : 0) : Input.faceSize(root.pluginActivity, "expandedHeight"))
     }
 
     DLauncher.Controller {

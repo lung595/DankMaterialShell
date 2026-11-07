@@ -47,6 +47,7 @@ FocusScope {
             id: ring
 
             iconName: root.face.icon
+            image: root.face.image
             progress: root.face.progress
             accent: root.accent
         }
@@ -57,7 +58,7 @@ FocusScope {
             anchors.left: ring.right
             anchors.leftMargin: NotificationMetrics.iconSpacing
             anchors.right: parent.right
-            // One line each, centered on the ring; the sheet keeps the controller's default height.
+            // Centered on the ring; the host makes the sheet as tall as a title line and the text's lines (readyHeaderHeight).
             y: Math.max(0, (ring.height - implicitHeight) / 2)
             spacing: NotificationMetrics.contentSpacing / 2
 
@@ -72,15 +73,20 @@ FocusScope {
                 elide: Text.ElideRight
             }
 
-            StyledText {
-                width: parent.width
-                visible: text !== ""
-                text: root.face.text
-                color: Theme.surfaceVariantText
-                font.pixelSize: NotificationMetrics.bodySize
-                wrapMode: Text.Wrap
-                maximumLineCount: 1
-                elide: Text.ElideRight
+            // One line per line of its text (three at most), so the host knows the sheet's height from the face alone.
+            Repeater {
+                model: root.face.lines
+
+                StyledText {
+                    required property string modelData
+
+                    width: parent.width
+                    text: modelData
+                    color: Theme.surfaceVariantText
+                    font.pixelSize: NotificationMetrics.bodySize
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                }
             }
         }
     }

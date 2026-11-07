@@ -30,8 +30,15 @@ test("each plugin owns one entry; the newest on a side shows there, the other si
     table = activities.withPermanent(table, "abyss", Object.assign({}, table.abyss, { "receiving": true }), 4);
     assert.equal(activities.permanentOn(table, "left").pluginId, "orbit");
     table = activities.withPermanent(table, "orbit", null, 5);
-    assert.deepEqual(plain(activities.permanentOn(table, "left")), { "pluginId": "abyss", "side": "left", "receiving": true, "label": "A", "seq": 1 });
+    assert.deepEqual(plain(activities.permanentOn(table, "left")), { "pluginId": "abyss", "side": "left", "receiving": true, "label": "A", "bubbleContent": null, "seq": 1 });
     assert.equal(activities.permanentOn(table, "top"), null);
+});
+
+test("a face the plugin draws is a QML Component; anything else keeps the shell's face", () => {
+    const drawn = { "createObject": () => null };
+    assert.equal(activities.withPermanent({}, "abyss", { "bubbleContent": drawn }, 1).abyss.bubbleContent, drawn);
+    for (const bad of ["Rectangle {}", { "createObject": "x" }, 3])
+        assert.equal(activities.withPermanent({}, "abyss", { "bubbleContent": bad }, 1).abyss.bubbleContent, null, String(bad));
 });
 
 test("an unloaded plugin's entry goes, the others stay; the shell's own never shows as a plugin bubble", () => {

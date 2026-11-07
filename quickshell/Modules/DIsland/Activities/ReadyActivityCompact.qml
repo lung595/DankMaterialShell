@@ -18,6 +18,7 @@ Item {
         anchors.centerIn: parent
         visible: root.isVertical
         iconName: root.face.icon
+        image: root.face.image
         progress: root.face.progress
         accent: root.accent
     }
@@ -34,6 +35,7 @@ Item {
 
             anchors.verticalCenter: parent.verticalCenter
             iconName: root.face.icon
+            image: root.face.image
             progress: root.face.progress
             accent: root.accent
         }
@@ -55,7 +57,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             width: Math.min(implicitWidth, root.width * root.detailShare)
             visible: text !== ""
-            text: root.face.text
+            text: root.face.detail
             color: Theme.surfaceVariantText
             font.pixelSize: Theme.fontSizeMedium
             font.features: {

@@ -102,7 +102,10 @@ test("the ready face keeps what it can draw and drops the rest", () => {
         "text": "42",
         "progress": 1,
         "actions": [{ "id": "stop", "label": "Stop" }, { "id": "snooze", "label": "Snooze" }, { "id": "a", "label": "A" }],
-        "accent": "primary"
+        "accent": "primary",
+        "image": "",
+        "detail": "42",
+        "lines": ["42"]
     });
     assert.equal(activities.readyFace({ "progress": null }).progress, -1);
     assert.equal(activities.readyFace({ "progress": "" }).progress, -1);
@@ -127,6 +130,32 @@ test("a script's activity is refused without a title nor an icon, and for data t
     assert.equal(activities.ipcRefusal({ "text": "42 %", "progress": 0.4 }), "ISLAND_ACTIVITY_NO_CONTENT");
     assert.equal(activities.ipcRefusal({ "title": "Tea" }), "");
     assert.equal(activities.ipcRefusal({ "icon": "timer" }), "");
+    assert.equal(activities.ipcRefusal({ "image": "/tmp/a.png" }), "", "an image alone says what it is");
+});
+
+test("a face's text keeps three lines; the folded face and the bubble read the first one", () => {
+    const face = activities.readyFace({ "title": "Backup", "text": "a\r\nb\nc\nd" });
+    assert.equal(face.text, "a\nb\nc");
+    assert.deepEqual(plain(face.lines), ["a", "b", "c"]);
+    assert.equal(face.detail, "a");
+    assert.deepEqual(plain(activities.readyFace({ "title": "Backup" }).lines), []);
+});
+
+test("a script's image is an icon of the theme or a local picture, never a URL; its accent a role of the theme", () => {
+    const hasIcon = name => name === "drive-harddisk";
+    assert.equal(activities.scriptImage(undefined, hasIcon), "");
+    assert.equal(activities.scriptImage("", hasIcon), "");
+    assert.equal(activities.scriptImage("drive-harddisk", hasIcon), "image://icon/drive-harddisk");
+    assert.equal(activities.scriptImage("/tmp/My shots/a#1.PNG", hasIcon), "file:///tmp/My%20shots/a%231.PNG");
+    for (const bad of ["no-such-icon", "https://example.com/a.png", "file:///tmp/a.png", "image://icon/x", "data:image/png;base64,AA", "/dev/zero", "tmp/a.png", "/tmp/a\n.png", "/" + "a".repeat(3000) + ".png", 42, {}])
+        assert.equal(activities.scriptImage(bad, hasIcon), null, String(bad));
+    assert.equal(activities.scriptImage("drive-harddisk"), null, "without a theme to ask, no icon name passes");
+
+    assert.equal(activities.scriptData({ "title": "Backup", "image": "https://example.com/a.png" }, hasIcon), "ISLAND_ACTIVITY_BAD_IMAGE");
+    assert.equal(activities.scriptData({ "title": "Backup", "accent": "#ff0000" }, hasIcon), "ISLAND_ACTIVITY_BAD_ACCENT");
+    const data = activities.scriptData({ "image": "drive-harddisk", "accent": "success" }, hasIcon);
+    assert.deepEqual(plain(data), { "image": "image://icon/drive-harddisk", "accent": "success" });
+    assert.equal(activities.readyFace(data).image, "image://icon/drive-harddisk");
 });
 
 test("the held activity ends, shows, or waits behind the lock and other occupants", () => {
@@ -201,6 +230,11 @@ test("face sizes stay inside the island bounds", () => {
     assert.equal(activities.faceSize(null, "compactLength"), 240);
     assert.equal(activities.faceSize({ "expandedWidth": 2000 }, "expandedWidth"), 736);
     assert.equal(activities.faceSize({ "expandedHeight": 10 }, "expandedHeight"), 120);
+    // A plugin's own bubble and card: none asked keeps the shell's size, a big one stays within the island's reach.
+    assert.equal(activities.ownFaceSize(null, "bubbleLength"), 0);
+    assert.equal(activities.ownFaceSize({ "bubbleLength": 0 }, "bubbleLength"), 0);
+    assert.equal(activities.ownFaceSize({ "bubbleLength": 9000 }, "bubbleLength"), 240);
+    assert.equal(activities.ownFaceSize({ "cardHeight": 90.2 }, "cardHeight"), 91);
 });
 
 test("what the user brought in from a bubble holds the island until it closes", () => {

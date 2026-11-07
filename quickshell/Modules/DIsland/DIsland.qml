@@ -113,6 +113,11 @@ Item {
         return kind === "dot" ? "DANK_DOT" : "DANK_ISLAND";
     }
 
+    // A script's image may name an icon of the theme (IslandActivityInput.scriptImage).
+    function hasIcon(name) {
+        return Quickshell.hasThemeIcon(name);
+    }
+
     function activityName(activity) {
         const requested = (activity || "home").trim().toLowerCase();
         switch (requested) {
@@ -302,13 +307,16 @@ Item {
         const refused = Input.ipcRefusal(parsed);
         if (refused)
             return refused;
+        const checked = Input.scriptData(parsed, root.hasIcon);
+        if (typeof checked === "string")
+            return checked;
         const token = IslandActivityService.requestScript(id, {
             "kind": kind,
             "screen": screen,
-            "expanded": parsed.expanded,
-            "timeoutMs": parsed.timeoutMs,
-            "notifyApp": parsed.notifyApp,
-            "data": parsed
+            "expanded": checked.expanded,
+            "timeoutMs": checked.timeoutMs,
+            "notifyApp": checked.notifyApp,
+            "data": checked
         });
         return token || "ISLAND_ACTIVITY_REFUSED";
     }
@@ -320,7 +328,10 @@ Item {
         // Empty data would blank the face: an update always says what to show.
         if (!parsed || Object.keys(parsed).length === 0)
             return "ISLAND_ACTIVITY_BAD_DATA";
-        return IslandActivityService.update(token, parsed) ? "ISLAND_ACTIVITY_UPDATED" : "ISLAND_ACTIVITY_UNKNOWN";
+        const checked = Input.scriptData(parsed, root.hasIcon);
+        if (typeof checked === "string")
+            return checked;
+        return IslandActivityService.update(token, checked) ? "ISLAND_ACTIVITY_UPDATED" : "ISLAND_ACTIVITY_UNKNOWN";
     }
 
     function ipcActivityEnd(token) {

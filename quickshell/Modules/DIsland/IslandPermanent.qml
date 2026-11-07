@@ -27,6 +27,7 @@ Item {
     readonly property bool on: !!perm.spec && !perm.bubbles.isVertical && perm.bubbles.controller.bubblesEnabled
     readonly property bool receiving: perm.on && perm.spec.receiving === true
     readonly property bool tucked: perm.on && perm.wing.has
+    readonly property Component ownFace: perm.spec?.bubbleContent ?? null
     readonly property var tone: perm.bubbles.toneOf("media")
     readonly property color glyphColor: perm.tone[1]
 
@@ -177,8 +178,16 @@ Item {
         // An app's icon backdrop stays round; only the bubble takes the wings' corners.
         Rectangle {
             anchors.fill: parent
+            visible: !perm.ownFace
             radius: width / 2
             color: perm.tone[0]
+        }
+
+        // The plugin's own face (its bubbleContent) in place of the icon and its backdrop, made only while it shows.
+        Loader {
+            anchors.fill: parent
+            active: !!perm.ownFace && face.visible
+            sourceComponent: perm.ownFace
         }
 
         // The jellyfish: squeezed as the bubble starts to swell, then stretched, its tentacles reaching for the file while it
@@ -186,6 +195,7 @@ Item {
         Item {
             id: glyph
 
+            visible: !perm.ownFace
             readonly property real pulse: Math.max(-0.14, Math.min(0.14, 0.02 * perm.growSpeed))
             anchors.centerIn: parent
             width: face.d * 0.78

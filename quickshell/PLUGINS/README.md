@@ -120,6 +120,10 @@ A plugin with an `island` surface (`components.island`) shows activities in the 
 | `islandRect`, `islandRadius` | island | the island's shape in the overflow layer, while `overflowContent` is set |
 | `compactContent`, `expandedContent`, `overflowContent` | plugin | the closed face, the open face, and a layer around the island that never takes clicks |
 | `compactLength`, `expandedWidth`, `expandedHeight` | plugin | the faces' sizes, clamped by the island |
+| `bubbleContent`, `cardContent` | plugin | while another activity holds the island and this one waits beside it: the bubble, and the bubble's row in its hover card |
+| `bubbleLength`, `cardHeight` | plugin | their sizes, clamped by the island (up to 240 px); 0 keeps the shell's |
+
+Without `bubbleContent` or `cardContent`, the shell draws the bubble and its row from `data` (`icon`, `image`, `title`, `text`, `progress`, `shortText`). The island makes a separate surface for each bubble and card row it shows, with `token`, `kind` and `activityData` set and `interrupted` true; their contents are loaded only while they show. Controls in `cardContent` take their own clicks; a click elsewhere on the row brings the activity into the island, a right click dismisses it.
 
 `dismiss()` ends the activity. An `islandSystem` surface (`components.islandSystem`) is an `IslandSystemFaceComponent`: the same `compactContent`, `expandedContent` and sizes (zero keeps the shell's size), and a `model` with the system source (`kind`, `value`, `ratio`, `muted`, `displayValue`, `iconName`, `setRatio()`, `toggleMute()`), for the kinds in `island.systemFaces`. See `IslandActivityExample`.
 
@@ -133,12 +137,39 @@ IslandActivityService.setPermanent(pluginId, {
     "image": Qt.resolvedUrl("icon.svg"),    // one-colour icon, tinted by the island
     "label": "Send to Example",
     "dropText": "Drop to send",
-    "receiving": false                      // true while something is dragged over it
+    "receiving": false,                     // true while something is dragged over it
+    "bubbleContent": myFace                 // optional Component drawn in place of the icon, sized by the bubble
 });
 IslandActivityService.clearPermanent(pluginId); // or setPermanent(pluginId, null)
 ```
 
-`setPermanent` returns `false` when the plugin is not loaded, is blocked in Settings > Island, or its id contains `:`. Calling it again updates the entry in place. Each side shows its newest entry; the entry goes when the plugin unloads or is blocked. See `IslandActivityExample` (`dms ipc call islandActivityExample permanent left`).
+`setPermanent` returns `false` when the plugin is not loaded, is blocked in Settings > Island, or its id contains `:`. Calling it again updates the entry in place. Each side shows its newest entry; the entry goes when the plugin unloads or is blocked. See `IslandActivityExample` (`dms ipc call islandActivityExample permanent left`, or `permanentDrawn left` for a face it draws).
+
+### Island Activities from Scripts
+
+A script shows the same shell-drawn face over IPC, without QML. The call prints a token (`script:<name>:<n>`) or an answer that says why it was refused:
+
+```bash
+tok=$(dms ipc call island activity backup live '{"title":"Backup","icon":"backup","progress":0.3}')
+dms ipc call island activityUpdate "$tok" '{"title":"Backup","image":"/usr/share/icons/hicolor/48x48/apps/example.png","accent":"success","text":"Photos\n1.2 GB left"}'
+dms ipc call island activityStatus "$tok"   # {"state":"shown","action":"retry"}: the button the user picked
+dms ipc call island activityEnd "$tok"
+```
+
+`activityOn <name> <kind> <screen> <data>` picks the screen (`*` for every island there is now). The data is a JSON object of 16384 characters at most:
+
+| Field | Meaning |
+|-------|---------|
+| `title`, `icon` | the title and a Material Symbols icon name; a face needs a title, an icon or an image |
+| `image` | an icon of the theme (`drive-harddisk`) or the absolute path of a local picture (`.png`, `.jpg`, `.jpeg`, `.svg`, `.webp`, `.gif`, `.bmp`), shown in place of the icon; never a URL. A file that cannot be read shows the icon |
+| `text` | up to 3 lines (`\n`): all of them on the open sheet, the first beside the title and in the bubble's card |
+| `accent` | one of the theme's roles: `primary`, `secondary`, `tertiary`, `error`, `warning`, `info`, `success`; never a colour |
+| `progress` | 0 to 1, a ring around the icon |
+| `shortText` | a very short value (6 characters) for the bubble |
+| `actions` | up to 3 buttons, `[{"id": "retry", "label": "Retry"}]` |
+| `expanded`, `timeoutMs`, `notifyApp` | open at once, end after a delay, and the app whose notifications it stands for |
+
+Refusals: `ISLAND_ACTIVITY_BAD_DATA` (not a JSON object within the limit, or an empty update), `_NO_CONTENT` (no title, icon nor image), `_BAD_IMAGE`, `_BAD_ACCENT`, `_REFUSED` (an empty name, over 64 characters or with a colon, a too long `notifyApp`, or 8 scripts at once), `_UNKNOWN` (no script activity under that token). An update answers `ISLAND_ACTIVITY_UPDATED`, an end `ISLAND_ACTIVITY_ENDED`.
 
 ### Widget Component
 
