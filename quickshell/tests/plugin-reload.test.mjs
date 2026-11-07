@@ -17,10 +17,10 @@ function service({ enabled = true, type = "widget" } = {}) {
         Date, Object,
         availablePlugins: {}, loadedPlugins: {}, knownManifests: {}, pathToPluginId: {},
         pluginWidgetComponents: {}, pluginDesktopComponents: {}, pluginDaemonComponents: {},
-        pluginLauncherComponents: {}, pluginDashComponents: {}, pluginDashCardComponents: {},
+        pluginLauncherComponents: {}, pluginDashComponents: {}, pluginDashCardComponents: {}, pluginIslandComponents: {}, pluginIslandSystemComponents: {},
         pluginInstances: {}, pluginDaemonInstances: {}, installingPlugins: {}, _componentRevisions: {},
         _daemonSpawnQueue: [], _daemonSpawnTimer: { restart() {} },
-        pluginSurfaceKeys: ["widget", "desktop", "daemon", "launcher", "dash", "dashCard"],
+        pluginSurfaceKeys: ["widget", "desktop", "daemon", "launcher", "dash", "dashCard", "island", "islandSystem"],
         log: { error() {}, warn() {} },
         Paths: { toFileUrl: path => path.startsWith("file://") ? path : "file://" + path },
         SettingsData: { getPluginSetting: () => enabled },
@@ -228,7 +228,7 @@ test("composite updates refresh every surface without creating daemons synchrono
             files.set("file:///plugins/fixture/" + surface + ".qml", value);
         context.forceRescanPlugin("fixture");
         pending.shift()();
-        for (const key of ["pluginWidgetComponents", "pluginDesktopComponents", "pluginDaemonComponents", "pluginLauncherComponents", "pluginDashComponents", "pluginDashCardComponents"])
+        for (const key of ["pluginWidgetComponents", "pluginDesktopComponents", "pluginDaemonComponents", "pluginLauncherComponents", "pluginDashComponents", "pluginDashCardComponents", "pluginIslandComponents", "pluginIslandSystemComponents"])
             assert.equal(context[key].fixture.value, value);
         assert.equal(context.pluginDaemonInstances.fixture, undefined);
     }

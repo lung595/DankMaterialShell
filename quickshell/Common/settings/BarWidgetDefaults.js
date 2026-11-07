@@ -26,6 +26,7 @@ var ISLAND_DEFAULTS = {
     islandRouteWeather: "island",
     islandRouteWallpaper: "island",
     islandUseOverlayLayer: false,
+    islandOverlayOnRequest: true,
     islandReserveThickness: 40,
     islandCompactThickness: 38,
     islandOuterGap: 4,
@@ -60,7 +61,26 @@ var ISLAND_DEFAULTS = {
     islandSatelliteTransparency: 1,
     islandSpringStiffness: 560,
     islandSpringDamping: 37,
-    islandSpringMass: 1
+    islandSpringMass: 1,
+    // Per-bubble changes only, by bubble id (Common/IslandBubbleTable.js); an empty table keeps every default.
+    islandBubbleTable: {},
+    // Shape behind app logos: "auto" (the tone that stands out from the logo), "dark", "light" or "none";
+    // the form is "cycle" or a MaterialShapeData.js shape.
+    islandLogoShapeTone: "auto",
+    islandLogoShapeForm: "cycle",
+    // Factor on the default lifetimes of each bubble family, 0.5 to 2.
+    islandTimeScaleMachine: 1,
+    islandTimeScaleApps: 1,
+    islandTimeScaleAlerts: 1,
+    // "off", "allow" (only the listed apps) or "block" (all but the listed apps).
+    islandAppFilterMode: "off",
+    islandAppFilterList: [],
+    islandPrivacyTitleOnly: false,
+    islandQuietFollowDnd: true,
+    islandQuietHours: false,
+    // Minutes after midnight; the range may cross midnight.
+    islandQuietStart: 1320,
+    islandQuietEnd: 420
 };
 
 var DEFAULTS = {

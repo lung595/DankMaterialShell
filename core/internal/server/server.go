@@ -30,6 +30,7 @@ import (
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/sysupdate"
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/tailscale"
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/thememode"
+	"github.com/duxlabs-dev/dux-shell/core/internal/server/transfers"
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/trayrecovery"
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/wallpaper"
 	"github.com/duxlabs-dev/dux-shell/core/internal/server/wayland"
@@ -41,7 +42,7 @@ import (
 	"github.com/spf13/afero"
 )
 
-const APIVersion = 38
+const APIVersion = 39
 
 var CLIVersion = "dev"
 
@@ -81,6 +82,7 @@ var locationManager *location.Manager
 var sysUpdateManager *sysupdate.Manager
 var notifyActionsManager *notifyactions.Manager
 var wellbeingManager *wellbeing.Manager
+var transfersManager *transfers.Manager
 var geoClientInstance geolocation.Client
 
 const dbusClientID = "dms-dbus-client"
@@ -378,6 +380,11 @@ func InitializeWellbeingManager() error {
 	return nil
 }
 
+func InitializeTransfersManager() {
+	transfersManager = transfers.NewManager()
+	log.Info("Transfers manager initialized")
+}
+
 func InitializeLocationManager(geoClient geolocation.Client) error {
 	manager, err := location.NewManager(geoClient)
 	if err != nil {
@@ -505,6 +512,10 @@ func getCapabilities() Capabilities {
 
 	if wellbeingManager != nil {
 		caps = append(caps, "wellbeing")
+	}
+
+	if transfersManager != nil {
+		caps = append(caps, "transfers")
 	}
 
 	if dbusManager != nil {
@@ -774,6 +785,15 @@ func handleSubscribe(ctx context.Context, conn *ipc.ConnWriter, req ipc.Request)
 		}, mgr.Snapshot)
 	}
 
+	if shouldSubscribe("transfers") && transfersManager != nil {
+		mgr := transfersManager
+		id := clientID + "-transfers"
+		source := mgr.Subscribe(id)
+		forwardSubscription(&wg, eventChan, stopChan, "transfers", source, func() {
+			mgr.Unsubscribe(id)
+		}, mgr.GetState)
+	}
+
 	if shouldSubscribe("sysupdate") && sysUpdateManager != nil {
 		mgr := sysUpdateManager
 		id := clientID + "-sysupdate"
@@ -919,6 +939,9 @@ func cleanupManagers() {
 	}
 	if wellbeingManager != nil {
 		wellbeingManager.Close()
+	}
+	if transfersManager != nil {
+		transfersManager.Close()
 	}
 	if geoClientInstance != nil {
 		geoClientInstance.Close()
@@ -1129,7 +1152,8 @@ func (s *Server) Serve(printDocs bool) error {
 		log.Info(" clipboard.deleteEntry                 - Delete entry by ID (params: id)")
 		log.Info(" clipboard.deleteEntries               - Delete entries by ID, skipping pinned ones (params: ids)")
 		log.Info(" clipboard.clearHistory                - Clear all clipboard history")
-		log.Info(" clipboard.copy                        - Copy text to clipboard (params: text)")
+		log.Info(" clipboard.clearSecret                 - Empty the clipboard if it still holds a password manager copy")
+		log.Info(" clipboard.copy                        - Copy text to clipboard (params: text, secret? wipes it 30 s later)")
 		log.Info(" clipboard.paste                       - Get current clipboard text")
 		log.Info(" clipboard.search                      - Search history (params: query?, mimeType?, isImage?, limit?, offset?, before?, after?)")
 		log.Info(" clipboard.getConfig                   - Get clipboard configuration")
@@ -1146,6 +1170,12 @@ func (s *Server) Serve(printDocs bool) error {
 		log.Info(" wellbeing.setLimits                    - Set daily and per-app limits in seconds (params: daily?, apps?)")
 		log.Info(" wellbeing.summary                      - Per-day screen time ending today (params: days?)")
 		log.Info(" wellbeing.clear                        - Delete the screen time history")
+		log.Info("")
+		log.Info("Transfers:")
+		log.Info(" transfers.getState                     - Copies, archives and qBittorrent downloads in progress")
+		log.Info(" transfers.pause                        - Pause torrents (params: ids)")
+		log.Info(" transfers.resume                       - Resume torrents (params: ids)")
+		log.Info(" transfers.cancel                       - Remove torrents, keeping their files (params: ids)")
 		log.Info("")
 	}
 	log.Info("Initializing managers...")
@@ -1251,6 +1281,8 @@ func (s *Server) Serve(printDocs bool) error {
 	if err := InitializeWellbeingManager(); err != nil {
 		log.Warnf("Wellbeing manager unavailable: %v", err)
 	}
+
+	InitializeTransfersManager()
 
 	if err := InitializeWallpaperManager(); err != nil {
 		log.Warnf("Wallpaper scheduler unavailable: %v", err)

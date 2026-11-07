@@ -110,6 +110,17 @@ TAB_INDEX_MAP = {
     "DockAdvancedTab.qml": 59,
     "DBarAppearanceTab.qml": 6,
     "DDotTab.qml": 65,
+    "IslandGeneralTab.qml": 68,
+    "IslandHomeTab.qml": 69,
+    "IslandBehaviorTab.qml": 70,
+    "IslandBubblesTab.qml": 71,
+    "IslandBubbleTableTab.qml": 78,
+    "IslandNotificationsTab.qml": 72,
+    "IslandShelfTab.qml": 73,
+    "IslandAppearanceTab.qml": 74,
+    "IslandMotionTab.qml": 75,
+    "IslandPluginsTab.qml": 76,
+    "IslandAdvancedTab.qml": 77,
     "NetworkStatusTab.qml": 7,
     "NetworkEthernetTab.qml": 39,
     "NetworkWifiTab.qml": 40,
@@ -180,6 +191,7 @@ FILE_PAGE_MAP = {
     "UserAccountsTab.qml": "user_accounts",
     "BarHubHeader.qml": "dankbar",
     "DockHubHeader.qml": "dock",
+    "IslandHubHeader.qml": "island",
     "PluginsHubHeader.qml": "plugins",
 }
 
@@ -844,12 +856,12 @@ def extract_settings_index(root_dir, tab_meta, hub_meta):
         )
 
     if "islandHomeLayout" not in seen_keys:
-        category, parent_label, _ = tab_meta.get(3, TAB_META_DEFAULT)
+        category, parent_label, _ = tab_meta.get(69, TAB_META_DEFAULT)
         all_entries.append(
             {
                 "section": "islandHomeLayout",
                 "label": "Home Layout",
-                "tabIndex": 3,
+                "tabIndex": 69,
                 "category": category,
                 "parentLabel": parent_label,
                 "keywords": enrich_keywords(

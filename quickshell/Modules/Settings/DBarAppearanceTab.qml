@@ -16,11 +16,7 @@ Item {
     readonly property bool widgetBackgroundEnabled: !(bar.selectedBarConfig?.noBackground ?? false)
     readonly property var outlineColors: ["surfaceText", "secondary", "primary"]
     readonly property var outlineColorLabels: [I18n.tr("Surface"), I18n.tr("Secondary"), I18n.tr("Primary")]
-    readonly property var paletteValues: ["default", "bright", "dim"]
-    readonly property var satellitePositionValues: ["island", "edges"]
     readonly property bool selectedIslandEnabled: bar.selectedBarIsIsland && (bar.selectedBarConfig?.enabled ?? false)
-    readonly property bool selectedIslandFree: bar.selectedBarIsIsland && SettingsData.islandFreePlacement(bar.selectedBarConfig)
-    readonly property bool selectedIslandNotch: bar.selectedBarIsIsland && !root.selectedIslandFree && bar.islandSetting("islandNotch")
     readonly property int frameInsetPaddingDisplay: Math.round(SettingsData.frameBarContentGap)
     readonly property var frameBar: SettingsData.frameBarConfig
     readonly property bool frameBarOverridden: frameBar?.followInterfaceStyle === false
@@ -169,31 +165,8 @@ Item {
             iconName: "rounded_corner"
             title: I18n.tr("Surface")
             settingKey: "barCorners"
-            tags: ["background", "opacity", "corners", "rounded", "goth", "shadow", "palette", "contrast"]
+            tags: ["background", "opacity", "corners", "rounded", "goth", "shadow"]
             visible: (bar.selectedBarConfig?.enabled ?? false) && !bar.selectedBarFrameStyled
-
-            SettingsButtonGroupRow {
-                settingKey: "islandPalette"
-                tags: ["island", "appearance", "palette", "surface", "bright", "dim"]
-                visible: bar.selectedBarIsIsland
-                resetStore: bar
-                resetKeys: ["islandPalette"]
-                text: I18n.tr("Palette", "island settings: surface tone choice")
-                model: [I18n.tr("Default", "island settings: default surface tone"), I18n.tr("Bright", "island settings: bright surface tone"), I18n.tr("Dim", "island settings: dim surface tone")]
-                values: root.paletteValues
-                value: bar.islandSetting("islandPalette")
-                fallbackValue: "default"
-                onValueSelected: value => bar.apply("islandPalette", value)
-            }
-
-            SettingsToggleRow {
-                settingKey: "islandHighContrast"
-                tags: ["island", "appearance", "contrast", "accessibility", "outline"]
-                visible: bar.selectedBarIsIsland
-                text: I18n.tr("High contrast", "island settings: high contrast toggle")
-                checked: bar.islandSetting("islandHighContrast")
-                onToggled: checked => bar.apply("islandHighContrast", checked)
-            }
 
             SurfaceColorRow {
                 settingKey: "barSurfaceColor"
@@ -347,21 +320,6 @@ Item {
             settingKey: "barSpacing"
             tags: ["size", "scale", "font", "icon", "spacing", "padding", "inset", "length"]
             visible: bar.selectedBarConfig?.enabled ?? false
-
-            SettingsSliderRow {
-                settingKey: "islandCompactThickness"
-                tags: ["island", "placement", "compact", "height", "width", "thickness", "size", "satellite"]
-                visible: bar.selectedBarIsIsland && !root.selectedIslandFree
-                resetStore: bar
-                resetKeys: ["islandCompactThickness"]
-                text: bar.selectedBarIsVertical ? I18n.tr("Width") : I18n.tr("Height")
-                unit: "px"
-                minimum: 24
-                maximum: 72
-                step: 1
-                value: bar.islandSetting("islandCompactThickness")
-                onSliderValueChanged: value => bar.apply("islandCompactThickness", value)
-            }
 
             SettingsSliderRow {
                 settingKey: "barSize"
@@ -519,112 +477,10 @@ Item {
             }
         }
 
-        IslandHomeCard {
-            store: bar.islandStore
+        IslandHubLink {
             parentModal: root.parentModal
+            barId: bar.selectedBarId
             visible: root.selectedIslandEnabled
-        }
-
-        SettingsCard {
-            iconName: "widgets"
-            title: I18n.tr("Satellites", "island settings: satellite widgets card title")
-            settingKey: "islandSatellites"
-            collapsible: true
-            expanded: true
-            visible: root.selectedIslandEnabled
-
-            SettingsToggleRow {
-                settingKey: "islandSatellitesEnabled"
-                tags: ["island", "satellite", "widgets", "left", "right"]
-                text: I18n.tr("Show", "island settings: satellite widgets toggle")
-                checked: bar.islandSetting("islandSatellitesEnabled")
-                onToggled: checked => bar.apply("islandSatellitesEnabled", checked)
-            }
-
-            SettingsButtonGroupRow {
-                settingKey: "islandSatellitePosition"
-                tags: ["island", "satellite", "widgets", "position", "edges", "center"]
-                resetStore: bar
-                resetKeys: ["islandSatellitePosition"]
-                text: I18n.tr("Position", "island settings: position card title")
-                model: [I18n.tr("Near island", "island settings: satellites hug the island"), I18n.tr("Display edges", "island settings: satellites sit at screen edges")]
-                values: root.satellitePositionValues
-                value: bar.islandSetting("islandSatellitePosition")
-                fallbackValue: "island"
-                enabled: bar.islandSetting("islandSatellitesEnabled")
-                onValueSelected: value => bar.apply("islandSatellitePosition", value)
-            }
-
-            SettingsToggleRow {
-                settingKey: "islandSatelliteBackground"
-                tags: ["island", "satellite", "widgets", "background", "chrome"]
-                text: I18n.tr("Background", "island settings: satellite background toggle")
-                checked: bar.islandSetting("islandSatelliteBackground")
-                visible: bar.islandSetting("islandSatellitesEnabled")
-                onToggled: checked => bar.apply("islandSatelliteBackground", checked)
-            }
-
-            SettingsToggleRow {
-                settingKey: "islandSatelliteGothCorners"
-                tags: ["island", "satellite", "goth", "corners", "wing", "sweep"]
-                text: I18n.tr("Goth corners", "island settings: satellite goth corners toggle")
-                checked: bar.islandSetting("islandSatelliteGothCorners")
-                visible: bar.islandSetting("islandSatellitesEnabled")
-                enabled: bar.islandSetting("islandSatelliteBackground")
-                onToggled: checked => bar.apply("islandSatelliteGothCorners", checked)
-            }
-
-            SettingsToggleSliderRow {
-                resetStore: bar
-                settingKey: "islandGothCornerRadius"
-                tags: ["island", "satellite", "notch", "goth", "corners", "radius", "sweep", "size"]
-                valueKeys: ["gothCornerRadiusValue"]
-                text: I18n.tr("Custom radius")
-                checked: bar.selectedBarConfig?.gothCornerRadiusOverride ?? false
-                unit: "px"
-                minimum: 0
-                maximum: 64
-                step: 1
-                value: bar.selectedBarConfig?.gothCornerRadiusValue ?? SettingsData.barConfigDefault("gothCornerRadiusValue")
-                visible: bar.islandSetting("islandSatellitesEnabled") || root.selectedIslandNotch
-                enabled: (bar.islandSetting("islandSatelliteBackground") && bar.islandSetting("islandSatelliteGothCorners")) || root.selectedIslandNotch
-                onToggled: checked => bar.apply("gothCornerRadiusOverride", checked)
-                onSliderDragFinished: finalValue => bar.apply("gothCornerRadiusValue", finalValue)
-            }
-
-            SettingsToggleSliderRow {
-                resetStore: bar
-                settingKey: "islandSatelliteTransparency"
-                tags: ["island", "satellite", "background", "opacity", "transparency", "blur", "override", "interface", "style"]
-                valueKeys: ["islandSatelliteTransparency"]
-                text: I18n.tr("Override", "verb, toggle to override the global setting for this item")
-                description: I18n.tr("Opacity", "island settings: satellite background opacity slider")
-                checked: !bar.islandSetting("islandSatelliteFollowInterfaceStyle")
-                minimum: 0
-                maximum: 100
-                step: 1
-                value: Math.round(SettingsData.islandSatelliteTransparency(bar.selectedBarConfig) * 100)
-                visible: bar.islandSetting("islandSatellitesEnabled")
-                enabled: bar.islandSetting("islandSatelliteBackground")
-                onToggled: checked => bar.apply("islandSatelliteFollowInterfaceStyle", !checked)
-                onSliderValueChanged: value => bar.apply("islandSatelliteTransparency", value / 100)
-            }
-
-            SettingsSliderRow {
-                settingKey: "islandSatelliteGap"
-                tags: ["island", "satellite", "widgets", "gap", "spacing"]
-                resetStore: bar
-                resetKeys: ["islandSatelliteGap"]
-                text: I18n.tr("Gap", "island settings: satellite to island gap slider")
-                unit: "px"
-                minimum: 0
-                maximum: 48
-                step: 1
-                value: bar.islandSetting("islandSatelliteGap")
-                visible: bar.islandSetting("islandSatellitesEnabled")
-                enabled: bar.islandSetting("islandSatellitePosition") !== "edges" || bar.islandSetting("islandSatelliteBackground")
-                onSliderValueChanged: value => bar.apply("islandSatelliteGap", value)
-            }
         }
 
         SettingsCard {

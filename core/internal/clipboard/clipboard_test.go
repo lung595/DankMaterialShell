@@ -28,3 +28,11 @@ func TestFileOffers(t *testing.T) {
 		{MimeType: "text/plain", Data: []byte("/tmp/my notes#.txt")},
 	}, FileOffers("/tmp/my notes#.txt", "/tmp/my notes#.txt", []byte("hello")))
 }
+
+func TestFilesOffers(t *testing.T) {
+	assert.Equal(t, []wlclipboard.Offer{
+		{MimeType: "x-special/gnome-copied-files", Data: []byte("copy\nfile:///exported/a.png\nfile:///tmp/my%20notes%23.txt")},
+		{MimeType: "text/uri-list", Data: []byte("file:///exported/a.png\r\nfile:///tmp/my%20notes%23.txt\r\n")},
+		{MimeType: "text/plain", Data: []byte("/data/a.png\n/tmp/my notes#.txt")},
+	}, FilesOffers([]string{"/exported/a.png", "/tmp/my notes#.txt"}, []string{"/data/a.png", "/tmp/my notes#.txt"}))
+}

@@ -1531,6 +1531,63 @@
     "page": "theme_surfaces"
   },
   {
+    "section": "_hub_island",
+    "label": "Island",
+    "tabIndex": -1,
+    "page": "island",
+    "category": "Island",
+    "keywords": [
+      "addons",
+      "advanced",
+      "alert",
+      "alerts",
+      "appearance",
+      "behavior",
+      "bubble",
+      "bubbles",
+      "extensions",
+      "general",
+      "home",
+      "island",
+      "motion",
+      "notif",
+      "notifications",
+      "notifs",
+      "plugins",
+      "shelf",
+      "widgets"
+    ],
+    "icon": "blur_on",
+    "description": "Bubbles, notifications, motion"
+  },
+  {
+    "section": "islandHubPages",
+    "label": "Island",
+    "tabIndex": -1,
+    "category": "Island",
+    "keywords": [
+      "island"
+    ],
+    "page": "island",
+    "icon": "blur_on"
+  },
+  {
+    "section": "islandHubIslands",
+    "label": "Islands",
+    "tabIndex": -1,
+    "category": "Island",
+    "keywords": [
+      "bar",
+      "dot",
+      "island",
+      "islands",
+      "select",
+      "widget"
+    ],
+    "page": "island",
+    "icon": "blur_on"
+  },
+  {
     "section": "blurLayerOutline",
     "label": "Layer outline",
     "tabIndex": -1,
@@ -3302,19 +3359,16 @@
       "gap",
       "gaps",
       "general",
-      "island",
       "layer",
       "margin",
       "margins",
       "maximize",
-      "motion",
       "overlay",
       "padding",
       "panel",
       "popouts",
       "popup",
       "spacing",
-      "spring",
       "statusbar",
       "taskbar",
       "through",
@@ -3398,91 +3452,6 @@
     "description": "Position, displays, auto-hide, behavior"
   },
   {
-    "section": "islandInteraction",
-    "label": "Behavior",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "behavior",
-      "click",
-      "delay",
-      "expand",
-      "general",
-      "hover",
-      "hybrid",
-      "interaction",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "touch_app",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandChargingPulse",
-    "label": "Charging",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "battery",
-      "briefly",
-      "charge",
-      "charging",
-      "connected",
-      "general",
-      "hibernate",
-      "island",
-      "panel",
-      "plugged",
-      "power",
-      "pulse",
-      "reboot",
-      "removed",
-      "restart",
-      "show",
-      "shutdown",
-      "sleep",
-      "statusbar",
-      "suspend",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "Show the battery briefly when power is connected or removed",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandNotificationBadgeClearOnOpen",
-    "label": "Clear badge on open",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "badge",
-      "bar",
-      "clear",
-      "dismiss",
-      "general",
-      "home",
-      "island",
-      "notifications",
-      "open",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "unread"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barMouseClickAction",
     "label": "Click actions",
     "tabIndex": 3,
@@ -3534,99 +3503,6 @@
     ],
     "parentLabel": "Bar",
     "description": "Clicks on empty bar space reach the windows below"
-  },
-  {
-    "section": "islandRouteClipboard",
-    "label": "Clipboard",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "clipboard",
-      "cliphist",
-      "copy",
-      "general",
-      "history",
-      "ipc",
-      "island",
-      "panel",
-      "paste",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteControlCenter",
-    "label": "Control Center",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "center",
-      "control",
-      "general",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteDash",
-    "label": "Dashboard",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "dashboard",
-      "general",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandDashTabs",
-    "label": "Dashboard tabs",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "dash",
-      "dashboard",
-      "general",
-      "handle",
-      "island",
-      "navigation",
-      "panel",
-      "sheet",
-      "shows",
-      "statusbar",
-      "tabs",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "Shows the dashboard tab bar instead of the sheet handle",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "barDisplay",
@@ -3684,27 +3560,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandFreeEdgeMargin",
-    "label": "Edge margin",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "edge",
-      "free",
-      "gap",
-      "general",
-      "island",
-      "margin",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandFree"
-  },
-  {
     "section": "barExclusiveZone",
     "label": "Exclusive zone offset",
     "tabIndex": 3,
@@ -3729,51 +3584,6 @@
     ],
     "parentLabel": "Bar",
     "description": "Grows or shrinks the space windows keep clear"
-  },
-  {
-    "section": "islandNotificationExpand",
-    "label": "Expand by default",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "arrival",
-      "bar",
-      "default",
-      "expand",
-      "general",
-      "island",
-      "notifications",
-      "panel",
-      "size",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandInteractionMode",
-    "label": "Expansion mode",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "click",
-      "expand",
-      "expansion",
-      "general",
-      "hybrid",
-      "interaction",
-      "island",
-      "mode",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "frameCloseGaps",
@@ -3884,28 +3694,6 @@
     "conditionKey": "isNiri"
   },
   {
-    "section": "islandHoverCloseDelay",
-    "label": "Hide delay",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "close",
-      "delay",
-      "general",
-      "hide",
-      "hover",
-      "interaction",
-      "island",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barHideWhenWindowsOpen",
     "label": "Hide when windows open",
     "tabIndex": 3,
@@ -3955,54 +3743,6 @@
     "icon": "touch_app"
   },
   {
-    "section": "islandMediaClockVisible",
-    "label": "Keep clock with media",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "clock",
-      "compact",
-      "general",
-      "island",
-      "keep",
-      "media",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "time",
-      "topbar",
-      "watch"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteLauncher",
-    "label": "Launcher",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "app drawer",
-      "app menu",
-      "applications",
-      "bar",
-      "general",
-      "ipc",
-      "island",
-      "launcher",
-      "panel",
-      "routing",
-      "shortcuts",
-      "start menu",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "frameLauncherEmergeSide",
     "label": "Launcher emerge side",
     "tabIndex": 3,
@@ -4030,36 +3770,6 @@
     ],
     "parentLabel": "Bar",
     "conditionKey": "frameEnabled"
-  },
-  {
-    "section": "islandMediaLyrics",
-    "label": "Lyrics",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "artist",
-      "available",
-      "bar",
-      "being",
-      "compact",
-      "general",
-      "island",
-      "line",
-      "lyrics",
-      "media",
-      "panel",
-      "shows",
-      "statusbar",
-      "sung",
-      "synced",
-      "taskbar",
-      "title",
-      "topbar",
-      "while"
-    ],
-    "parentLabel": "Bar",
-    "description": "Shows the line being sung instead of the title and artist while synced lyrics are available",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "barManualVisibility",
@@ -4117,27 +3827,6 @@
     "conditionKey": "windowRulesCapable"
   },
   {
-    "section": "islandRouteMedia",
-    "label": "Media",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "general",
-      "ipc",
-      "island",
-      "media",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barMiddleClickAction",
     "label": "Middle click",
     "tabIndex": 3,
@@ -4167,272 +3856,21 @@
     "description": "Choose what middle-clicking empty bar space does"
   },
   {
-    "section": "islandMotion",
-    "label": "Motion",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "animation",
-      "bar",
-      "general",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "animation",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteNotificationCenter",
-    "label": "Notification Center",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "alert",
-      "bar",
-      "center",
-      "general",
-      "ipc",
-      "island",
-      "notif",
-      "notification",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandNotifications",
-    "label": "Notifications",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "alert",
-      "alerts",
-      "badge",
-      "bar",
-      "expand",
-      "general",
-      "island",
-      "notif",
-      "notifications",
-      "notifs",
-      "osd",
-      "panel",
-      "popup",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "notifications",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandHoverOpenDelay",
-    "label": "Open delay",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "delay",
-      "general",
-      "hover",
-      "interaction",
-      "island",
-      "open",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteActivities",
-    "label": "Open in the Island",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "clipboard",
-      "control center",
-      "dashboard",
-      "general",
-      "ipc",
-      "island",
-      "launcher",
-      "media",
-      "notification center",
-      "open",
-      "panel",
-      "power menu",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "wallpaper",
-      "weather"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandFreeOrientation",
-    "label": "Orientation",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "free",
-      "general",
-      "horizontal",
-      "island",
-      "orientation",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "vertical"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandFree"
-  },
-  {
-    "section": "islandOuterGap",
-    "label": "Outer gap",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "gap",
-      "general",
-      "island",
-      "margin",
-      "outer",
-      "panel",
-      "placement",
-      "statusbar",
-      "taskbar",
-      "top",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandDocked"
-  },
-  {
-    "section": "islandPlacement",
-    "label": "Placement",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "anywhere",
-      "bar",
-      "docked",
-      "drag",
-      "edge",
-      "exclusive",
-      "float",
-      "floating",
-      "free",
-      "general",
-      "island",
-      "overlay",
-      "panel",
-      "placement",
-      "reserve",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barPosition",
     "label": "Position",
     "tabIndex": 3,
     "category": "General",
     "keywords": [
       "bar",
-      "free",
       "general",
-      "horizontal",
-      "island",
-      "orientation",
       "panel",
       "position",
       "statusbar",
       "taskbar",
-      "topbar",
-      "vertical"
-    ],
-    "parentLabel": "Bar",
-    "icon": "vertical_align_center"
-  },
-  {
-    "section": "islandRoutePowerMenu",
-    "label": "Power menu",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "general",
-      "hibernate",
-      "ipc",
-      "island",
-      "menu",
-      "panel",
-      "power",
-      "reboot",
-      "restart",
-      "routing",
-      "shortcuts",
-      "shutdown",
-      "sleep",
-      "statusbar",
-      "suspend",
-      "taskbar",
       "topbar"
     ],
     "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandReserveThickness",
-    "label": "Reserved width",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "exclusive",
-      "general",
-      "height",
-      "island",
-      "panel",
-      "placement",
-      "reservation",
-      "reserved",
-      "statusbar",
-      "taskbar",
-      "thickness",
-      "topbar",
-      "width"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandDocked"
+    "icon": "vertical_align_center"
   },
   {
     "section": "barRightClickAction",
@@ -4486,48 +3924,6 @@
     "icon": "mouse"
   },
   {
-    "section": "islandSharedRouting",
-    "label": "Shared shortcuts",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "alert",
-      "always",
-      "app drawer",
-      "app menu",
-      "applications",
-      "bar",
-      "center",
-      "clicks",
-      "control",
-      "control center",
-      "dash",
-      "general",
-      "ipc",
-      "island",
-      "last used",
-      "launcher",
-      "notif",
-      "notification",
-      "open",
-      "panel",
-      "popout",
-      "routes",
-      "routing",
-      "shared",
-      "shortcuts",
-      "start menu",
-      "statusbar",
-      "taskbar",
-      "their",
-      "topbar",
-      "widget"
-    ],
-    "parentLabel": "Bar",
-    "description": "Routes launcher, dash, control center and notification shortcuts. Bar widget clicks always open their own popout",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barOpenOnOverview",
     "label": "Show on overview",
     "tabIndex": 3,
@@ -4568,71 +3964,6 @@
     "conditionKey": "nativeOverviewCapable"
   },
   {
-    "section": "islandSpringDamping",
-    "label": "Spring damping",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "animation",
-      "bar",
-      "bounce",
-      "damping",
-      "general",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandSpringMass",
-    "label": "Spring mass",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "animation",
-      "bar",
-      "general",
-      "inertia",
-      "island",
-      "mass",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandSpringStiffness",
-    "label": "Spring stiffness",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "animation",
-      "bar",
-      "general",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "stiffness",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barAutoHideStrict",
     "label": "Strict auto-hide",
     "tabIndex": 3,
@@ -4659,32 +3990,6 @@
     "description": "Hides even while a bar popout or menu is open"
   },
   {
-    "section": "islandNotch",
-    "label": "Style",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "attached",
-      "bar",
-      "corners",
-      "edge",
-      "flush",
-      "general",
-      "island",
-      "macbook",
-      "notch",
-      "panel",
-      "pill",
-      "shape",
-      "statusbar",
-      "style",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandDocked"
-  },
-  {
     "section": "frameModeSelector",
     "label": "Surfaces",
     "tabIndex": 3,
@@ -4709,29 +4014,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandMediaAutoSwitch",
-    "label": "Switch to media when playback starts",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "auto",
-      "bar",
-      "compact",
-      "general",
-      "island",
-      "media",
-      "panel",
-      "playback",
-      "starts",
-      "statusbar",
-      "switch",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barUseOverlayLayer",
     "label": "Use overlay layer",
     "tabIndex": 3,
@@ -4748,105 +4030,6 @@
       "topbar"
     ],
     "parentLabel": "Bar"
-  },
-  {
-    "section": "islandUseOverlayLayer",
-    "label": "Use overlay layer",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "fullscreen",
-      "general",
-      "island",
-      "layer",
-      "overlay",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandSystemOsd",
-    "label": "Use standard OSDs",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "brightness",
-      "caps lock",
-      "general",
-      "idle inhibitor",
-      "island",
-      "level",
-      "microphone",
-      "osd",
-      "osds",
-      "panel",
-      "power profile",
-      "standard",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "volume"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandNotificationPopups",
-    "label": "Use standard popups",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "alert",
-      "alerts",
-      "arrival",
-      "bar",
-      "general",
-      "island",
-      "notif",
-      "notifications",
-      "notifs",
-      "panel",
-      "popup",
-      "popups",
-      "regular",
-      "show",
-      "stack",
-      "standard",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "New notifications show as regular popups",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandAlongOffset",
-    "label": "Vertical offset",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "center",
-      "general",
-      "horizontal",
-      "island",
-      "offset",
-      "panel",
-      "placement",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "vertical"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandDocked"
   },
   {
     "section": "barVisibility",
@@ -4873,56 +4056,6 @@
     ],
     "parentLabel": "Bar",
     "icon": "visibility"
-  },
-  {
-    "section": "islandRouteWallpaper",
-    "label": "Wallpapers",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "background",
-      "bar",
-      "bg",
-      "desktop",
-      "general",
-      "image",
-      "ipc",
-      "island",
-      "panel",
-      "picture",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "wallpapers"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandRouteWeather",
-    "label": "Weather",
-    "tabIndex": 3,
-    "category": "General",
-    "keywords": [
-      "bar",
-      "climate",
-      "forecast",
-      "general",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "temperature",
-      "topbar",
-      "weather"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "dockAutoHide",
@@ -5161,52 +4294,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandSatelliteBackground",
-    "label": "Background",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "background",
-      "bar",
-      "chrome",
-      "island",
-      "panel",
-      "satellite",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "widgets"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandWidgetBackground",
-    "label": "Background",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "background",
-      "bar",
-      "behind",
-      "compact",
-      "face",
-      "island",
-      "panel",
-      "pill",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "transparent",
-      "widget"
-    ],
-    "parentLabel": "Bar",
-    "description": "Bar widget background behind the compact face",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "widgetBackgroundColor",
     "label": "Background",
     "tabIndex": 6,
@@ -5346,84 +4433,6 @@
     "icon": "border_style"
   },
   {
-    "section": "islandHomeBrightnessDisplay",
-    "label": "Brightness style",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "backlight",
-      "bar",
-      "bright",
-      "brightness",
-      "compact",
-      "dim",
-      "home",
-      "icon",
-      "island",
-      "panel",
-      "percentage",
-      "statusbar",
-      "style",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandHomeClockDisplay",
-    "label": "Clock style",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "clock",
-      "compact",
-      "date",
-      "home",
-      "island",
-      "panel",
-      "statusbar",
-      "style",
-      "taskbar",
-      "time",
-      "topbar",
-      "watch"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandBatteryColorMode",
-    "label": "Color",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "accent",
-      "appearance",
-      "bar",
-      "battery",
-      "color",
-      "colour",
-      "green",
-      "hue",
-      "island",
-      "level",
-      "meter",
-      "panel",
-      "red",
-      "statusbar",
-      "taskbar",
-      "theme",
-      "tint",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barCornerStyle",
     "label": "Corner style",
     "tabIndex": 6,
@@ -5470,31 +4479,6 @@
     "parentLabel": "Bar"
   },
   {
-    "section": "islandGothCornerRadius",
-    "label": "Custom radius",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "corners",
-      "custom",
-      "goth",
-      "island",
-      "notch",
-      "panel",
-      "radius",
-      "satellite",
-      "size",
-      "statusbar",
-      "sweep",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barFontScale",
     "label": "Font scale",
     "tabIndex": 6,
@@ -5536,27 +4520,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandSatelliteGap",
-    "label": "Gap",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "gap",
-      "island",
-      "panel",
-      "satellite",
-      "spacing",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "widgets"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barGothCorners",
     "label": "Goth corners",
     "tabIndex": 6,
@@ -5586,31 +4549,6 @@
     "description": "Adds concave curves where the bar meets the screen edge"
   },
   {
-    "section": "islandSatelliteGothCorners",
-    "label": "Goth corners",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "corners",
-      "goth",
-      "island",
-      "panel",
-      "radius",
-      "round",
-      "rounded",
-      "satellite",
-      "statusbar",
-      "sweep",
-      "taskbar",
-      "topbar",
-      "wing"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barLengthMode",
     "label": "Height",
     "tabIndex": 6,
@@ -5635,55 +4573,6 @@
       "width"
     ],
     "parentLabel": "Bar"
-  },
-  {
-    "section": "islandHighContrast",
-    "label": "High contrast",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "accessibility",
-      "appearance",
-      "bar",
-      "contrast",
-      "high",
-      "island",
-      "outline",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandActivities",
-    "label": "Home compact",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "battery",
-      "brightness",
-      "clock",
-      "compact",
-      "groups",
-      "home",
-      "island",
-      "layout",
-      "order",
-      "panel",
-      "pill",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "volume"
-    ],
-    "parentLabel": "Bar",
-    "icon": "home",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "barIconScale",
@@ -5788,53 +4677,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandSatelliteTransparency",
-    "label": "Override",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "background",
-      "bar",
-      "blur",
-      "interface",
-      "island",
-      "opacity",
-      "override",
-      "panel",
-      "satellite",
-      "statusbar",
-      "style",
-      "taskbar",
-      "topbar",
-      "transparency"
-    ],
-    "parentLabel": "Bar",
-    "description": "Opacity",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandPalette",
-    "label": "Palette",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "bright",
-      "dim",
-      "island",
-      "palette",
-      "panel",
-      "statusbar",
-      "surface",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barLengthPercent",
     "label": "Percentage",
     "tabIndex": 6,
@@ -5854,28 +4696,6 @@
       "width"
     ],
     "parentLabel": "Bar"
-  },
-  {
-    "section": "islandSatellitePosition",
-    "label": "Position",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "center",
-      "edges",
-      "island",
-      "panel",
-      "position",
-      "satellite",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "widgets"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "frameRounding",
@@ -5899,51 +4719,6 @@
     "conditionKey": "frameEnabled"
   },
   {
-    "section": "islandSatellites",
-    "label": "Satellites",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "island",
-      "left",
-      "panel",
-      "right",
-      "satellite",
-      "satellites",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "widgets"
-    ],
-    "parentLabel": "Bar",
-    "icon": "widgets",
-    "conditionKey": "islandEnabled"
-  },
-  {
-    "section": "islandSatellitesEnabled",
-    "label": "Show",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "island",
-      "left",
-      "panel",
-      "right",
-      "satellite",
-      "show",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "widgets"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barSize",
     "label": "Size",
     "tabIndex": 6,
@@ -5961,32 +4736,6 @@
       "topbar"
     ],
     "parentLabel": "Bar"
-  },
-  {
-    "section": "islandHomeCompactTight",
-    "label": "Size",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "clock",
-      "compact",
-      "height",
-      "home",
-      "island",
-      "narrow",
-      "panel",
-      "pill",
-      "size",
-      "statusbar",
-      "taskbar",
-      "tight",
-      "topbar",
-      "width"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "barSpacing",
@@ -6024,36 +4773,6 @@
     "description": "Gap between the bar ends and the outermost widgets"
   },
   {
-    "section": "islandHomeStatusContent",
-    "label": "Status",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "battery",
-      "bluetooth",
-      "circle",
-      "compact",
-      "connectivity",
-      "duo",
-      "gauge",
-      "home",
-      "island",
-      "outline",
-      "panel",
-      "ring",
-      "solid",
-      "status",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "wifi"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
-  },
-  {
     "section": "barCorners",
     "label": "Surface",
     "tabIndex": 6,
@@ -6062,11 +4781,9 @@
       "appearance",
       "background",
       "bar",
-      "contrast",
       "corners",
       "goth",
       "opacity",
-      "palette",
       "panel",
       "rounded",
       "shadow",
@@ -6120,33 +4837,6 @@
     ],
     "parentLabel": "Bar",
     "conditionKey": "frameEnabled"
-  },
-  {
-    "section": "islandHomeVolumeDisplay",
-    "label": "Volume style",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "audio",
-      "bar",
-      "compact",
-      "home",
-      "icon",
-      "island",
-      "loudness",
-      "panel",
-      "percentage",
-      "sound",
-      "speaker",
-      "statusbar",
-      "style",
-      "taskbar",
-      "topbar",
-      "volume"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandEnabled"
   },
   {
     "section": "widgetStyling",
@@ -6243,30 +4933,6 @@
     "parentLabel": "Bar",
     "icon": "widgets",
     "description": "Opacity"
-  },
-  {
-    "section": "islandCompactThickness",
-    "label": "Width",
-    "tabIndex": 6,
-    "category": "Appearance",
-    "keywords": [
-      "appearance",
-      "bar",
-      "compact",
-      "height",
-      "island",
-      "panel",
-      "placement",
-      "satellite",
-      "size",
-      "statusbar",
-      "taskbar",
-      "thickness",
-      "topbar",
-      "width"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "islandDocked"
   },
   {
     "section": "networkStatus",
@@ -10092,14 +8758,6 @@
     "optionFile": "SystemTrayOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:7",
-    "label": "Background",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "_hub_dankbar_widgets",
     "label": "Bar widgets",
     "tabIndex": 22,
@@ -10139,14 +8797,6 @@
     "optionFile": "BatteryOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:8",
-    "label": "Behavior",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:AppsDockOptions.qml:15",
     "label": "Brightness",
     "tabIndex": 22,
@@ -10163,14 +8813,6 @@
     "optionFile": "LauncherButtonOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:4",
-    "label": "Brightness style",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:PrivacyOptions.qml:3",
     "label": "Camera",
     "tabIndex": 22,
@@ -10179,44 +8821,12 @@
     "optionFile": "PrivacyOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:29",
-    "label": "Charging",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:31",
-    "label": "Clear badge on open",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:ClockOptions.qml:4",
     "label": "Click action",
     "tabIndex": 22,
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "ClockOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:12",
-    "label": "Clipboard",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:2",
-    "label": "Clock style",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:AppsDockOptions.qml:13",
@@ -10315,14 +8925,6 @@
     "optionFile": "LauncherButtonOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:10",
-    "label": "Control Center",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:MusicOptions.qml:5",
     "label": "Cover art",
     "tabIndex": 22,
@@ -10387,22 +8989,6 @@
     "optionFile": "ClockOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:14",
-    "label": "Dashboard",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:22",
-    "label": "Dashboard tabs",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:SystemMonitorOptions.qml:7",
     "label": "Disk usage format",
     "tabIndex": 22,
@@ -10425,22 +9011,6 @@
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "WorkspaceSwitcherOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:30",
-    "label": "Expand by default",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:18",
-    "label": "Expansion mode",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:WorkspaceSwitcherOptions.qml:18",
@@ -10507,14 +9077,6 @@
     "optionFile": "WorkspaceSwitcherOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:21",
-    "label": "Hide delay",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:NetworkMonitorOptions.qml:1",
     "label": "Hide when idle",
     "tabIndex": 22,
@@ -10537,22 +9099,6 @@
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "WorkspaceSwitcherOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:1",
-    "label": "Home compact",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:19",
-    "label": "Hybrid peeks the current compact face on hover. Click pins a destination so it stays open",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:AppsDockOptions.qml:11",
@@ -10619,14 +9165,6 @@
     "optionFile": "ControlCenterOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:23",
-    "label": "Keep clock with media",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:KeyboardLayoutOptions.qml:3",
     "label": "Label overrides",
     "tabIndex": 22,
@@ -10635,28 +9173,12 @@
     "optionFile": "KeyboardLayoutOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:9",
-    "label": "Launcher",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:AppsDockOptions.qml:9",
     "label": "Launcher button",
     "tabIndex": 22,
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "AppsDockOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:24",
-    "label": "Lyrics",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:MusicOptions.qml:4",
@@ -10707,14 +9229,6 @@
     "optionFile": "SystemTrayOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:15",
-    "label": "Media",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:MusicOptions.qml:7",
     "label": "Media player",
     "tabIndex": 22,
@@ -10737,14 +9251,6 @@
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "WorkspaceSwitcherOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:32",
-    "label": "Motion",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:SystemMonitorOptions.qml:5",
@@ -10771,14 +9277,6 @@
     "optionFile": "KeyboardLayoutOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:11",
-    "label": "Notification Center",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:ClockOptions.qml:3",
     "label": "Notification badge",
     "tabIndex": 22,
@@ -10787,28 +9285,12 @@
     "optionFile": "ClockOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:26",
-    "label": "Notifications",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:BatteryOptions.qml:2",
     "label": "Only on battery",
     "tabIndex": 22,
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "BatteryOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:20",
-    "label": "Open delay",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:AppsDockOptions.qml:18",
@@ -10841,14 +9323,6 @@
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "WorkspaceSwitcherOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:13",
-    "label": "Power menu",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:WorkspaceSwitcherOptions.qml:19",
@@ -11019,14 +9493,6 @@
     "optionFile": "FocusedWindowOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:6",
-    "label": "Size",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:MusicOptions.qml:2",
     "label": "Size",
     "tabIndex": 22,
@@ -11067,38 +9533,6 @@
     "optionFile": "AppsDockOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:34",
-    "label": "Spring damping",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:35",
-    "label": "Spring mass",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:33",
-    "label": "Spring stiffness",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:5",
-    "label": "Status",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:MusicOptions.qml:1",
     "label": "Style",
     "tabIndex": 22,
@@ -11113,14 +9547,6 @@
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "WorkspaceSwitcherOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:25",
-    "label": "Switch to media when playback starts",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "barWidgetOption:ClockOptions.qml:6",
@@ -11171,52 +9597,12 @@
     "optionFile": "SystemTrayOptions.qml"
   },
   {
-    "section": "barWidgetOption:IslandOptions.qml:28",
-    "label": "Use standard OSDs",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:27",
-    "label": "Use standard popups",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
     "section": "barWidgetOption:AppsDockOptions.qml:20",
     "label": "Visual effects",
     "tabIndex": 22,
     "keywords": [],
     "runtimeType": "barWidgetOption",
     "optionFile": "AppsDockOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:3",
-    "label": "Volume style",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:17",
-    "label": "Wallpapers",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
-  },
-  {
-    "section": "barWidgetOption:IslandOptions.qml:16",
-    "label": "Weather",
-    "tabIndex": 22,
-    "keywords": [],
-    "runtimeType": "barWidgetOption",
-    "optionFile": "IslandOptions.qml"
   },
   {
     "section": "clipboardRememberTypeFilter",
@@ -17284,6 +15670,35 @@
     "parentLabel": "Date, time & region"
   },
   {
+    "section": "islandWeatherAlerts",
+    "label": "Island alerts",
+    "tabIndex": 56,
+    "category": "Weather",
+    "keywords": [
+      "alert",
+      "alerts",
+      "climate",
+      "date,",
+      "fog",
+      "forecast",
+      "hail",
+      "heat",
+      "ice",
+      "island",
+      "rain",
+      "region",
+      "snow",
+      "storm",
+      "temperature",
+      "time",
+      "uv",
+      "weather",
+      "wind"
+    ],
+    "parentLabel": "Date, time & region",
+    "icon": "rainy"
+  },
+  {
     "section": "weatherLocation",
     "label": "Location",
     "tabIndex": 56,
@@ -17617,26 +16032,6 @@
     "icon": "auto_awesome"
   },
   {
-    "section": "_tab_59",
-    "label": "Advanced",
-    "tabIndex": 59,
-    "category": "Advanced",
-    "keywords": [
-      "advanced",
-      "dock",
-      "exclusive",
-      "fullscreen",
-      "launcher bar",
-      "layers",
-      "panel",
-      "taskbar",
-      "zone"
-    ],
-    "icon": "settings",
-    "parentLabel": "Dock",
-    "description": "Layers, fullscreen, exclusive zone"
-  },
-  {
     "section": "dockAdvancedDisplays",
     "label": "Displays",
     "tabIndex": 59,
@@ -17659,6 +16054,26 @@
     ],
     "parentLabel": "Dock",
     "icon": "monitor"
+  },
+  {
+    "section": "_tab_59",
+    "label": "Dock: Advanced",
+    "tabIndex": 59,
+    "category": "Advanced",
+    "keywords": [
+      "advanced",
+      "dock",
+      "exclusive",
+      "fullscreen",
+      "launcher bar",
+      "layers",
+      "panel",
+      "taskbar",
+      "zone"
+    ],
+    "icon": "settings",
+    "parentLabel": "Dock",
+    "description": "Layers, fullscreen, exclusive zone"
   },
   {
     "section": "dockExclusiveZone",
@@ -18093,116 +16508,6 @@
     "conditionKey": "dotEnabled"
   },
   {
-    "section": "dotInteraction",
-    "label": "Behavior",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "behavior",
-      "click",
-      "delay",
-      "dot",
-      "expand",
-      "hover",
-      "hybrid",
-      "interaction",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "touch_app",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotChargingPulse",
-    "label": "Charging",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "battery",
-      "briefly",
-      "charge",
-      "charging",
-      "connected",
-      "dot",
-      "hibernate",
-      "island",
-      "panel",
-      "plugged",
-      "power",
-      "pulse",
-      "reboot",
-      "removed",
-      "restart",
-      "show",
-      "shutdown",
-      "sleep",
-      "statusbar",
-      "suspend",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "Show the battery briefly when power is connected or removed",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotNotificationBadgeClearOnOpen",
-    "label": "Clear badge on open",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "badge",
-      "bar",
-      "clear",
-      "dismiss",
-      "dot",
-      "home",
-      "island",
-      "notifications",
-      "open",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "unread"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteClipboard",
-    "label": "Clipboard",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "clipboard",
-      "cliphist",
-      "copy",
-      "dot",
-      "history",
-      "ipc",
-      "island",
-      "panel",
-      "paste",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
     "section": "dotIconColor",
     "label": "Color override",
     "tabIndex": 65,
@@ -18220,28 +16525,6 @@
       "statusbar",
       "taskbar",
       "tint",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteControlCenter",
-    "label": "Control Center",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "center",
-      "control",
-      "dot",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
       "topbar"
     ],
     "parentLabel": "Bar",
@@ -18267,52 +16550,6 @@
     ],
     "parentLabel": "Bar",
     "icon": "folder_open",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteDash",
-    "label": "Dashboard",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "dashboard",
-      "dot",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotDashTabs",
-    "label": "Dashboard tabs",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "dash",
-      "dashboard",
-      "dot",
-      "handle",
-      "island",
-      "navigation",
-      "panel",
-      "sheet",
-      "shows",
-      "statusbar",
-      "tabs",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "Shows the dashboard tab bar instead of the sheet handle",
     "conditionKey": "dotEnabled"
   },
   {
@@ -18382,28 +16619,6 @@
     "conditionKey": "dotEnabled"
   },
   {
-    "section": "dotNotificationExpand",
-    "label": "Expand by default",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "arrival",
-      "bar",
-      "default",
-      "dot",
-      "expand",
-      "island",
-      "notifications",
-      "panel",
-      "size",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
     "section": "dotSize",
     "label": "General",
     "tabIndex": 65,
@@ -18424,26 +16639,6 @@
     ],
     "parentLabel": "Bar",
     "icon": "blur_on",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotHighContrast",
-    "label": "High contrast",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "accessibility",
-      "bar",
-      "contrast",
-      "dot",
-      "high",
-      "outline",
-      "panel",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
     "conditionKey": "dotEnabled"
   },
   {
@@ -18537,124 +16732,6 @@
     "conditionKey": "dotEnabled"
   },
   {
-    "section": "dotRouteLauncher",
-    "label": "Launcher",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "app drawer",
-      "app menu",
-      "applications",
-      "bar",
-      "dot",
-      "ipc",
-      "island",
-      "launcher",
-      "panel",
-      "routing",
-      "shortcuts",
-      "start menu",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteMedia",
-    "label": "Media",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "dot",
-      "ipc",
-      "island",
-      "media",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotMotion",
-    "label": "Motion",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "animation",
-      "bar",
-      "dot",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "animation",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteNotificationCenter",
-    "label": "Notification Center",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "alert",
-      "bar",
-      "center",
-      "dot",
-      "ipc",
-      "island",
-      "notif",
-      "notification",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotNotifications",
-    "label": "Notifications",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "alert",
-      "alerts",
-      "badge",
-      "bar",
-      "dot",
-      "expand",
-      "island",
-      "notif",
-      "notifications",
-      "notifs",
-      "osd",
-      "panel",
-      "popup",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "icon": "notifications",
-    "conditionKey": "dotEnabled"
-  },
-  {
     "section": "dotOpacity",
     "label": "Opacity",
     "tabIndex": 65,
@@ -18669,84 +16746,6 @@
       "taskbar",
       "topbar",
       "transparency"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteActivities",
-    "label": "Open in the Island",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "clipboard",
-      "control center",
-      "dashboard",
-      "dot",
-      "ipc",
-      "island",
-      "launcher",
-      "media",
-      "notification center",
-      "open",
-      "panel",
-      "power menu",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "wallpaper",
-      "weather"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotPalette",
-    "label": "Palette",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "bright",
-      "dim",
-      "dot",
-      "palette",
-      "panel",
-      "statusbar",
-      "surface",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRoutePowerMenu",
-    "label": "Power menu",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "dot",
-      "hibernate",
-      "ipc",
-      "island",
-      "menu",
-      "panel",
-      "power",
-      "reboot",
-      "restart",
-      "routing",
-      "shortcuts",
-      "shutdown",
-      "sleep",
-      "statusbar",
-      "suspend",
-      "taskbar",
-      "topbar"
     ],
     "parentLabel": "Bar",
     "conditionKey": "dotEnabled"
@@ -18773,48 +16772,6 @@
     "conditionKey": "dotEnabled"
   },
   {
-    "section": "dotSharedRouting",
-    "label": "Shared shortcuts",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "alert",
-      "always",
-      "app drawer",
-      "app menu",
-      "applications",
-      "bar",
-      "center",
-      "clicks",
-      "control",
-      "control center",
-      "dash",
-      "dot",
-      "ipc",
-      "island",
-      "last used",
-      "launcher",
-      "notif",
-      "notification",
-      "open",
-      "panel",
-      "popout",
-      "routes",
-      "routing",
-      "shared",
-      "shortcuts",
-      "start menu",
-      "statusbar",
-      "taskbar",
-      "their",
-      "topbar",
-      "widget"
-    ],
-    "parentLabel": "Bar",
-    "description": "Routes launcher, dash, control center and notification shortcuts. Bar widget clicks always open their own popout",
-    "conditionKey": "dotEnabled"
-  },
-  {
     "section": "islandFreeSize",
     "label": "Size",
     "tabIndex": 65,
@@ -18833,71 +16790,6 @@
     "conditionKey": "dotEnabled"
   },
   {
-    "section": "dotSpringDamping",
-    "label": "Spring damping",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "animation",
-      "bar",
-      "bounce",
-      "damping",
-      "dot",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotSpringMass",
-    "label": "Spring mass",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "animation",
-      "bar",
-      "dot",
-      "inertia",
-      "island",
-      "mass",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotSpringStiffness",
-    "label": "Spring stiffness",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "animation",
-      "bar",
-      "dot",
-      "island",
-      "motion",
-      "panel",
-      "spring",
-      "statusbar",
-      "stiffness",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
     "section": "dotSurface",
     "label": "Surface",
     "tabIndex": 65,
@@ -18906,10 +16798,8 @@
       "background",
       "bar",
       "color",
-      "contrast",
       "dot",
       "opacity",
-      "palette",
       "panel",
       "statusbar",
       "surface",
@@ -18935,113 +16825,6 @@
       "symbol",
       "taskbar",
       "topbar"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotSystemOsd",
-    "label": "Use standard OSDs",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "brightness",
-      "caps lock",
-      "dot",
-      "idle inhibitor",
-      "island",
-      "level",
-      "microphone",
-      "osd",
-      "osds",
-      "panel",
-      "power profile",
-      "standard",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "volume"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotNotificationPopups",
-    "label": "Use standard popups",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "alert",
-      "alerts",
-      "arrival",
-      "bar",
-      "dot",
-      "island",
-      "notif",
-      "notifications",
-      "notifs",
-      "panel",
-      "popup",
-      "popups",
-      "regular",
-      "show",
-      "stack",
-      "standard",
-      "statusbar",
-      "taskbar",
-      "topbar"
-    ],
-    "parentLabel": "Bar",
-    "description": "New notifications show as regular popups",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteWallpaper",
-    "label": "Wallpapers",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "background",
-      "bar",
-      "bg",
-      "desktop",
-      "dot",
-      "image",
-      "ipc",
-      "island",
-      "panel",
-      "picture",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "topbar",
-      "wallpapers"
-    ],
-    "parentLabel": "Bar",
-    "conditionKey": "dotEnabled"
-  },
-  {
-    "section": "dotRouteWeather",
-    "label": "Weather",
-    "tabIndex": 65,
-    "category": "Dot",
-    "keywords": [
-      "bar",
-      "climate",
-      "dot",
-      "forecast",
-      "ipc",
-      "island",
-      "panel",
-      "routing",
-      "shortcuts",
-      "statusbar",
-      "taskbar",
-      "temperature",
-      "topbar",
-      "weather"
     ],
     "parentLabel": "Bar",
     "conditionKey": "dotEnabled"
@@ -19189,5 +16972,4105 @@
       "wellbeing"
     ],
     "icon": "show_chart"
+  },
+  {
+    "section": "islandFreeEdgeMargin",
+    "label": "Edge margin",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "edge",
+      "free",
+      "gap",
+      "general",
+      "island",
+      "margin"
+    ],
+    "parentLabel": "Island",
+    "conditionKey": "islandFree"
+  },
+  {
+    "section": "_tab_68",
+    "label": "Island: General",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "edge",
+      "general",
+      "island",
+      "placement",
+      "reserved",
+      "space"
+    ],
+    "icon": "tune",
+    "parentLabel": "Island",
+    "description": "Edge, placement, reserved space"
+  },
+  {
+    "section": "islandPlacement",
+    "label": "Mode",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "anywhere",
+      "docked",
+      "drag",
+      "edge",
+      "exclusive",
+      "float",
+      "floating",
+      "floats",
+      "free",
+      "general",
+      "goes",
+      "island",
+      "keeps",
+      "mode",
+      "over",
+      "overlay",
+      "placement",
+      "reserve",
+      "strip",
+      "windows"
+    ],
+    "parentLabel": "Island",
+    "description": "Docked keeps windows out of its strip, Overlay floats over them, Floating goes anywhere"
+  },
+  {
+    "section": "islandFreeOrientation",
+    "label": "Orientation",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "free",
+      "general",
+      "horizontal",
+      "island",
+      "orientation",
+      "vertical"
+    ],
+    "parentLabel": "Island",
+    "conditionKey": "islandFree"
+  },
+  {
+    "section": "islandOuterGap",
+    "label": "Outer gap",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "gap",
+      "general",
+      "island",
+      "margin",
+      "outer",
+      "placement",
+      "top"
+    ],
+    "parentLabel": "Island",
+    "conditionKey": "islandDocked"
+  },
+  {
+    "section": "islandGeneralPlacement",
+    "label": "Placement",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "docked",
+      "floating",
+      "gap",
+      "general",
+      "island",
+      "notch",
+      "offset",
+      "overlay",
+      "pill",
+      "placement",
+      "reserved"
+    ],
+    "parentLabel": "Island",
+    "icon": "open_with"
+  },
+  {
+    "section": "islandGeneralPosition",
+    "label": "Position",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "bottom",
+      "edge",
+      "general",
+      "island",
+      "left",
+      "orientation",
+      "position",
+      "right",
+      "top"
+    ],
+    "parentLabel": "Island",
+    "icon": "vertical_align_center"
+  },
+  {
+    "section": "islandReserveThickness",
+    "label": "Reserved space",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "exclusive",
+      "general",
+      "height",
+      "island",
+      "placement",
+      "reservation",
+      "reserved",
+      "space",
+      "stay",
+      "strip",
+      "thickness",
+      "width",
+      "windows"
+    ],
+    "parentLabel": "Island",
+    "description": "Windows stay out of this strip",
+    "conditionKey": "islandDocked"
+  },
+  {
+    "section": "islandNotch",
+    "label": "Style",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "attached",
+      "corners",
+      "edge",
+      "flush",
+      "general",
+      "island",
+      "macbook",
+      "notch",
+      "pill",
+      "shape",
+      "style"
+    ],
+    "parentLabel": "Island",
+    "conditionKey": "islandDocked"
+  },
+  {
+    "section": "islandAlongOffset",
+    "label": "Vertical offset",
+    "tabIndex": 68,
+    "category": "General",
+    "keywords": [
+      "center",
+      "general",
+      "horizontal",
+      "island",
+      "offset",
+      "placement",
+      "vertical"
+    ],
+    "parentLabel": "Island",
+    "conditionKey": "islandDocked"
+  },
+  {
+    "section": "islandSatelliteBackground",
+    "label": "Background",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "background",
+      "chrome",
+      "home",
+      "island",
+      "satellite",
+      "widgets"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandWidgetBackground",
+    "label": "Background",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "background",
+      "behind",
+      "compact",
+      "face",
+      "home",
+      "island",
+      "panel",
+      "pill",
+      "statusbar",
+      "taskbar",
+      "topbar",
+      "transparent",
+      "widget"
+    ],
+    "parentLabel": "Island",
+    "description": "Bar widget background behind the compact face"
+  },
+  {
+    "section": "islandHomeBrightnessDisplay",
+    "label": "Brightness style",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "backlight",
+      "bright",
+      "brightness",
+      "compact",
+      "dim",
+      "home",
+      "icon",
+      "island",
+      "percentage",
+      "style"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeClockDisplay",
+    "label": "Clock style",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "clock",
+      "compact",
+      "date",
+      "home",
+      "island",
+      "style",
+      "time",
+      "watch"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBatteryColorMode",
+    "label": "Color",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "accent",
+      "battery",
+      "color",
+      "colour",
+      "green",
+      "home",
+      "hue",
+      "island",
+      "level",
+      "meter",
+      "red",
+      "theme",
+      "tint"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandSatelliteTransparency",
+    "label": "Custom opacity",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "background",
+      "blur",
+      "custom",
+      "following",
+      "here",
+      "home",
+      "interface",
+      "island",
+      "opacity",
+      "override",
+      "satellite",
+      "style",
+      "transparency"
+    ],
+    "parentLabel": "Island",
+    "description": "Set the background opacity here instead of following the interface style"
+  },
+  {
+    "section": "islandGothCornerRadius",
+    "label": "Custom radius",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "corners",
+      "custom",
+      "goth",
+      "home",
+      "island",
+      "notch",
+      "radius",
+      "satellite",
+      "size",
+      "sweep"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeCompactTight",
+    "label": "Density",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "clock",
+      "compact",
+      "density",
+      "height",
+      "home",
+      "island",
+      "narrow",
+      "pill",
+      "size",
+      "tight",
+      "width"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandSatelliteGap",
+    "label": "Gap",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "gap",
+      "home",
+      "island",
+      "satellite",
+      "spacing",
+      "widgets"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandSatelliteGothCorners",
+    "label": "Goth corners",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "corners",
+      "goth",
+      "home",
+      "island",
+      "radius",
+      "round",
+      "rounded",
+      "satellite",
+      "sweep",
+      "wing"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "_tab_69",
+    "label": "Home",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "clock",
+      "groups",
+      "home",
+      "island",
+      "media",
+      "satellites",
+      "time",
+      "watch"
+    ],
+    "icon": "home",
+    "parentLabel": "Island",
+    "description": "Groups, clock, media, satellites"
+  },
+  {
+    "section": "islandMediaClockVisible",
+    "label": "Keep clock with media",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "clock",
+      "compact",
+      "home",
+      "island",
+      "keep",
+      "media",
+      "time",
+      "watch"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeGroups",
+    "label": "Layout",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "compact",
+      "groups",
+      "home",
+      "island",
+      "layout",
+      "order"
+    ],
+    "parentLabel": "Island",
+    "icon": "widgets"
+  },
+  {
+    "section": "islandMediaLyrics",
+    "label": "Lyrics",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "artist",
+      "available",
+      "being",
+      "compact",
+      "home",
+      "island",
+      "line",
+      "lyrics",
+      "media",
+      "shows",
+      "sung",
+      "synced",
+      "title",
+      "while"
+    ],
+    "parentLabel": "Island",
+    "description": "Shows the line being sung instead of the title and artist while synced lyrics are available"
+  },
+  {
+    "section": "islandHomeMedia",
+    "label": "Media",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "clock",
+      "home",
+      "island",
+      "lyrics",
+      "media",
+      "playback"
+    ],
+    "parentLabel": "Island",
+    "icon": "music_note"
+  },
+  {
+    "section": "islandSatellitePosition",
+    "label": "Position",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "center",
+      "edges",
+      "home",
+      "island",
+      "position",
+      "satellite",
+      "widgets"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandSatellites",
+    "label": "Satellites",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "home",
+      "island",
+      "left",
+      "right",
+      "satellite",
+      "satellites",
+      "widgets"
+    ],
+    "parentLabel": "Island",
+    "icon": "widgets"
+  },
+  {
+    "section": "islandSatellitesEnabled",
+    "label": "Show",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "home",
+      "island",
+      "left",
+      "right",
+      "satellite",
+      "show",
+      "widgets"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeSize",
+    "label": "Size",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "background",
+      "compact",
+      "height",
+      "home",
+      "island",
+      "size",
+      "width"
+    ],
+    "parentLabel": "Island",
+    "icon": "height"
+  },
+  {
+    "section": "islandHomeStatusContent",
+    "label": "Status",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "battery",
+      "bluetooth",
+      "circle",
+      "compact",
+      "connectivity",
+      "duo",
+      "gauge",
+      "home",
+      "island",
+      "outline",
+      "ring",
+      "solid",
+      "status",
+      "wifi"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeStyle",
+    "label": "Style",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "battery",
+      "brightness",
+      "clock",
+      "compact",
+      "home",
+      "island",
+      "status",
+      "style",
+      "volume"
+    ],
+    "parentLabel": "Island",
+    "icon": "palette"
+  },
+  {
+    "section": "islandMediaAutoSwitch",
+    "label": "Switch to media when playback starts",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "auto",
+      "compact",
+      "home",
+      "island",
+      "media",
+      "playback",
+      "starts",
+      "switch"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHomeVolumeDisplay",
+    "label": "Volume style",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "audio",
+      "compact",
+      "home",
+      "icon",
+      "island",
+      "loudness",
+      "percentage",
+      "sound",
+      "speaker",
+      "style",
+      "volume"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandCompactThickness",
+    "label": "Width",
+    "tabIndex": 69,
+    "category": "Home",
+    "keywords": [
+      "compact",
+      "height",
+      "home",
+      "island",
+      "placement",
+      "satellite",
+      "size",
+      "thickness",
+      "width"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteActivities",
+    "label": "Always open here",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "always",
+      "behavior",
+      "clipboard",
+      "control center",
+      "dashboard",
+      "here",
+      "ipc",
+      "island",
+      "launcher",
+      "media",
+      "notification center",
+      "open",
+      "power menu",
+      "routing",
+      "shortcuts",
+      "wallpaper",
+      "weather"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "_tab_70",
+    "label": "Behavior",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "island",
+      "opening",
+      "scrolling",
+      "shortcuts"
+    ],
+    "icon": "touch_app",
+    "parentLabel": "Island",
+    "description": "Opening, shortcuts, scrolling"
+  },
+  {
+    "section": "islandRouteClipboard",
+    "label": "Clipboard",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "clipboard",
+      "cliphist",
+      "copy",
+      "history",
+      "ipc",
+      "island",
+      "paste",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteControlCenter",
+    "label": "Control Center",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "center",
+      "control",
+      "ipc",
+      "island",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandDashboard",
+    "label": "Dashboard",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "dash",
+      "dashboard",
+      "island",
+      "tabs"
+    ],
+    "parentLabel": "Island",
+    "icon": "space_dashboard"
+  },
+  {
+    "section": "islandRouteDash",
+    "label": "Dashboard",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "dashboard",
+      "ipc",
+      "island",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandDashTabs",
+    "label": "Dashboard tabs",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "dash",
+      "dashboard",
+      "handle",
+      "island",
+      "navigation",
+      "panel",
+      "sheet",
+      "shows",
+      "statusbar",
+      "tabs",
+      "taskbar",
+      "topbar"
+    ],
+    "parentLabel": "Island",
+    "description": "Shows the dashboard tab bar instead of the sheet handle"
+  },
+  {
+    "section": "islandSharedRouting",
+    "label": "Global shortcuts open in",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "alert",
+      "always",
+      "app drawer",
+      "app menu",
+      "applications",
+      "behavior",
+      "center",
+      "clicks",
+      "control",
+      "control center",
+      "dash",
+      "global",
+      "ipc",
+      "island",
+      "last used",
+      "launcher",
+      "notif",
+      "notification",
+      "open",
+      "panel",
+      "popout",
+      "routes",
+      "routing",
+      "shortcuts",
+      "start menu",
+      "statusbar",
+      "taskbar",
+      "their",
+      "topbar",
+      "widget"
+    ],
+    "parentLabel": "Island",
+    "description": "Routes launcher, dash, control center and notification shortcuts. Bar widget clicks always open their own popout"
+  },
+  {
+    "section": "islandHoverCloseDelay",
+    "label": "Hide delay",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "close",
+      "delay",
+      "hide",
+      "hover",
+      "interaction",
+      "island"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteLauncher",
+    "label": "Launcher",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "app drawer",
+      "app menu",
+      "applications",
+      "behavior",
+      "ipc",
+      "island",
+      "launcher",
+      "routing",
+      "shortcuts",
+      "start menu"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteMedia",
+    "label": "Media",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "ipc",
+      "island",
+      "media",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteNotificationCenter",
+    "label": "Notification Center",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "alert",
+      "behavior",
+      "center",
+      "ipc",
+      "island",
+      "notif",
+      "notification",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHoverOpenDelay",
+    "label": "Open delay",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "delay",
+      "hover",
+      "interaction",
+      "island",
+      "open"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouting",
+    "label": "Open in the island",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "control center",
+      "dashboard",
+      "ipc",
+      "island",
+      "launcher",
+      "open",
+      "routing",
+      "shortcuts"
+    ],
+    "parentLabel": "Island",
+    "icon": "open_in_new"
+  },
+  {
+    "section": "islandInteractionMode",
+    "label": "Open on",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "click",
+      "expand",
+      "hover",
+      "hybrid",
+      "interaction",
+      "island",
+      "open"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandInteraction",
+    "label": "Opening",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "click",
+      "delay",
+      "expand",
+      "hover",
+      "interaction",
+      "island",
+      "open",
+      "opening"
+    ],
+    "parentLabel": "Island",
+    "icon": "touch_app"
+  },
+  {
+    "section": "islandRoutePowerMenu",
+    "label": "Power menu",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "hibernate",
+      "ipc",
+      "island",
+      "menu",
+      "power",
+      "reboot",
+      "restart",
+      "routing",
+      "shortcuts",
+      "shutdown",
+      "sleep",
+      "suspend"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandArrivalWheelDirection",
+    "label": "Reverse scroll direction",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "arrival",
+      "behavior",
+      "direction",
+      "inverted",
+      "island",
+      "natural",
+      "reverse",
+      "scroll",
+      "wheel"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandArrivalWheel",
+    "label": "Scroll through arrivals",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "arrival",
+      "arrivals",
+      "behavior",
+      "burst",
+      "goes",
+      "island",
+      "next",
+      "open",
+      "over",
+      "scroll",
+      "through",
+      "touchpad",
+      "wheel"
+    ],
+    "parentLabel": "Island",
+    "description": "The wheel or touchpad over the open island goes from one arrival to the next"
+  },
+  {
+    "section": "islandScrolling",
+    "label": "Scrolling",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "direction",
+      "island",
+      "scroll",
+      "scrolling",
+      "touchpad",
+      "wheel"
+    ],
+    "parentLabel": "Island",
+    "icon": "swap_vert"
+  },
+  {
+    "section": "islandRouteWallpaper",
+    "label": "Wallpapers",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "background",
+      "behavior",
+      "bg",
+      "desktop",
+      "image",
+      "ipc",
+      "island",
+      "picture",
+      "routing",
+      "shortcuts",
+      "wallpapers"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandRouteWeather",
+    "label": "Weather",
+    "tabIndex": 70,
+    "category": "Behavior",
+    "keywords": [
+      "behavior",
+      "climate",
+      "forecast",
+      "ipc",
+      "island",
+      "routing",
+      "shortcuts",
+      "temperature",
+      "weather"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBriefBubbles",
+    "label": "Always show brief info in a bubble",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "alert",
+      "always",
+      "beside",
+      "brief",
+      "bubble",
+      "bubbles",
+      "change",
+      "clipboard",
+      "connection",
+      "copied",
+      "copy",
+      "does",
+      "download",
+      "ethernet",
+      "file",
+      "finished",
+      "info",
+      "internet",
+      "island",
+      "network",
+      "notif",
+      "notification",
+      "open",
+      "same",
+      "saying",
+      "screenshot",
+      "show",
+      "shows",
+      "thing",
+      "trash",
+      "wi-fi",
+      "wifi",
+      "wireless"
+    ],
+    "parentLabel": "Island",
+    "description": "A copy, a finished download, a file in the trash or a network change shows only its bubble beside the island; an app's notification saying the same thing does not open in the island"
+  },
+  {
+    "section": "islandLevelBubbles",
+    "label": "Always show levels in a bubble",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "always",
+      "appear",
+      "audio",
+      "backlight",
+      "beside",
+      "bright",
+      "brightness",
+      "bubble",
+      "bubbles",
+      "changes",
+      "dim",
+      "inside",
+      "island",
+      "levels",
+      "loudness",
+      "microphone",
+      "osd",
+      "show",
+      "sound",
+      "speaker",
+      "volume"
+    ],
+    "parentLabel": "Island",
+    "description": "Volume, brightness and microphone changes appear beside the island instead of inside it"
+  },
+  {
+    "section": "islandEyeBreakInterval",
+    "label": "Break every",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "break",
+      "bubbles",
+      "every",
+      "eyes",
+      "interval",
+      "island",
+      "rhythm"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandEyeBreakDuration",
+    "label": "Break length",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "break",
+      "bubbles",
+      "duration",
+      "eyes",
+      "island",
+      "length"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "_tab_71",
+    "label": "Bubbles",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "breaks",
+      "bubble",
+      "bubbles",
+      "island",
+      "levels"
+    ],
+    "icon": "bubble_chart",
+    "parentLabel": "Island",
+    "description": "Levels, eye breaks, each bubble"
+  },
+  {
+    "section": "islandEyeBreaks",
+    "label": "Eye breaks",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "break",
+      "breaks",
+      "bubbles",
+      "eye",
+      "eyes",
+      "island",
+      "rest",
+      "wellbeing"
+    ],
+    "parentLabel": "Island",
+    "icon": "visibility"
+  },
+  {
+    "section": "islandReopenApps",
+    "label": "Offer to reopen",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "apps",
+      "background",
+      "bubble",
+      "bubbles",
+      "close",
+      "closing",
+      "discord",
+      "island",
+      "keep",
+      "offer",
+      "reopen",
+      "running",
+      "separated",
+      "shows",
+      "signal",
+      "steam",
+      "their",
+      "window"
+    ],
+    "parentLabel": "Island",
+    "icon": "restart_alt",
+    "description": "Apps that keep running in the background, separated by commas: closing their window shows a bubble to reopen it"
+  },
+  {
+    "section": "islandEyeBreak",
+    "label": "Remind me to look away",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "20-20-20",
+      "away",
+      "break",
+      "bubbles",
+      "call",
+      "during",
+      "eyes",
+      "fullscreen",
+      "island",
+      "look",
+      "never",
+      "over",
+      "remind",
+      "rest",
+      "screen",
+      "seconds",
+      "wellbeing",
+      "window"
+    ],
+    "parentLabel": "Island",
+    "description": "Now and then, look far away for a few seconds. Never over a fullscreen window or during a call"
+  },
+  {
+    "section": "islandBubbles",
+    "label": "Show in a bubble",
+    "tabIndex": 71,
+    "category": "Bubbles",
+    "keywords": [
+      "brightness",
+      "bubble",
+      "bubbles",
+      "island",
+      "notification",
+      "osd",
+      "reopen",
+      "show",
+      "volume"
+    ],
+    "parentLabel": "Island",
+    "icon": "bubble_chart"
+  },
+  {
+    "section": "islandAppFilter",
+    "label": "App filter",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "allow",
+      "app",
+      "apps",
+      "block",
+      "bubbles",
+      "exclude",
+      "filter",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "icon": "filter_alt"
+  },
+  {
+    "section": "islandAppFilterMode",
+    "label": "Apps",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "all",
+      "allow",
+      "apps",
+      "block",
+      "exclude",
+      "filter",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "description": "All"
+  },
+  {
+    "section": "islandChargingPulse",
+    "label": "Charging",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "battery",
+      "briefly",
+      "charge",
+      "charging",
+      "connected",
+      "hibernate",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "plugged",
+      "power",
+      "pulse",
+      "reboot",
+      "removed",
+      "restart",
+      "show",
+      "shutdown",
+      "sleep",
+      "suspend",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "description": "Show the battery briefly when power is connected or removed"
+  },
+  {
+    "section": "islandNotificationBadgeClearOnOpen",
+    "label": "Clear badge on open",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "badge",
+      "clear",
+      "dismiss",
+      "home",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "open",
+      "toast",
+      "unread"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandNotificationExpand",
+    "label": "Expand by default",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "arrival",
+      "default",
+      "expand",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "size",
+      "toast"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandQuietFollowDnd",
+    "label": "Follow Do Not Disturb",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "disturb",
+      "dnd",
+      "do not disturb",
+      "follow",
+      "island",
+      "messages",
+      "not",
+      "notif",
+      "notifications",
+      "notifs",
+      "quiet",
+      "toast",
+      "while"
+    ],
+    "parentLabel": "Island",
+    "description": "Quiet while Do Not Disturb is on in DMS"
+  },
+  {
+    "section": "_tab_72",
+    "label": "Island: Notifications",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "filter",
+      "hours",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "popups",
+      "quiet",
+      "toast"
+    ],
+    "icon": "notifications",
+    "parentLabel": "Island",
+    "description": "Popups, app filter, quiet hours"
+  },
+  {
+    "section": "islandAppFilterList",
+    "label": "Name",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "apps",
+      "case",
+      "desktop",
+      "file",
+      "filter",
+      "insensitive",
+      "island",
+      "list",
+      "messages",
+      "name",
+      "notif",
+      "notifications",
+      "notifs",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "icon": "add",
+    "description": "App name or desktop file name, case-insensitive"
+  },
+  {
+    "section": "islandNotifications",
+    "label": "Notifications",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "badge",
+      "expand",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "popup",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "icon": "notifications"
+  },
+  {
+    "section": "islandNotificationPopups",
+    "label": "Notifications as popups",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "arrival",
+      "bar",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "popup",
+      "popups",
+      "show",
+      "stack",
+      "standard",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "description": "New notifications show as DMS popups instead of in the island"
+  },
+  {
+    "section": "islandOsd",
+    "label": "On-screen displays",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "brightness",
+      "charging",
+      "displays",
+      "island",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "osd",
+      "screen",
+      "toast",
+      "volume"
+    ],
+    "parentLabel": "Island",
+    "icon": "tune"
+  },
+  {
+    "section": "islandPrivacy",
+    "label": "Privacy",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "body",
+      "hide",
+      "island",
+      "message",
+      "messages",
+      "notif",
+      "notifications",
+      "notifs",
+      "privacy",
+      "title",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "icon": "visibility_off"
+  },
+  {
+    "section": "islandPrivacyTitleOnly",
+    "label": "Privacy mode",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "body",
+      "bubbles",
+      "content",
+      "hidden",
+      "hide",
+      "island",
+      "message",
+      "messages",
+      "mode",
+      "notif",
+      "notifications",
+      "notifs",
+      "privacy",
+      "show",
+      "stays",
+      "title",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "description": "Bubbles show the app and title, the message stays hidden"
+  },
+  {
+    "section": "islandQuiet",
+    "label": "Quiet hours",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "dnd",
+      "do not disturb",
+      "hours",
+      "island",
+      "messages",
+      "night",
+      "notif",
+      "notifications",
+      "notifs",
+      "quiet",
+      "schedule",
+      "silence",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "icon": "bedtime"
+  },
+  {
+    "section": "islandQuietHours",
+    "label": "Scheduled quiet hours",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "between",
+      "end",
+      "every",
+      "hours",
+      "island",
+      "messages",
+      "night",
+      "notif",
+      "notifications",
+      "notifs",
+      "quiet",
+      "schedule",
+      "scheduled",
+      "start",
+      "time",
+      "times",
+      "toast"
+    ],
+    "parentLabel": "Island",
+    "description": "Quiet every day between these times"
+  },
+  {
+    "section": "islandSystemOsd",
+    "label": "Volume and brightness as OSD",
+    "tabIndex": 72,
+    "category": "Notifications",
+    "keywords": [
+      "alert",
+      "alerts",
+      "audio",
+      "backlight",
+      "bright",
+      "brightness",
+      "caps",
+      "caps lock",
+      "dim",
+      "displays",
+      "idle inhibitor",
+      "island",
+      "level",
+      "lock",
+      "loudness",
+      "messages",
+      "microphone",
+      "notif",
+      "notifications",
+      "notifs",
+      "osd",
+      "power profile",
+      "screen",
+      "sound",
+      "speaker",
+      "standard",
+      "toast",
+      "volume"
+    ],
+    "parentLabel": "Island",
+    "description": "Volume, brightness, microphone and Caps Lock use the DMS on-screen displays instead of the island"
+  },
+  {
+    "section": "islandShelfAccess",
+    "label": "Accessibility",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "accessibility",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "accessibility"
+  },
+  {
+    "section": "islandShelfZoneAction",
+    "label": "Action",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "action",
+      "command",
+      "convert",
+      "copy",
+      "does",
+      "dropping",
+      "file",
+      "island",
+      "move",
+      "share",
+      "shelf",
+      "what",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "description": "What dropping a file on this zone does"
+  },
+  {
+    "section": "islandShelfZoneAdd",
+    "label": "Add a zone",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "add",
+      "custom",
+      "island",
+      "new",
+      "shelf",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "icon": "add"
+  },
+  {
+    "section": "islandShelfCloudAfter",
+    "label": "After copying",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "copying",
+      "file",
+      "folder",
+      "happens",
+      "island",
+      "once",
+      "shelf",
+      "show",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "What happens once the file is in the folder"
+  },
+  {
+    "section": "islandShelfAnnounce",
+    "label": "Announce changes",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "action",
+      "announce",
+      "changes",
+      "island",
+      "reader",
+      "reads",
+      "says",
+      "screen",
+      "screen reader",
+      "sentence",
+      "shelf",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "A screen reader reads the sentence that says what an action did"
+  },
+  {
+    "section": "islandShelfArrivals",
+    "label": "Arrivals",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "arrivals",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "move_to_inbox"
+  },
+  {
+    "section": "islandShelfMaxItems",
+    "label": "At most",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "count",
+      "fall",
+      "files",
+      "island",
+      "limit",
+      "maximum",
+      "most",
+      "oldest",
+      "past",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Past this, the oldest files fall off"
+  },
+  {
+    "section": "islandShelfBubble",
+    "label": "Bubble",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "bubble",
+      "each bubble",
+      "island",
+      "lifetime",
+      "shelf",
+      "side",
+      "sound"
+    ],
+    "parentLabel": "Island",
+    "icon": "tune"
+  },
+  {
+    "section": "islandShelfBubbleScreens",
+    "label": "Bubble on",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "bubble",
+      "island",
+      "monitor",
+      "screen",
+      "screens",
+      "shelf",
+      "show"
+    ],
+    "parentLabel": "Island",
+    "description": "The screens that show the shelf bubble"
+  },
+  {
+    "section": "islandShelfClearConfirm",
+    "label": "Clear All",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "all",
+      "clear",
+      "confirm",
+      "confirmed",
+      "empty",
+      "emptying",
+      "hold",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "How emptying the shelf is confirmed"
+  },
+  {
+    "section": "islandShelfClearOnLogout",
+    "label": "Clear when logging out",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "clear",
+      "empty",
+      "island",
+      "logging",
+      "login",
+      "logout",
+      "next",
+      "out",
+      "shelf",
+      "starts"
+    ],
+    "parentLabel": "Island",
+    "description": "The shelf starts empty at the next login"
+  },
+  {
+    "section": "islandShelfShortcutClipboard",
+    "label": "Clipboard to the shelf",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "clipboard",
+      "cliphist",
+      "copy",
+      "history",
+      "island",
+      "keyboard",
+      "paste",
+      "shelf",
+      "shortcut"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandShelfCloseOnDragOut",
+    "label": "Close after dragging out",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "bubble",
+      "card",
+      "close",
+      "drag",
+      "dragging",
+      "folds",
+      "island",
+      "out",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "The card folds into its bubble"
+  },
+  {
+    "section": "islandShelfLightDismiss",
+    "label": "Close with Escape or a click outside",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "click",
+      "click outside",
+      "close",
+      "cross",
+      "dismiss",
+      "escape",
+      "island",
+      "lifts",
+      "outside",
+      "rule",
+      "shelf",
+      "shortcut"
+    ],
+    "parentLabel": "Island",
+    "description": "Lifts the rule that only the cross or the shortcut close the shelf"
+  },
+  {
+    "section": "islandShelfCloud",
+    "label": "Cloud folders",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "cloud",
+      "folders",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "cloud"
+  },
+  {
+    "section": "islandShelfConvertFormats",
+    "label": "Convert formats",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "convert",
+      "format",
+      "formats",
+      "island",
+      "jpg",
+      "mp4",
+      "pdf",
+      "png",
+      "shelf"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandShelfCloudMode",
+    "label": "Copy or move",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "cloud",
+      "copy",
+      "does",
+      "dropping",
+      "file",
+      "folder",
+      "island",
+      "move",
+      "shelf",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "What dropping a file on a folder does"
+  },
+  {
+    "section": "islandShelfCountMode",
+    "label": "Count",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "badge",
+      "bubble",
+      "count",
+      "entries",
+      "files",
+      "island",
+      "number",
+      "shelf",
+      "subtitle",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "What the subtitle and the bubble count"
+  },
+  {
+    "section": "islandShelfShareDevice",
+    "label": "Default device",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "ask",
+      "asking",
+      "default",
+      "device",
+      "every",
+      "island",
+      "send",
+      "shelf",
+      "time",
+      "without"
+    ],
+    "parentLabel": "Island",
+    "description": "Ask every time, or send to one device without asking"
+  },
+  {
+    "section": "islandShelfDensity",
+    "label": "Density",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "compact",
+      "density",
+      "gap",
+      "gaps",
+      "height",
+      "island",
+      "margin",
+      "margins",
+      "padding",
+      "rows",
+      "shelf",
+      "spacing",
+      "tiles"
+    ],
+    "parentLabel": "Island",
+    "description": "Spacing and height of the rows or tiles"
+  },
+  {
+    "section": "islandShelfHoverDetails",
+    "label": "Details on hover",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "appear",
+      "buttons",
+      "details",
+      "file",
+      "hover",
+      "island",
+      "pointer",
+      "preview",
+      "remove",
+      "rests",
+      "shelf",
+      "size",
+      "type"
+    ],
+    "parentLabel": "Island",
+    "description": "Size, type and two buttons appear when the pointer rests on a file"
+  },
+  {
+    "section": "islandShelfDoubleClick",
+    "label": "Double-click",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "click",
+      "does",
+      "double",
+      "file",
+      "island",
+      "open",
+      "preview",
+      "rename",
+      "shelf",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "What a double-click does to a file"
+  },
+  {
+    "section": "islandShelfDragOut",
+    "label": "Drag out as",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "copy",
+      "does",
+      "drag",
+      "dragging",
+      "file",
+      "island",
+      "link",
+      "move",
+      "out",
+      "shelf",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "What dragging a file out of the shelf does with it"
+  },
+  {
+    "section": "islandShelfEdgeDrop",
+    "label": "Drop at the screen edge",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "area",
+      "drop",
+      "edge",
+      "fitts",
+      "island",
+      "reaches",
+      "screen",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "The drop area of the island reaches the edge of the screen"
+  },
+  {
+    "section": "islandShelfDropIsland",
+    "label": "Drop on the island",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drop",
+      "dropped",
+      "file",
+      "goes",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "A file dropped on the island goes on the shelf"
+  },
+  {
+    "section": "islandShelf",
+    "label": "Drop zones",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drop",
+      "island",
+      "shelf",
+      "zones"
+    ],
+    "parentLabel": "Island",
+    "icon": "inventory_2"
+  },
+  {
+    "section": "islandShelfZoneEdit",
+    "label": "Edit a zone",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "action",
+      "edit",
+      "icon",
+      "island",
+      "keep",
+      "name",
+      "shelf",
+      "target",
+      "zone"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandShelfKeepOutputs",
+    "label": "Files made by actions",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "actions",
+      "archives",
+      "conversions",
+      "convert",
+      "extracts",
+      "files",
+      "island",
+      "kept",
+      "made",
+      "output",
+      "shelf",
+      "zip"
+    ],
+    "parentLabel": "Island",
+    "description": "Conversions, archives and extracts are kept on the shelf"
+  },
+  {
+    "section": "islandShelfDownloads",
+    "label": "Finished downloads",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "download",
+      "downloading",
+      "downloads",
+      "files",
+      "finish",
+      "finished",
+      "island",
+      "land",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Files that finish downloading land on the shelf"
+  },
+  {
+    "section": "islandShelfNewFilesDir",
+    "label": "Folder for new files",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "documents",
+      "empty",
+      "files",
+      "folder",
+      "island",
+      "means",
+      "new",
+      "new file",
+      "paste",
+      "pasted",
+      "shelf",
+      "untitled",
+      "where",
+      "written"
+    ],
+    "parentLabel": "Island",
+    "icon": "folder_open",
+    "description": "Where pasted and untitled files are written. Empty means Documents"
+  },
+  {
+    "section": "islandShelfFolderHoldMs",
+    "label": "Folder hold",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "another",
+      "file",
+      "folder",
+      "group",
+      "hold",
+      "holding",
+      "island",
+      "makes",
+      "over",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Holding a file over another one makes a folder"
+  },
+  {
+    "section": "islandShelfForgetRemovable",
+    "label": "Forget removable drives",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drive",
+      "drives",
+      "files",
+      "forget",
+      "forgotten",
+      "island",
+      "removable",
+      "shelf",
+      "unplugged",
+      "usb"
+    ],
+    "parentLabel": "Island",
+    "description": "Files of an unplugged drive are forgotten"
+  },
+  {
+    "section": "islandShelfHideNames",
+    "label": "Hide names in the island",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "bubble",
+      "hide",
+      "island",
+      "names",
+      "shelf",
+      "show",
+      "thumbnails"
+    ],
+    "parentLabel": "Island",
+    "description": "The island and the bubble show no names or thumbnails"
+  },
+  {
+    "section": "islandShelfZoneIcon",
+    "label": "Icon",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "icon",
+      "island",
+      "shelf",
+      "shown",
+      "symbol",
+      "tile",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "description": "Shown on the zone tile"
+  },
+  {
+    "section": "islandShelfInputs",
+    "label": "Inputs",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "inputs",
+      "island",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "input"
+  },
+  {
+    "section": "islandShelfShareKdeConnect",
+    "label": "KDE Connect",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "computers",
+      "connect",
+      "device",
+      "island",
+      "kde",
+      "kde connect",
+      "paired",
+      "phone",
+      "phones",
+      "send",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Send to phones and computers paired with KDE Connect"
+  },
+  {
+    "section": "islandShelfStoreMode",
+    "label": "Keep",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "copies",
+      "disk",
+      "island",
+      "keep",
+      "links",
+      "outlive",
+      "shelf",
+      "source",
+      "space",
+      "store",
+      "take",
+      "their"
+    ],
+    "parentLabel": "Island",
+    "description": "Copies outlive their source but take disk space"
+  },
+  {
+    "section": "islandShelfZoneKeep",
+    "label": "Keep files dropped here",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drop",
+      "dropped",
+      "file",
+      "files",
+      "here",
+      "island",
+      "keep",
+      "shelf",
+      "stay",
+      "stays",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "description": "A file dropped on this zone also stays on the shelf"
+  },
+  {
+    "section": "islandShelfKeepFor",
+    "label": "Keep files for",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "age",
+      "expire",
+      "fall",
+      "files",
+      "forever",
+      "island",
+      "keep",
+      "older",
+      "pinned",
+      "shelf",
+      "stay",
+      "time"
+    ],
+    "parentLabel": "Island",
+    "description": "Older files fall off the shelf. Pinned files stay"
+  },
+  {
+    "section": "islandShelfKeeping",
+    "label": "Keeping",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "keeping",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "schedule"
+  },
+  {
+    "section": "islandShelfKeyHints",
+    "label": "Key hints",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "always",
+      "card",
+      "hints",
+      "island",
+      "kbd",
+      "key",
+      "keys",
+      "shelf",
+      "shortcut",
+      "show",
+      "stays",
+      "title"
+    ],
+    "parentLabel": "Island",
+    "description": "When the shortcut keys show on the card. The one by the title always stays"
+  },
+  {
+    "section": "islandShelfLargeTargets",
+    "label": "Larger targets",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "bigger",
+      "fitts",
+      "island",
+      "larger",
+      "percent",
+      "rows",
+      "shelf",
+      "size",
+      "target",
+      "targets",
+      "tiles",
+      "zones"
+    ],
+    "parentLabel": "Island",
+    "description": "Tiles, rows and zones are 25 percent bigger"
+  },
+  {
+    "section": "islandShelfLayout",
+    "label": "Layout",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "card",
+      "gallery",
+      "island",
+      "layout",
+      "list",
+      "shape",
+      "shelf",
+      "stack",
+      "view"
+    ],
+    "parentLabel": "Island",
+    "description": "The shape of the shelf card"
+  },
+  {
+    "section": "islandShelfAcceptText",
+    "label": "Links and text",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drop",
+      "dropped",
+      "island",
+      "items",
+      "kept",
+      "link",
+      "links",
+      "pasted",
+      "shelf",
+      "text",
+      "url"
+    ],
+    "parentLabel": "Island",
+    "description": "Links and text dropped or pasted are kept as items"
+  },
+  {
+    "section": "islandShelfShareLocalSend",
+    "label": "LocalSend",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "device",
+      "devices",
+      "island",
+      "localsend",
+      "network",
+      "running",
+      "send",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Send to devices running LocalSend"
+  },
+  {
+    "section": "islandShelfLook",
+    "label": "Look",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "look",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "visibility"
+  },
+  {
+    "section": "islandShelfMessageMs",
+    "label": "Message time",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "action",
+      "duration",
+      "feedback",
+      "island",
+      "long",
+      "message",
+      "says",
+      "sentence",
+      "shelf",
+      "stays",
+      "time",
+      "what"
+    ],
+    "parentLabel": "Island",
+    "description": "How long the sentence that says what an action did stays"
+  },
+  {
+    "section": "islandShelfMissing",
+    "label": "Missing files",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "deleted",
+      "file",
+      "files",
+      "forget",
+      "island",
+      "missing",
+      "moved",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "A file that was moved or deleted"
+  },
+  {
+    "section": "islandShelfZoneName",
+    "label": "Name",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "name",
+      "rename",
+      "shelf",
+      "shown",
+      "tile",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "icon": "restart_alt",
+    "description": "Shown on the zone tile"
+  },
+  {
+    "section": "islandShelfDropPosition",
+    "label": "New files go",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "bottom",
+      "drop",
+      "dropped",
+      "file",
+      "files",
+      "island",
+      "lands",
+      "list",
+      "new",
+      "position",
+      "shelf",
+      "top",
+      "where"
+    ],
+    "parentLabel": "Island",
+    "description": "Where a dropped file lands in the list"
+  },
+  {
+    "section": "islandShelfScreen",
+    "label": "Open on",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "display",
+      "island",
+      "monitor",
+      "open",
+      "opens",
+      "screen",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "The screen the shelf opens on"
+  },
+  {
+    "section": "islandShelfCloudSpring",
+    "label": "Open on hover",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "cloud",
+      "file",
+      "folders",
+      "holding",
+      "hover",
+      "island",
+      "open",
+      "shelf",
+      "shows",
+      "targets"
+    ],
+    "parentLabel": "Island",
+    "description": "Holding a file on Cloud shows its folders as targets"
+  },
+  {
+    "section": "islandShelfShortcutToggle",
+    "label": "Open or close the shelf",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "close",
+      "island",
+      "keyboard",
+      "open",
+      "shelf",
+      "shortcut",
+      "super",
+      "toggle"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandShelfOpenOnArrival",
+    "label": "Open when files arrive",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "arrive",
+      "auto",
+      "drop",
+      "files",
+      "island",
+      "itself",
+      "lands",
+      "open",
+      "opens",
+      "shelf",
+      "something"
+    ],
+    "parentLabel": "Island",
+    "description": "Opens the shelf by itself when something lands"
+  },
+  {
+    "section": "islandShelfPaste",
+    "label": "Paste with Ctrl+V",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "clipboard",
+      "cliphist",
+      "copy",
+      "ctrl v",
+      "ctrl+v",
+      "files",
+      "history",
+      "island",
+      "paste",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "Files in the clipboard go on the shelf"
+  },
+  {
+    "section": "islandShelfPasteAs",
+    "label": "Pasted text becomes",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "becomes",
+      "clipboard",
+      "cliphist",
+      "copy",
+      "ends",
+      "file",
+      "history",
+      "island",
+      "note",
+      "paste",
+      "pasted",
+      "shelf",
+      "text",
+      "where"
+    ],
+    "parentLabel": "Island",
+    "description": "Where text from the clipboard ends up"
+  },
+  {
+    "section": "islandShelfPinnedFirst",
+    "label": "Pinned on top",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "before",
+      "favorite",
+      "files",
+      "island",
+      "pin",
+      "pinned",
+      "rest",
+      "shelf",
+      "stay",
+      "top"
+    ],
+    "parentLabel": "Island",
+    "description": "Pinned files stay before the rest"
+  },
+  {
+    "section": "islandShelfPreviewCache",
+    "label": "Preview cache",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "cache",
+      "disk",
+      "island",
+      "memory",
+      "never",
+      "preview",
+      "previews",
+      "rich",
+      "shelf",
+      "unless",
+      "written"
+    ],
+    "parentLabel": "Island",
+    "description": "Rich previews are never written to disk unless you ask"
+  },
+  {
+    "section": "islandShelfPreviewSize",
+    "label": "Preview size",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "preview",
+      "shelf",
+      "size",
+      "thumbnail",
+      "thumbnails"
+    ],
+    "parentLabel": "Island",
+    "description": "Size of the thumbnails"
+  },
+  {
+    "section": "islandShelfPreviews",
+    "label": "Previews",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "file",
+      "icon",
+      "island",
+      "picture",
+      "previews",
+      "shelf",
+      "small",
+      "thumbnail",
+      "type"
+    ],
+    "parentLabel": "Island",
+    "description": "A small picture of each file, or an icon for its type"
+  },
+  {
+    "section": "islandShelfPrivacy",
+    "label": "Privacy",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "privacy",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "lock"
+  },
+  {
+    "section": "islandShelfRecentRemoved",
+    "label": "Recently removed",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "back",
+      "bring",
+      "bring back",
+      "files",
+      "island",
+      "list",
+      "recently",
+      "removed",
+      "restore",
+      "shelf",
+      "trash"
+    ],
+    "parentLabel": "Island",
+    "description": "A list to bring removed files back"
+  },
+  {
+    "section": "islandShelfReduceMotion",
+    "label": "Reduce motion",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "always",
+      "animate",
+      "animation",
+      "animations",
+      "follows",
+      "island",
+      "motion",
+      "reduce",
+      "setting",
+      "shelf",
+      "skips",
+      "transition"
+    ],
+    "parentLabel": "Island",
+    "description": "Follows the DMS setting, or always skips the shelf animations"
+  },
+  {
+    "section": "islandShelfPersist",
+    "label": "Remember after restart",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "files",
+      "island",
+      "remember",
+      "restart",
+      "restarts",
+      "session",
+      "shelf",
+      "stay"
+    ],
+    "parentLabel": "Island",
+    "description": "Files stay on the shelf when DMS restarts"
+  },
+  {
+    "section": "islandShelfRemoveOnDragOut",
+    "label": "Remove after dragging out",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "drag",
+      "dragging",
+      "dropped",
+      "elsewhere",
+      "file",
+      "island",
+      "leaves",
+      "once",
+      "out",
+      "remove",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "description": "The file leaves the shelf once it is dropped elsewhere"
+  },
+  {
+    "section": "islandShelfRichPreviews",
+    "label": "Rich previews",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "ffmpeg",
+      "first",
+      "frame",
+      "island",
+      "needs",
+      "page",
+      "pdf",
+      "pdfs",
+      "pdftoppm",
+      "previews",
+      "rich",
+      "shelf",
+      "thumbnail",
+      "video",
+      "videos"
+    ],
+    "parentLabel": "Island",
+    "description": "First page of PDFs and a frame of videos. Needs pdftoppm and ffmpeg"
+  },
+  {
+    "section": "islandShelfMaxRows",
+    "label": "Rows before scrolling",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "before",
+      "card",
+      "growing",
+      "height",
+      "island",
+      "many",
+      "rows",
+      "scroll",
+      "scrolling",
+      "shelf",
+      "stops"
+    ],
+    "parentLabel": "Island",
+    "description": "The card stops growing after this many rows"
+  },
+  {
+    "section": "islandShelfScreens",
+    "label": "Screens",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "screens",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "monitor"
+  },
+  {
+    "section": "islandShelfShortcutScreenshot",
+    "label": "Screenshot to the shelf",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "capture",
+      "island",
+      "keyboard",
+      "screenshot",
+      "shelf",
+      "shortcut"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandShelfScreenshots",
+    "label": "Screenshots",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "capture",
+      "island",
+      "screenshot",
+      "screenshots",
+      "shelf",
+      "take"
+    ],
+    "parentLabel": "Island",
+    "description": "Screenshots you take"
+  },
+  {
+    "section": "islandShelfShare",
+    "label": "Share",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "share",
+      "shelf"
+    ],
+    "parentLabel": "Island",
+    "icon": "ios_share"
+  },
+  {
+    "section": "_tab_73",
+    "label": "Shelf",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "drops",
+      "island",
+      "look",
+      "privacy",
+      "shelf",
+      "zones"
+    ],
+    "icon": "inventory_2",
+    "parentLabel": "Island",
+    "description": "Look, drops, zones, privacy"
+  },
+  {
+    "section": "islandShelfShortcuts",
+    "label": "Shortcuts",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "shelf",
+      "shortcuts"
+    ],
+    "parentLabel": "Island",
+    "icon": "keyboard"
+  },
+  {
+    "section": "islandShelfZonesShown",
+    "label": "Show zones",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "always",
+      "card",
+      "drag",
+      "island",
+      "shelf",
+      "show",
+      "zones"
+    ],
+    "parentLabel": "Island",
+    "description": "When the zones show on the card"
+  },
+  {
+    "section": "islandShelfSort",
+    "label": "Sort by",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "list",
+      "name",
+      "order",
+      "recent",
+      "shelf",
+      "size",
+      "sort",
+      "type"
+    ],
+    "parentLabel": "Island",
+    "description": "The order of the list"
+  },
+  {
+    "section": "islandShelfTypeToSearch",
+    "label": "Start a search with",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "island",
+      "letter",
+      "name",
+      "search",
+      "shelf",
+      "slash",
+      "soon",
+      "start",
+      "starts",
+      "type",
+      "without"
+    ],
+    "parentLabel": "Island",
+    "description": "A letter starts the search as soon as you type a name, without the slash"
+  },
+  {
+    "section": "islandShelfStayOpen",
+    "label": "Stay open after a drop",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "after",
+      "back",
+      "close",
+      "drag",
+      "drop",
+      "folds",
+      "island",
+      "open",
+      "opened",
+      "shelf",
+      "stay",
+      "unless"
+    ],
+    "parentLabel": "Island",
+    "description": "A shelf opened by a drag folds back after the drop unless this is on"
+  },
+  {
+    "section": "islandShelfZoneTarget",
+    "label": "Target",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "arguments",
+      "command",
+      "device",
+      "file",
+      "folder",
+      "island",
+      "names",
+      "never",
+      "passed",
+      "shelf",
+      "shell",
+      "target",
+      "through",
+      "zone"
+    ],
+    "parentLabel": "Island",
+    "icon": "folder_open",
+    "description": "A command. The file names are passed to it as arguments, never through a shell"
+  },
+  {
+    "section": "islandShelfTextScale",
+    "label": "Text size",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "follows",
+      "font",
+      "island",
+      "larger",
+      "makes",
+      "scale",
+      "shelf",
+      "size",
+      "text"
+    ],
+    "parentLabel": "Island",
+    "description": "Follows the DMS font size, or makes the shelf text larger"
+  },
+  {
+    "section": "islandShelfLabel",
+    "label": "Under each file",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "caption",
+      "file",
+      "island",
+      "name",
+      "rest",
+      "shelf",
+      "size",
+      "under",
+      "what",
+      "written"
+    ],
+    "parentLabel": "Island",
+    "description": "What is written with a file at rest"
+  },
+  {
+    "section": "islandShelfUndoSteps",
+    "label": "Undo steps",
+    "tabIndex": 73,
+    "category": "Shelf",
+    "keywords": [
+      "actions",
+      "history",
+      "island",
+      "many",
+      "redo",
+      "shelf",
+      "steps",
+      "undo",
+      "undone"
+    ],
+    "parentLabel": "Island",
+    "description": "How many actions can be undone"
+  },
+  {
+    "section": "islandBubbleCorners",
+    "label": "Bubble corners",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "bubble",
+      "bubbles",
+      "corners",
+      "included",
+      "island",
+      "match",
+      "notch",
+      "pill",
+      "radius",
+      "round",
+      "rounded",
+      "shape",
+      "stay",
+      "style"
+    ],
+    "parentLabel": "Island",
+    "description": "Match the island's style, Notch included, or stay round"
+  },
+  {
+    "section": "islandShapes",
+    "label": "Bubble shapes",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "bubble",
+      "bubbles",
+      "color",
+      "corners",
+      "island",
+      "shape",
+      "shapes",
+      "style",
+      "tone"
+    ],
+    "parentLabel": "Island",
+    "icon": "category"
+  },
+  {
+    "section": "islandBubbleOutlineColor",
+    "label": "Color",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "accent",
+      "appearance",
+      "border",
+      "bubbles",
+      "color",
+      "colour",
+      "hue",
+      "island",
+      "outline",
+      "tint"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandHighContrast",
+    "label": "High contrast",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "accessibility",
+      "appearance",
+      "contrast",
+      "high",
+      "island",
+      "outline"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "_tab_74",
+    "label": "Island: Appearance",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "bubble",
+      "island",
+      "logos",
+      "outline",
+      "shapes"
+    ],
+    "icon": "palette",
+    "parentLabel": "Island",
+    "description": "Logos, bubble shapes, outline"
+  },
+  {
+    "section": "islandLogoShapeTone",
+    "label": "Logo background",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "auto",
+      "background",
+      "behind",
+      "contrast",
+      "dark",
+      "icon",
+      "island",
+      "light",
+      "logo",
+      "logos",
+      "picks",
+      "shape",
+      "stands",
+      "tone"
+    ],
+    "parentLabel": "Island",
+    "description": "The shape behind app logos. Auto picks the tone that stands out from each logo"
+  },
+  {
+    "section": "islandLogoShapeForm",
+    "label": "Logo shape",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "circle",
+      "cookie",
+      "cycle",
+      "icon",
+      "island",
+      "logo",
+      "material",
+      "shape"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandLogos",
+    "label": "Logos",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "app",
+      "appearance",
+      "background",
+      "icon",
+      "island",
+      "logo",
+      "logos",
+      "material",
+      "shape"
+    ],
+    "parentLabel": "Island",
+    "icon": "apps"
+  },
+  {
+    "section": "islandBubbleOutlineOpacity",
+    "label": "Opacity",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "border",
+      "bubbles",
+      "island",
+      "opacity",
+      "outline",
+      "transparency"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandOutline",
+    "label": "Outline",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "border",
+      "bubbles",
+      "island",
+      "outline",
+      "stroke"
+    ],
+    "parentLabel": "Island",
+    "icon": "border_style"
+  },
+  {
+    "section": "islandBubbleOutline",
+    "label": "Outline the bubbles",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "around",
+      "beside",
+      "border",
+      "bubbles",
+      "color",
+      "island",
+      "line",
+      "outline",
+      "stroke",
+      "thin"
+    ],
+    "parentLabel": "Island",
+    "description": "A thin line around the bubbles beside the island"
+  },
+  {
+    "section": "islandPalette",
+    "label": "Palette",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "bright",
+      "dim",
+      "island",
+      "palette",
+      "surface"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBubbleShapeStyle",
+    "label": "Shape style",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "bubbles",
+      "color",
+      "island",
+      "shape",
+      "style",
+      "tonal"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBubbleShapeTone",
+    "label": "Shape tone",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "background",
+      "bg",
+      "bubbles",
+      "color",
+      "colors",
+      "colour",
+      "colours",
+      "desktop",
+      "hue",
+      "image",
+      "island",
+      "matugen",
+      "palette",
+      "picture",
+      "scheme",
+      "shape",
+      "tint",
+      "tone",
+      "type",
+      "wallpaper"
+    ],
+    "parentLabel": "Island",
+    "description": "Colors per app type from a color scheme of your wallpaper"
+  },
+  {
+    "section": "islandSurface",
+    "label": "Surface",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "contrast",
+      "island",
+      "palette",
+      "surface"
+    ],
+    "parentLabel": "Island",
+    "icon": "palette"
+  },
+  {
+    "section": "islandBubbleOutlineWidth",
+    "label": "Width",
+    "tabIndex": 74,
+    "category": "Appearance",
+    "keywords": [
+      "appearance",
+      "border",
+      "bubbles",
+      "island",
+      "outline",
+      "thickness",
+      "width"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandArrival",
+    "label": "Arrival",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "arrival",
+      "island",
+      "motion",
+      "notification",
+      "style"
+    ],
+    "parentLabel": "Island",
+    "icon": "animation"
+  },
+  {
+    "section": "islandBounce",
+    "label": "Bounce",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "arrival",
+      "bounce",
+      "importance",
+      "island",
+      "motion",
+      "spring"
+    ],
+    "parentLabel": "Island",
+    "icon": "sports_basketball"
+  },
+  {
+    "section": "islandAnimation",
+    "label": "Bubble animation",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animate",
+      "animation",
+      "animations",
+      "bubble",
+      "bubbles",
+      "island",
+      "launcher",
+      "level",
+      "motion",
+      "transition"
+    ],
+    "parentLabel": "Island",
+    "icon": "motion_photos_on"
+  },
+  {
+    "section": "islandSpringDamping",
+    "label": "Damping",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "bounce",
+      "bounces",
+      "damping",
+      "island",
+      "lower",
+      "more",
+      "motion",
+      "quickly",
+      "settles",
+      "spring"
+    ],
+    "parentLabel": "Island",
+    "description": "How quickly the bounce settles. Lower bounces more"
+  },
+  {
+    "section": "islandBubbleLauncherTransition",
+    "label": "Launcher transition",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "app drawer",
+      "app menu",
+      "applications",
+      "bubbles",
+      "island",
+      "jelly",
+      "launcher",
+      "liquid",
+      "motion",
+      "pivot",
+      "start menu",
+      "transition"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBubbleDialStyle",
+    "label": "Level animation",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animate",
+      "animation",
+      "animations",
+      "bubbles",
+      "island",
+      "lean",
+      "level",
+      "motion",
+      "transition",
+      "volume",
+      "wave"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandSpringMass",
+    "label": "Mass",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "feels",
+      "further",
+      "heavy",
+      "higher",
+      "inertia",
+      "island",
+      "mass",
+      "motion",
+      "slower",
+      "spring",
+      "swings"
+    ],
+    "parentLabel": "Island",
+    "description": "How heavy the island feels. Higher is slower and swings further"
+  },
+  {
+    "section": "_tab_75",
+    "label": "Motion",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animate",
+      "animation",
+      "animations",
+      "arrival",
+      "bounce",
+      "island",
+      "motion",
+      "spring",
+      "transition"
+    ],
+    "icon": "animation",
+    "parentLabel": "Island",
+    "description": "Arrival, bounce, animation, spring"
+  },
+  {
+    "section": "islandBubbleMotion",
+    "label": "Motion intensity",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "bounce",
+      "bubbles",
+      "expressive",
+      "intensity",
+      "island",
+      "lean",
+      "motion",
+      "move",
+      "much",
+      "stretch",
+      "they"
+    ],
+    "parentLabel": "Island",
+    "description": "How much the bubbles lean, stretch and bounce as they move"
+  },
+  {
+    "section": "islandMotion",
+    "label": "Spring",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "island",
+      "motion",
+      "spring"
+    ],
+    "parentLabel": "Island",
+    "icon": "animation"
+  },
+  {
+    "section": "islandSpringStiffness",
+    "label": "Stiffness",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "fast",
+      "island",
+      "motion",
+      "shape",
+      "snaps",
+      "spring",
+      "stiffness"
+    ],
+    "parentLabel": "Island",
+    "description": "How fast the island snaps into shape"
+  },
+  {
+    "section": "islandArrivalStyle",
+    "label": "Style",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "animation",
+      "arrival",
+      "bounce",
+      "island",
+      "motion",
+      "notification",
+      "step",
+      "style"
+    ],
+    "parentLabel": "Island",
+    "description": "Step and bounce"
+  },
+  {
+    "section": "islandTint",
+    "label": "Tint",
+    "tabIndex": 75,
+    "category": "Motion",
+    "keywords": [
+      "arrival",
+      "color",
+      "importance",
+      "island",
+      "motion",
+      "tint"
+    ],
+    "parentLabel": "Island",
+    "icon": "format_color_fill"
+  },
+  {
+    "section": "_tab_76",
+    "label": "Island: Plugins",
+    "tabIndex": 76,
+    "category": "Plugins",
+    "keywords": [
+      "addon",
+      "addons",
+      "extend",
+      "extensions",
+      "faces",
+      "island",
+      "plugins",
+      "system",
+      "widgets"
+    ],
+    "icon": "extension",
+    "parentLabel": "Island",
+    "description": "Island plugins, system faces"
+  },
+  {
+    "section": "islandPlugins",
+    "label": "Plugins",
+    "tabIndex": 76,
+    "category": "Plugins",
+    "keywords": [
+      "activity",
+      "addon",
+      "addons",
+      "alert",
+      "extend",
+      "extensions",
+      "face",
+      "glance",
+      "island",
+      "live",
+      "osd",
+      "plugins",
+      "volume",
+      "widgets"
+    ],
+    "parentLabel": "Island",
+    "icon": "extension"
+  },
+  {
+    "section": "_tab_77",
+    "label": "Island: Advanced",
+    "tabIndex": 77,
+    "category": "Advanced",
+    "keywords": [
+      "advanced",
+      "fullscreen",
+      "island",
+      "layers"
+    ],
+    "icon": "settings",
+    "parentLabel": "Island",
+    "description": "Layers, fullscreen"
+  },
+  {
+    "section": "islandLayers",
+    "label": "Layers",
+    "tabIndex": 77,
+    "category": "Advanced",
+    "keywords": [
+      "advanced",
+      "fullscreen",
+      "island",
+      "layer",
+      "layers",
+      "overlay"
+    ],
+    "parentLabel": "Island",
+    "icon": "layers"
+  },
+  {
+    "section": "islandOverlayOnRequest",
+    "label": "Show requests over fullscreen",
+    "tabIndex": 77,
+    "category": "Advanced",
+    "keywords": [
+      "above",
+      "addons",
+      "advanced",
+      "authentication",
+      "extensions",
+      "fullscreen",
+      "island",
+      "layer",
+      "over",
+      "overlay",
+      "plugin",
+      "plugins",
+      "polkit",
+      "prompts",
+      "requests",
+      "show",
+      "stay",
+      "visible",
+      "widgets",
+      "windows"
+    ],
+    "parentLabel": "Island",
+    "description": "Authentication prompts and plugins that ask for it stay visible above fullscreen windows"
+  },
+  {
+    "section": "islandUseOverlayLayer",
+    "label": "Use overlay layer",
+    "tabIndex": 77,
+    "category": "Advanced",
+    "keywords": [
+      "above",
+      "advanced",
+      "fullscreen",
+      "island",
+      "layer",
+      "lives",
+      "overlay",
+      "windows"
+    ],
+    "parentLabel": "Island",
+    "description": "The island lives above fullscreen windows"
+  },
+  {
+    "section": "islandBubblesAlerts",
+    "label": "Alerts",
+    "tabIndex": 78,
+    "category": "Each bubble",
+    "keywords": [
+      "2fa",
+      "alert",
+      "alerts",
+      "attention",
+      "auth",
+      "battery",
+      "batterycritical",
+      "bubble",
+      "bubbles",
+      "callincoming",
+      "code",
+      "code2fa",
+      "critical",
+      "default",
+      "island",
+      "lifetimes",
+      "otp",
+      "password prompt",
+      "phone",
+      "plugin",
+      "pluginalert",
+      "polkit",
+      "rain",
+      "ring",
+      "shortens",
+      "storm",
+      "stretches",
+      "time scale",
+      "urgent",
+      "weather",
+      "weatheralert"
+    ],
+    "parentLabel": "Island",
+    "icon": "warning",
+    "description": "Stretches or shortens the default lifetimes of these bubbles"
+  },
+  {
+    "section": "islandBubblesApps",
+    "label": "Apps",
+    "tabIndex": 78,
+    "category": "Each bubble",
+    "keywords": [
+      "apps",
+      "bubble",
+      "bubbles",
+      "call",
+      "camera",
+      "clipboard",
+      "copy",
+      "crash",
+      "default",
+      "download",
+      "drive",
+      "extract",
+      "frozen",
+      "glance",
+      "island",
+      "lifetimes",
+      "live",
+      "media",
+      "message",
+      "music",
+      "notification",
+      "password",
+      "player",
+      "plugin",
+      "print",
+      "printer",
+      "privacy",
+      "progress",
+      "remote",
+      "reopen",
+      "secret",
+      "shortens",
+      "ssh",
+      "stretches",
+      "time scale",
+      "torrent",
+      "transfer",
+      "trash",
+      "tunnel",
+      "undo",
+      "usb",
+      "voice",
+      "vpn",
+      "webcam",
+      "window"
+    ],
+    "parentLabel": "Island",
+    "icon": "apps",
+    "description": "Stretches or shortens the default lifetimes of these bubbles"
+  },
+  {
+    "section": "islandBubbleTable",
+    "label": "Each bubble",
+    "tabIndex": 78,
+    "category": "Each bubble",
+    "keywords": [
+      "bubble",
+      "bubbles",
+      "dnd",
+      "do not disturb",
+      "importance",
+      "island",
+      "lifetime",
+      "side",
+      "sound",
+      "table"
+    ],
+    "parentLabel": "Island"
+  },
+  {
+    "section": "islandBubblesSystem",
+    "label": "System",
+    "tabIndex": 78,
+    "category": "Each bubble",
+    "keywords": [
+      "audio",
+      "backlight",
+      "battery",
+      "bluetooth",
+      "brightness",
+      "bubble",
+      "bubbles",
+      "caffeine",
+      "capslock",
+      "charging",
+      "default",
+      "disk",
+      "display",
+      "dnd",
+      "drop",
+      "eyes",
+      "files",
+      "gamepad",
+      "headphones",
+      "headset",
+      "hotspot",
+      "idle inhibitor",
+      "input",
+      "island",
+      "keepawake",
+      "keyboard",
+      "lifetimes",
+      "low",
+      "mic",
+      "micmute",
+      "microphone",
+      "monitor",
+      "mouse",
+      "mute",
+      "network",
+      "openwifi",
+      "output",
+      "performance",
+      "periph",
+      "plug",
+      "portal",
+      "power",
+      "powerprofile",
+      "quiet",
+      "rest",
+      "screen",
+      "shelf",
+      "shortens",
+      "sound",
+      "space",
+      "speaker",
+      "storage",
+      "stretches",
+      "system",
+      "time scale",
+      "volume",
+      "wifi"
+    ],
+    "parentLabel": "Island",
+    "icon": "memory",
+    "description": "Stretches or shortens the default lifetimes of these bubbles"
   }
 ]

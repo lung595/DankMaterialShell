@@ -509,6 +509,17 @@ FocusScope {
             "dankbar_appearance": "DBarAppearanceTab.qml",
             "dankbar_dot": "DDotTab.qml",
             "bar_widget": "BarWidgetTab.qml",
+            "island_general": "IslandGeneralTab.qml",
+            "island_home": "IslandHomeTab.qml",
+            "island_behavior": "IslandBehaviorTab.qml",
+            "island_bubbles": "IslandBubblesTab.qml",
+            "island_bubble_table": "IslandBubbleTableTab.qml",
+            "island_notifications": "IslandNotificationsTab.qml",
+            "island_shelf": "IslandShelfTab.qml",
+            "island_appearance": "IslandAppearanceTab.qml",
+            "island_motion": "IslandMotionTab.qml",
+            "island_plugins": "IslandPluginsTab.qml",
+            "island_advanced": "IslandAdvancedTab.qml",
             "compositor_layout": "CompositorLayoutTab.qml",
             "dock_general": "DockGeneralTab.qml",
             "dock_widgets": "DockWidgetsTab.qml",
@@ -558,7 +569,7 @@ FocusScope {
             "plugins_manage": "PluginsManageTab.qml"
         })
 
-    readonly property var pagesWithParentModal: ["dankbar_widgets", "window_rules", "notification_rules", "display_config", "users", "time_weather", "weather", "lock_screen", "greeter", "dank_dash", "wallpaper_cycling", "theme_schedule", "surface_shadows", "keybinds", "dankbar_settings", "dankbar_appearance", "bar_widget", "dock_general", "dock_widgets", "dock_appearance", "dock_advanced", "launcher", "theme", "theme_apps", "media_player", "desktop_widgets", "desktop_widget", "autostart", "compositor_layout", "updater", "display_gamma", "about"]
+    readonly property var pagesWithParentModal: ["dankbar_widgets", "window_rules", "notification_rules", "display_config", "users", "time_weather", "weather", "lock_screen", "greeter", "dank_dash", "wallpaper_cycling", "theme_schedule", "surface_shadows", "keybinds", "dankbar_settings", "dankbar_appearance", "dankbar_dot", "bar_widget", "island_general", "island_home", "island_behavior", "island_bubbles", "island_bubble_table", "island_notifications", "island_shelf", "island_appearance", "island_motion", "island_plugins", "island_advanced", "dock_general", "dock_widgets", "dock_appearance", "dock_advanced", "launcher", "theme", "theme_apps", "media_player", "desktop_widgets", "desktop_widget", "autostart", "compositor_layout", "updater", "display_gamma", "about"]
 
     // The page scroller stops at the Loader edges; wheel over the header and gutters lands here instead
     WheelHandler {

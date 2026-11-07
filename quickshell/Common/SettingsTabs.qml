@@ -104,7 +104,6 @@ Singleton {
                 {
                     "id": "dankbar_settings",
                     "hidden": true,
-                    "aliases": ["dank_island", "island"],
                     "text": I18n.tr("General", "adjective, settings page and section title for general options"),
                     "icon": "tune",
                     "tabIndex": 3,
@@ -147,6 +146,105 @@ Singleton {
                     "icon": "tune",
                     "tabIndex": 54,
                     "hint": I18n.tr("Options of one widget instance")
+                }
+            ]
+        },
+        {
+            "id": "island",
+            "aliases": ["dank_island", "islands"],
+            "text": I18n.tr("Island", "settings page name for the island bubbles, notifications and motion"),
+            "icon": "blur_on",
+            "hint": I18n.tr("Bubbles, notifications, motion", "settings sidebar hint for the island pages"),
+            "hubHeader": "IslandHubHeader",
+            // The header lists the pages itself, since a bar island, a hosted one and the dot do not get the same ones.
+            "children": [
+                {
+                    "id": "island_general",
+                    "hidden": true,
+                    "text": I18n.tr("General"),
+                    "icon": "tune",
+                    "tabIndex": 68,
+                    "hint": I18n.tr("Edge, placement, reserved space", "settings hint for the island general page")
+                },
+                {
+                    "id": "island_home",
+                    "hidden": true,
+                    "text": I18n.tr("Home", "island settings: page of the compact face at rest"),
+                    "icon": "home",
+                    "tabIndex": 69,
+                    "hint": I18n.tr("Groups, clock, media, satellites", "settings hint for the island home page")
+                },
+                {
+                    "id": "island_behavior",
+                    "hidden": true,
+                    "text": I18n.tr("Behavior", "island settings: behavior card title"),
+                    "icon": "touch_app",
+                    "tabIndex": 70,
+                    "hint": I18n.tr("Opening, shortcuts, scrolling", "settings hint for the island behavior page")
+                },
+                {
+                    "id": "island_bubbles",
+                    "hidden": true,
+                    "text": I18n.tr("Bubbles", "island settings: bubbles card title"),
+                    "icon": "bubble_chart",
+                    "tabIndex": 71,
+                    "hint": I18n.tr("Levels, eye breaks, each bubble", "settings hint for the island bubbles page")
+                },
+                {
+                    "id": "island_bubble_table",
+                    "hidden": true,
+                    "text": I18n.tr("Each bubble", "island settings: page of the per-bubble table"),
+                    "icon": "tune",
+                    "tabIndex": 78,
+                    "hint": I18n.tr("Side, lifetime, importance, sound", "settings hint for the island bubble table page")
+                },
+                {
+                    "id": "island_notifications",
+                    "hidden": true,
+                    "text": I18n.tr("Notifications", "island settings: notifications card title"),
+                    "icon": "notifications",
+                    "tabIndex": 72,
+                    "hint": I18n.tr("Popups, app filter, quiet hours", "settings hint for the island notifications page")
+                },
+                {
+                    "id": "island_shelf",
+                    "hidden": true,
+                    "text": I18n.tr("Shelf", "island shelf: its name"),
+                    "icon": "inventory_2",
+                    "tabIndex": 73,
+                    "hint": I18n.tr("Look, drops, zones, privacy", "settings hint for the island shelf page")
+                },
+                {
+                    "id": "island_appearance",
+                    "hidden": true,
+                    "text": I18n.tr("Appearance", "settings page and section title for visual options"),
+                    "icon": "palette",
+                    "tabIndex": 74,
+                    "hint": I18n.tr("Logos, bubble shapes, outline", "settings hint for the island appearance page")
+                },
+                {
+                    "id": "island_motion",
+                    "hidden": true,
+                    "text": I18n.tr("Motion", "island settings: spring motion card title"),
+                    "icon": "animation",
+                    "tabIndex": 75,
+                    "hint": I18n.tr("Arrival, bounce, animation, spring", "settings hint for the island motion page")
+                },
+                {
+                    "id": "island_plugins",
+                    "hidden": true,
+                    "text": I18n.tr("Plugins", "island settings: plugins card title"),
+                    "icon": "extension",
+                    "tabIndex": 76,
+                    "hint": I18n.tr("Island plugins, system faces", "settings hint for the island plugins page")
+                },
+                {
+                    "id": "island_advanced",
+                    "hidden": true,
+                    "text": I18n.tr("Advanced"),
+                    "icon": "settings",
+                    "tabIndex": 77,
+                    "hint": I18n.tr("Layers, fullscreen", "settings hint for the island advanced page")
                 }
             ]
         },

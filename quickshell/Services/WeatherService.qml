@@ -6,6 +6,7 @@ import Quickshell
 import Quickshell.Io
 import qs.Common
 import "../Common/suncalc.js" as SunCalc
+import "../Common/IslandWeather.js" as IslandWeather
 
 Singleton {
     id: root
@@ -497,7 +498,7 @@ Singleton {
         if (lat == null || lon == null)
             return null;
 
-        const params = ["latitude=" + lat, "longitude=" + lon, "current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m", "daily=sunrise,sunset,moonrise,moonset,temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max", "hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m,apparent_temperature,relative_humidity_2m,surface_pressure,visibility,cloud_cover,uv_index,dew_point_2m", "timezone=auto", "forecast_days=7"];
+        const params = ["latitude=" + lat, "longitude=" + lon, "current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m", "daily=sunrise,sunset,moonrise,moonset,temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max", "hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m,apparent_temperature,relative_humidity_2m,surface_pressure,visibility,cloud_cover,uv_index,dew_point_2m", "minutely_15=rain,snowfall,weather_code,visibility,wind_gusts_10m,apparent_temperature", "forecast_minutely_15=24", "timezone=auto", "forecast_days=7"];
 
         return "https://api.open-meteo.com/v1/forecast?" + params.join('&');
     }
@@ -953,6 +954,7 @@ Singleton {
                                 "pressure": Math.round(hourly.surface_pressure?.[i] || 0),
                                 "precipitationProbability": Math.round(hourly.precipitation_probability?.[i] || 0),
                                 "visibility": Math.round(hourly.visibility?.[i] || 0),
+                                "uv": Number.isFinite(hourly.uv_index?.[i]) ? hourly.uv_index[i] : null,
                                 "isDay": isDay
                             });
                         }
@@ -1026,7 +1028,8 @@ Singleton {
                         "precipitationProbability": Math.round(daily.precipitation_probability_max?.[0] || 0),
                         "isDay": Boolean(current.is_day),
                         "forecast": forecast,
-                        "hourlyForecast": hourly_forecast
+                        "hourlyForecast": hourly_forecast,
+                        "minutely15": IslandWeather.rows15(data.minutely_15)
                     };
                     root.handleWeatherSuccess();
                 } catch (e) {

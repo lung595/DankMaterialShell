@@ -207,6 +207,10 @@ var LOCAL_SPEC = {
     vpnLastConnected: {
         def: ""
     },
+    // Open Wi-Fi networks (SSIDs) where the island connects the VPN at once ("Always for this network").
+    vpnAutoNetworks: {
+        def: []
+    },
     bluetoothAdapterOverride: {
         def: ""
     },
@@ -255,6 +259,15 @@ var LOCAL_SPEC = {
     },
     islandFreePositions: {
         def: {}
+    },
+    islandScreenChoices: {
+        def: {}
+    },
+    islandPeriphTypes: {
+        def: {}
+    },
+    islandShelf: {
+        def: []
     },
     builtInPluginState: {
         def: {}

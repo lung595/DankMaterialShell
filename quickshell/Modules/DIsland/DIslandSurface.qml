@@ -5,8 +5,12 @@ import QtQuick
 import qs.Common
 import qs.Modules.DDash
 import qs.Modules.DIsland.Activities
+import qs.Modules.DIsland.Kit
+import qs.Modules.Notifications
 import qs.Services
 import qs.Widgets
+import "../../Common/IslandArrival.js" as Arrival
+import "../../Common/IslandKit.js" as IslandKit
 
 Item {
     id: root
@@ -18,6 +22,7 @@ Item {
     required property var launcherController
     property var launcherTransientSurfaceTracker: null
     property var effectiveScreen: null
+    readonly property bool pluginShown: contentHost.surfaceActive("plugin")
     property bool reducedMotion: false
     property real springStiffness: 560
     property real springDamping: 37
@@ -50,6 +55,9 @@ Item {
         root.applyTarget();
     }
     property Component compactFaceOverride: null
+    property var pluginActivity: null
+    property var pluginFace: null
+    property var systemFace: null
     // "own" paints the palette; "band" wears the host bar's colour with join corners; "none" paints nothing and leaves the silhouette to the frame SDF.
     property string chrome: "own"
     // Flush with the screen edge, with concave flares where it meets it.
@@ -80,21 +88,26 @@ Item {
     readonly property string autoBarShadowDirection: root.controller.edge
     readonly property string effectiveShadowDirection: Theme.elevationLightDirection === "autoBar" ? autoBarShadowDirection : Theme.elevationLightDirection
     readonly property real currentSurfaceRadius: Math.max(0, motion.currentTopLeftRadius, motion.currentBottomLeftRadius)
-    readonly property color notificationAccentColor: {
-        if (!root.controller.notificationActive)
-            return "transparent";
-        if (root.notificationModel.critical)
-            return Theme.error;
-        if (root.notificationModel.important)
-            return Theme.warning;
-        return "transparent";
-    }
+    // A ringing call's shape rocks back on the island's spring at the wing's entry damping.
+    readonly property var ringSpring: [motion.stiffness, bubbles.inDampingRatio, motion.mass]
 
     signal scrollWheel(var wheel)
+    signal bubbleActivated(var bubble)
+    signal bubbleDismissed(var bubble)
+    signal bubbleHovered(var bubble, bool inside)
+    signal bubbleWheeled(var bubble, var wheel)
+    // The island face's bubble (IslandBarHost.faceBubble), whose card the island grows into; its close dismisses it.
+    property var faceBubble: null
+    signal faceActivated(var bubble)
+    signal faceDismissed(var bubble)
+    property var bubbleSides: null
+    // IslandShelfSource: files dragged onto the island land on its shelf.
+    property var shelf: null
 
     readonly property alias inputMaskItem: inputEnvelope
     readonly property alias fittsStripItem: fittsStrip
     readonly property alias surfaceMotion: motion
+    readonly property alias bubbles: bubbles
     readonly property bool motionRunning: motion.running
     onMotionRunningChanged: {
         if (!motionRunning && requestedWindow)
@@ -143,6 +156,29 @@ Item {
             return controller.expanded ? 1 : 0;
         return Math.max(0, Math.min(1, (currentVisualCross - fadeCompactCross) / span));
     }
+
+    // How far the island has grown from the notification's compact face to its arrival card, read from the spring:
+    // unclamped (the shared icon and title fly on it, bounce included), and clamped for the fades.
+    readonly property real arrivalGrow: {
+        // A swell without the card (a brief info, style C or A) keeps the compact face.
+        if (!root.controller.notificationActive || root.controller.expanded || root.isVertical || !(root.controller.arrivalPulse?.big || root.controller.arrivalPull > 0))
+            return 0;
+        return Arrival.grow(root.currentVisualCross, root.controller.compactTargetFor("notification").height, root.controller.arrivalBigTarget.height, root.reducedMotion);
+    }
+    readonly property real arrivalBigness: Math.max(0, Math.min(1, arrivalGrow))
+    // Where the compact notification face shows its icon and title (NotificationCompact.places), for the card's flight.
+    property var notificationPlaces: null
+    // How far the island has grown from a face to its bubble's card, read from the spring.
+    readonly property real faceBigness: {
+        if (!root.controller.faceCardAvailable || root.controller.expanded || root.isVertical || root.controller.faceCardHeight <= 0)
+            return 0;
+        const compact = root.controller.compactTargetFor(root.controller.activeActivity).height;
+        const span = root.controller.faceCardTarget.height - compact;
+        return span < 1 ? 0 : Math.max(0, Math.min(1, (root.currentVisualCross - compact) / span));
+    }
+    // The finger's way sideways over the card.
+    property real arrivalDragX: 0
+    property real arrivalDragY: 0
 
     readonly property QtObject resizeGeometry: QtObject {
         readonly property real renderedX: root.currentScreenX
@@ -331,6 +367,18 @@ Item {
             openWindow.cancel();
             root.requestedWindow = "";
         }
+
+        // A newcomer rolling over the card: a small bounce of the island's height.
+        function onArrivalNudgesChanged() {
+            if (root.reducedMotion)
+                return;
+            motion.velocityHeight += Arrival.nudge * root.controller.compactFaceThickness;
+            motion.running = true;
+        }
+
+        function onArrivalFlashesChanged() {
+            tintFade.restart();
+        }
     }
 
     VectorSpringMotion {
@@ -363,10 +411,31 @@ Item {
             return Math.ceil(span * Math.exp(-Math.PI * zeta / Math.sqrt(1 - zeta * zeta)));
         }
 
-        x: (motion.running ? Math.min(root.motionStartBounds.x, root.targetVisualX) : root.targetVisualX) - overshootBudget
-        y: (motion.running ? Math.min(root.motionStartBounds.y, root.targetVisualY) : root.targetVisualY) - overshootBudget
-        width: (motion.running ? Math.max(root.motionStartBounds.x + root.motionStartBounds.width, root.targetVisualX + motion.targetWidth) : root.targetVisualX + motion.targetWidth) + overshootBudget - x
-        height: (motion.running ? Math.max(root.motionStartBounds.y + root.motionStartBounds.height, root.targetVisualY + motion.targetHeight) : root.targetVisualY + motion.targetHeight) + overshootBudget - y
+        readonly property real islandLeft: (motion.running ? Math.min(root.motionStartBounds.x, root.targetVisualX) : root.targetVisualX) - overshootBudget
+        readonly property real islandTop: (motion.running ? Math.min(root.motionStartBounds.y, root.targetVisualY) : root.targetVisualY) - overshootBudget
+        readonly property real islandRight: (motion.running ? Math.max(root.motionStartBounds.x + root.motionStartBounds.width, root.targetVisualX + motion.targetWidth) : root.targetVisualX + motion.targetWidth) + overshootBudget
+        readonly property real islandBottom: (motion.running ? Math.max(root.motionStartBounds.y + root.motionStartBounds.height, root.targetVisualY + motion.targetHeight) : root.targetVisualY + motion.targetHeight) + overshootBudget
+        readonly property rect bubbleRect: bubbles.envelope
+        readonly property bool hasBubbles: bubbleRect.width > 0
+
+        x: hasBubbles ? Math.min(islandLeft, bubbleRect.x) : islandLeft
+        y: hasBubbles ? Math.min(islandTop, bubbleRect.y) : islandTop
+        width: (hasBubbles ? Math.max(islandRight, bubbleRect.x + bubbleRect.width) : islandRight) - x
+        height: (hasBubbles ? Math.max(islandBottom, bubbleRect.y + bubbleRect.height) : islandBottom) - y
+    }
+
+    IslandBubbles {
+        id: bubbles
+
+        anchors.fill: parent
+        surface: root
+        sides: root.bubbleSides
+        color: root.embedded ? Theme.withAlpha(root.surfaceColor, root.islandOpacity) : root.effectiveSurfaceColor
+        reducedMotion: root.reducedMotion
+        onActivated: bubble => root.bubbleActivated(bubble)
+        onDismissed: bubble => root.bubbleDismissed(bubble)
+        onHovered: (bubble, inside) => root.bubbleHovered(bubble, inside)
+        onWheeled: (bubble, wheel) => root.bubbleWheeled(bubble, wheel)
     }
 
     Loader {
@@ -386,8 +455,8 @@ Item {
         height: root.currentVisualHeight
         // Embedded, the band already paints the in-band strip; overhangFill draws the rest, so a translucent band never double-alphas.
         color: root.embedded ? "transparent" : root.effectiveSurfaceColor
-        border.width: root.notificationAccentColor !== "transparent" ? 1.5 : root.embedded ? 0 : (root.highContrast ? 2 : (root.popupStyled && !root.notch ? BlurService.borderWidth : 0))
-        border.color: root.notificationAccentColor !== "transparent" ? root.notificationAccentColor : (root.highContrast ? Theme.outlineStrong : (root.popupStyled && !root.notch ? BlurService.borderColor : "transparent"))
+        border.width: root.embedded ? 0 : (root.highContrast ? 2 : (root.popupStyled && !root.notch ? BlurService.borderWidth : 0))
+        border.color: root.highContrast ? Theme.outlineStrong : (root.popupStyled && !root.notch ? BlurService.borderColor : "transparent")
 
         Behavior on color {
             ColorAnimation {
@@ -414,6 +483,54 @@ Item {
             bottomRightRadius: parent.bottomRightRadius
         }
 
+        // An arriving info tints the island with its colour, fading out.
+        Rectangle {
+            id: tint
+
+            anchors.fill: parent
+            visible: opacity > 0
+            opacity: 0
+            color: root.controller.notificationActive && root.notificationModel.critical ? Theme.errorContainer : Theme.primaryContainer
+            topLeftRadius: parent.topLeftRadius
+            topRightRadius: parent.topRightRadius
+            bottomLeftRadius: parent.bottomLeftRadius
+            bottomRightRadius: parent.bottomRightRadius
+
+            NumberAnimation {
+                id: tintFade
+
+                target: tint
+                property: "opacity"
+                from: root.controller.arrivalTint
+                to: 0
+                duration: IslandKit.beat("tint", root.reducedMotion ? 0 : Theme.currentAnimationBaseDuration)
+                easing.type: Easing.OutQuad
+            }
+        }
+
+        // A weather alert: its sky in the whole island, under the face.
+        IslandWeatherLayer {
+            anchors.fill: parent
+            shape: island
+            active: root.controller.activeActivity === "weatheralert"
+            weather: root.faceBubble?.weather ?? null
+            expanded: root.controller.expanded
+            cardShown: root.controller.faceCardShown
+        }
+
+        // The open island's charge face counts its level and reveals its chips on the island's growth into it
+        // (BubbleChargeFace), read from its source.
+        Binding {
+            id: chargeGrow
+
+            readonly property var charge: root.controller.activeActivity === "charging" && root.faceBubble?.kind === "chargeface" ? root.faceBubble.charge : null
+
+            target: chargeGrow.charge
+            property: "grow"
+            value: root.faceBigness
+            when: chargeGrow.charge !== null
+        }
+
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -425,7 +542,10 @@ Item {
                     wheel.accepted = false;
                     return;
                 }
-                root.scrollWheel(wheel);
+                // Over an open burst the wheel turns its pages; else it keeps its role.
+                // A touchpad gives pixels, a wheel notch 120 eighths of a degree: a third of it is about a page.
+                if (!root.controller.arrivalWheel(Arrival.wheelDelta(wheel.pixelDelta, wheel.angleDelta)))
+                    root.scrollWheel(wheel);
                 wheel.accepted = true;
             }
         }
@@ -437,6 +557,10 @@ Item {
             surfaceColor: root.effectiveSurfaceColor
             freeMode: root.freeMode
             compactFaceOverride: root.compactFaceOverride
+            // Faces fade out before the card the island grows into shows over them.
+            compactVeil: Math.min(1, root.faceBigness / bubbles.revealFrom)
+            pluginActivity: root.pluginActivity
+            pluginFace: root.pluginFace
             resolveTarget: target => root.resolveTarget(target)
             expandedInset: root.embedded && !root.freeMode ? root.nearInset : 0
             islandX: root.currentVisualX
@@ -462,8 +586,8 @@ Item {
             weatherExpandedComponent: expandedWeatherComponent
             wellbeingCompactComponent: compactWellbeingComponent
             wellbeingExpandedComponent: expandedWellbeingComponent
-            systemCompactComponent: compactSystemComponent
-            systemExpandedComponent: expandedSystemComponent
+            systemCompactComponent: root.systemFace?.compactContent ?? compactSystemComponent
+            systemExpandedComponent: root.systemFace?.expandedContent ?? expandedSystemComponent
             notificationCompactComponent: compactNotificationComponent
             notificationExpandedComponent: expandedNotificationComponent
             notificationCenterCompactComponent: compactNotificationCenterComponent
@@ -472,6 +596,141 @@ Item {
             clipboardExpandedComponent: expandedClipboardComponent
             powerMenuCompactComponent: compactPowerMenuComponent
             powerMenuExpandedComponent: expandedPowerMenuComponent
+        }
+
+        // Fingers and drags over a notification: sideways turns the burst's pages (the card follows), toward the screen
+        // edge tidies everything away, away from it opens the full card (the island follows). Above the faces, it only
+        // steals a press once it is a drag, so clicks still reach them; under the cards, whose buttons it blocked from above.
+        Item {
+            anchors.fill: parent
+            enabled: root.controller.notificationActive && !root.isVertical
+
+            DragHandler {
+                id: arrivalDrag
+
+                target: null
+                onActiveChanged: {
+                    root.controller.arrivalDragging = active;
+                    if (active)
+                        return;
+                    root.controller.arrivalSwipe(root.arrivalDragX, root.arrivalDragY);
+                    root.arrivalDragX = 0;
+                    root.arrivalDragY = 0;
+                }
+                onActiveTranslationChanged: {
+                    const t = activeTranslation;
+                    if (Math.abs(t.x) > Math.abs(t.y)) {
+                        root.arrivalDragX = root.controller.arrivalBrowsable ? t.x : 0;
+                        root.arrivalDragY = 0;
+                        root.controller.arrivalPull = 0;
+                        return;
+                    }
+                    root.arrivalDragX = 0;
+                    root.arrivalDragY = t.y;
+                    root.controller.arrivalPull = root.farEdge ? -t.y : t.y;
+                }
+            }
+        }
+
+        // A face's bubble card, the same file its wing loads, pinned to the island's near edge on the card grid (margins
+        // pad), revealed as the island grows into it. Built while wanted or still showing, so the island knows its height.
+        Item {
+            anchors.fill: parent
+            clip: true
+            visible: root.faceBigness > bubbles.revealFrom
+
+            Item {
+                id: faceCardFrame
+
+                readonly property real pad: NotificationMetrics.cardPadding
+                readonly property Component card: bubbles.cardFor(root.faceBubble)
+
+                x: Math.round((parent.width - width) / 2)
+                y: Arrival.centered(parent.height, height)
+                width: root.controller.faceCardTarget.width
+                height: root.controller.faceCardTarget.height
+
+                Loader {
+                    id: faceCard
+
+                    x: faceCardFrame.pad
+                    y: root.farEdge ? faceCardFrame.height - faceCardFrame.pad - height : faceCardFrame.pad
+                    width: faceCardFrame.width - faceCardFrame.pad * 2
+                    active: faceCardFrame.card !== null && (root.controller.faceCardShown || root.faceBigness > 0)
+                    sourceComponent: faceCardFrame.card
+                    opacity: (root.faceBigness - bubbles.revealFrom) / (1 - bubbles.revealFrom)
+                    enabled: opacity >= 0.5
+
+                    Binding {
+                        target: faceCard.item
+                        property: "bubble"
+                        value: root.faceBubble
+                        when: faceCard.status === Loader.Ready
+                    }
+                    // Only the header near the island's edge echoes its corners; pinned to the far edge, it sits away from them.
+                    Binding {
+                        target: faceCard.item
+                        property: "headerTopLeftRadius"
+                        value: Math.min(Theme.cornerRadius, island.topLeftRadius)
+                        when: faceCard.status === Loader.Ready && !root.farEdge && "headerTopLeftRadius" in faceCard.item
+                    }
+                    Binding {
+                        target: faceCard.item
+                        property: "headerTopRightRadius"
+                        value: Math.min(Theme.cornerRadius, island.topRightRadius)
+                        when: faceCard.status === Loader.Ready && !root.farEdge && "headerTopRightRadius" in faceCard.item
+                    }
+                    Connections {
+                        target: faceCard.item
+                        ignoreUnknownSignals: true
+
+                        function onActivated(bubble) {
+                            root.faceActivated(bubble);
+                        }
+                        function onDismissed(bubble) {
+                            root.faceDismissed(bubble);
+                        }
+                    }
+                }
+                Binding {
+                    target: root.controller
+                    property: "faceCardHeight"
+                    delayed: true // in reduced motion faceBigness follows this height at once, and the card's follows it: a loop
+                    value: faceCard.item ? Math.ceil(faceCard.item.implicitHeight + faceCardFrame.pad * 2) : 0
+                }
+            }
+        }
+
+        // The arrival card, centred in the island as it grows into it: the icon and title fly from the compact face's
+        // places, the card's own lines come in late (and leave first on the way back).
+        Item {
+            anchors.fill: parent
+            clip: true
+            visible: root.arrivalBigness > 0
+
+            ArrivalCard {
+                id: arrivalCard
+
+                x: Math.round((parent.width - width) / 2)
+                y: Arrival.centered(parent.height, height)
+                grow: root.arrivalGrow
+                reveal: bubbles.revealFrom
+                from: root.notificationPlaces
+                enabled: hand.cardOwn >= 0.5
+                controller: root.controller
+                notificationModel: root.notificationModel
+                reducedMotion: root.reducedMotion
+                dragX: root.arrivalDragX
+                ringSpring: root.ringSpring
+            }
+        }
+
+        IslandShelfDrop {
+            anchors.fill: parent
+            shelf: root.shelf
+            vertical: root.isVertical
+            farEdge: root.farEdge
+            edgeGap: fittsStrip.visible ? fittsStrip.edgeGap : 0
         }
 
         HoverHandler {
@@ -823,10 +1082,23 @@ Item {
         id: compactNotificationComponent
 
         NotificationCompact {
+            id: notificationFace
+
             notificationModel: root.notificationModel
             controller: root.controller
             dense: root.controller.compactDense
             iconSize: root.controller.compactIconSize
+            ringSpring: root.ringSpring
+            // Its icon and title fly to the arrival card's on the island's spring; the rest is gone before the card shows.
+            grow: root.arrivalGrow
+            reveal: bubbles.revealFrom
+            to: arrivalCard.places
+
+            Binding {
+                target: root
+                property: "notificationPlaces"
+                value: notificationFace.places
+            }
         }
     }
 

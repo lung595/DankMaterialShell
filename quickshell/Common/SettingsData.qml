@@ -128,6 +128,115 @@ Singleton {
         return launcherPluginVisibility[pluginId].allowWithoutTrigger !== false;
     }
 
+    property var islandPluginsBlocked: Spec.SPEC.islandPluginsBlocked.def
+    property var islandSystemFaces: Spec.SPEC.islandSystemFaces.def
+    property bool islandLevelBubbles: Spec.SPEC.islandLevelBubbles.def
+    property bool islandBriefBubbles: Spec.SPEC.islandBriefBubbles.def
+    property string islandArrivalStyle: Spec.SPEC.islandArrivalStyle.def
+    property var islandArrivalBounce: Spec.SPEC.islandArrivalBounce.def
+    property var islandArrivalTint: Spec.SPEC.islandArrivalTint.def
+    property bool islandArrivalWheel: Spec.SPEC.islandArrivalWheel.def
+    property bool islandArrivalWheelInverted: Spec.SPEC.islandArrivalWheelInverted.def
+    property string islandReopenApps: Spec.SPEC.islandReopenApps.def
+    property var islandWeatherAlerts: Spec.SPEC.islandWeatherAlerts.def
+    property var islandShelfZones: Spec.SPEC.islandShelfZones.def
+    property var islandShelfClouds: Spec.SPEC.islandShelfClouds.def
+    property string islandShelfLayout: Spec.SPEC.islandShelfLayout.def
+    property string islandShelfDensity: Spec.SPEC.islandShelfDensity.def
+    property string islandShelfPreviews: Spec.SPEC.islandShelfPreviews.def
+    property bool islandShelfRichPreviews: Spec.SPEC.islandShelfRichPreviews.def
+    property int islandShelfPreviewSize: Spec.SPEC.islandShelfPreviewSize.def
+    property string islandShelfLabel: Spec.SPEC.islandShelfLabel.def
+    property bool islandShelfHoverDetails: Spec.SPEC.islandShelfHoverDetails.def
+    property int islandShelfMaxRows: Spec.SPEC.islandShelfMaxRows.def
+    property string islandShelfSort: Spec.SPEC.islandShelfSort.def
+    property bool islandShelfPinnedFirst: Spec.SPEC.islandShelfPinnedFirst.def
+    property string islandShelfKeyHints: Spec.SPEC.islandShelfKeyHints.def
+    property string islandShelfCountMode: Spec.SPEC.islandShelfCountMode.def
+    property string islandShelfDropPosition: Spec.SPEC.islandShelfDropPosition.def
+    property string islandShelfOpenOnArrival: Spec.SPEC.islandShelfOpenOnArrival.def
+    property bool islandShelfStayOpen: Spec.SPEC.islandShelfStayOpen.def
+    property string islandShelfDragOut: Spec.SPEC.islandShelfDragOut.def
+    property bool islandShelfRemoveOnDragOut: Spec.SPEC.islandShelfRemoveOnDragOut.def
+    property bool islandShelfCloseOnDragOut: Spec.SPEC.islandShelfCloseOnDragOut.def
+    property string islandShelfDoubleClick: Spec.SPEC.islandShelfDoubleClick.def
+    property bool islandShelfLightDismiss: Spec.SPEC.islandShelfLightDismiss.def
+    property int islandShelfMessageMs: Spec.SPEC.islandShelfMessageMs.def
+    property string islandShelfClearConfirm: Spec.SPEC.islandShelfClearConfirm.def
+    property int islandShelfFolderHoldMs: Spec.SPEC.islandShelfFolderHoldMs.def
+    property string islandShelfKeepFor: Spec.SPEC.islandShelfKeepFor.def
+    property int islandShelfMaxItems: Spec.SPEC.islandShelfMaxItems.def
+    property string islandShelfMissing: Spec.SPEC.islandShelfMissing.def
+    property string islandShelfStoreMode: Spec.SPEC.islandShelfStoreMode.def
+    property int islandShelfUndoSteps: Spec.SPEC.islandShelfUndoSteps.def
+    property int islandShelfRecentRemoved: Spec.SPEC.islandShelfRecentRemoved.def
+    property bool islandShelfDropIsland: Spec.SPEC.islandShelfDropIsland.def
+    property bool islandShelfEdgeDrop: Spec.SPEC.islandShelfEdgeDrop.def
+    property bool islandShelfAcceptText: Spec.SPEC.islandShelfAcceptText.def
+    property bool islandShelfPaste: Spec.SPEC.islandShelfPaste.def
+    property string islandShelfPasteAs: Spec.SPEC.islandShelfPasteAs.def
+    property string islandShelfScreenshots: Spec.SPEC.islandShelfScreenshots.def
+    property bool islandShelfDownloads: Spec.SPEC.islandShelfDownloads.def
+    property bool islandShelfKeepOutputs: Spec.SPEC.islandShelfKeepOutputs.def
+    property string islandShelfZonesShown: Spec.SPEC.islandShelfZonesShown.def
+    property bool islandShelfCloudSpring: Spec.SPEC.islandShelfCloudSpring.def
+    property string islandShelfCloudMode: Spec.SPEC.islandShelfCloudMode.def
+    property string islandShelfCloudAfter: Spec.SPEC.islandShelfCloudAfter.def
+    property bool islandShelfShareKdeConnect: Spec.SPEC.islandShelfShareKdeConnect.def
+    property bool islandShelfShareLocalSend: Spec.SPEC.islandShelfShareLocalSend.def
+    property string islandShelfShareDevice: Spec.SPEC.islandShelfShareDevice.def
+    property bool islandShelfTypeToSearch: Spec.SPEC.islandShelfTypeToSearch.def
+    property bool islandShelfPersist: Spec.SPEC.islandShelfPersist.def
+    property bool islandShelfClearOnLogout: Spec.SPEC.islandShelfClearOnLogout.def
+    property bool islandShelfHideNames: Spec.SPEC.islandShelfHideNames.def
+    property bool islandShelfForgetRemovable: Spec.SPEC.islandShelfForgetRemovable.def
+    property string islandShelfPreviewCache: Spec.SPEC.islandShelfPreviewCache.def
+    property string islandShelfReduceMotion: Spec.SPEC.islandShelfReduceMotion.def
+    property string islandShelfTextScale: Spec.SPEC.islandShelfTextScale.def
+    property bool islandShelfLargeTargets: Spec.SPEC.islandShelfLargeTargets.def
+    property bool islandShelfAnnounce: Spec.SPEC.islandShelfAnnounce.def
+    property string islandShelfScreen: Spec.SPEC.islandShelfScreen.def
+    property string islandShelfBubbleScreens: Spec.SPEC.islandShelfBubbleScreens.def
+    property string islandShelfNewFilesDir: Spec.SPEC.islandShelfNewFilesDir.def
+    property var islandShelfConvertFormats: Spec.SPEC.islandShelfConvertFormats.def
+    property bool islandBubbleOutline: Spec.SPEC.islandBubbleOutline.def
+    property real islandBubbleMotion: Spec.SPEC.islandBubbleMotion.def
+    property string islandBubbleCorners: Spec.SPEC.islandBubbleCorners.def
+    property string islandBubbleDialStyle: Spec.SPEC.islandBubbleDialStyle.def
+    property string islandBubbleLauncherTransition: Spec.SPEC.islandBubbleLauncherTransition.def
+    property string islandBubbleShapeStyle: Spec.SPEC.islandBubbleShapeStyle.def
+    property string islandBubbleShapeTone: Spec.SPEC.islandBubbleShapeTone.def
+    property real islandBubbleOutlineWidth: Spec.SPEC.islandBubbleOutlineWidth.def
+    property real islandBubbleOutlineOpacity: Spec.SPEC.islandBubbleOutlineOpacity.def
+    property string islandBubbleOutlineColor: Spec.SPEC.islandBubbleOutlineColor.def
+    property bool islandEyeBreak: Spec.SPEC.islandEyeBreak.def
+    property real islandEyeBreakInterval: Spec.SPEC.islandEyeBreakInterval.def
+    property real islandEyeBreakDuration: Spec.SPEC.islandEyeBreakDuration.def
+
+    function islandPluginAllowed(pluginId) {
+        return islandPluginsBlocked.indexOf(pluginId) === -1;
+    }
+
+    function setIslandPluginAllowed(pluginId, allowed) {
+        const others = islandPluginsBlocked.filter(id => id !== pluginId);
+        islandPluginsBlocked = allowed ? others : others.concat([pluginId]);
+        saveSettings();
+    }
+
+    function islandSystemFace(kind) {
+        return islandSystemFaces[kind] ?? "";
+    }
+
+    function setIslandSystemFace(kind, pluginId) {
+        const next = Object.assign({}, islandSystemFaces);
+        if (pluginId)
+            next[kind] = pluginId;
+        else
+            delete next[kind];
+        islandSystemFaces = next;
+        saveSettings();
+    }
+
     function setPluginAllowWithoutTrigger(pluginId, allow) {
         const updated = JSON.parse(JSON.stringify(launcherPluginVisibility));
         if (!updated[pluginId])

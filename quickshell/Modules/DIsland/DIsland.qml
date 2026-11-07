@@ -5,6 +5,8 @@ import Quickshell
 import Quickshell.Io
 import qs.Common
 import qs.Services
+import "../../Common/IslandActivityInput.js" as Input
+import "../../Common/IslandMachineCard.js" as MachineCard
 
 Item {
     id: root
@@ -284,8 +286,63 @@ Item {
             "free": !!host.free,
             "idle": host.free ? host.idle : false,
             "x": host.free ? Math.round(host.anchorX) : null,
-            "y": host.free ? Math.round(host.anchorY) : null
+            "y": host.free ? Math.round(host.anchorY) : null,
+            "plugin": root.pluginStatus(host.islandController.pluginToken),
+            "bubbles": {
+                "machine": host.body?.bubbleSides?.machine?.kind ?? "",
+                "apps": (host.body?.bubbleSides?.apps ?? []).map(b => b.kind ? b.source + ":" + b.kind : b.source)
+            }
         });
+    }
+
+    // Prints the bare token so a script can keep it: tok=$(dms ipc call island activity ...); the other answers are
+    // listed at IslandActivityInput.ipcRefusal.
+    function ipcActivity(id, kind, screen, data) {
+        const parsed = Input.parseIpcData(data);
+        const refused = Input.ipcRefusal(parsed);
+        if (refused)
+            return refused;
+        const token = IslandActivityService.requestScript(id, {
+            "kind": kind,
+            "screen": screen,
+            "expanded": parsed.expanded,
+            "timeoutMs": parsed.timeoutMs,
+            "notifyApp": parsed.notifyApp,
+            "data": parsed
+        });
+        return token || "ISLAND_ACTIVITY_REFUSED";
+    }
+
+    function ipcActivityUpdate(token, data) {
+        if (!Input.ipcOwns(token))
+            return "ISLAND_ACTIVITY_UNKNOWN";
+        const parsed = Input.parseIpcData(data);
+        // Empty data would blank the face: an update always says what to show.
+        if (!parsed || Object.keys(parsed).length === 0)
+            return "ISLAND_ACTIVITY_BAD_DATA";
+        return IslandActivityService.update(token, parsed) ? "ISLAND_ACTIVITY_UPDATED" : "ISLAND_ACTIVITY_UNKNOWN";
+    }
+
+    function ipcActivityEnd(token) {
+        return Input.ipcOwns(token) && IslandActivityService.release(token) ? "ISLAND_ACTIVITY_ENDED" : "ISLAND_ACTIVITY_UNKNOWN";
+    }
+
+    function ipcActivityStatus(token) {
+        const entry = Input.ipcOwns(token) ? IslandActivityService.entry(token) : null;
+        return entry ? JSON.stringify({
+            "state": entry.state,
+            "action": entry.lastAction
+        }) : "ISLAND_ACTIVITY_UNKNOWN";
+    }
+
+    function pluginStatus(token) {
+        const entry = IslandActivityService.entry(token);
+        return entry ? {
+            "token": Input.ipcOwns(token) ? token : "",
+            "pluginId": entry.pluginId,
+            "kind": entry.kind,
+            "state": entry.state
+        } : null;
     }
 
     Component.onCompleted: PopoutService.dankIslandRouter = root
@@ -323,6 +380,14 @@ Item {
         }
     }
 
+    // Polkit requests open the island while it is on; the dialog takes them otherwise.
+    IslandAuthSource {
+        id: authSource
+    }
+
+    // Reading the eye break service creates it (singletons are lazy): its one timer runs only while the setting is on.
+    readonly property bool eyeBreakOn: EyeBreakService.enabled
+
     IpcHandler {
         target: "island"
 
@@ -342,12 +407,68 @@ Item {
             return root.ipcClose("", "", "island");
         }
 
+        // The charge face without a pointer: "open" opens it (as a hover does), "card" turns it into its card (as a click
+        // does), "hide" hides the charge until the next plug (as a right click does).
+        function charge(action: string): string {
+            const host = root.hostForScreen("", "", "island");
+            if (!host?.body)
+                return "ISLAND_UNAVAILABLE";
+            const body = host.body;
+            if (action === "hide") {
+                body.dismissBubble({
+                    "id": "charge"
+                });
+                if (host.islandController.activeActivity === "charging")
+                    host.islandController.finishTransient();
+                return "ISLAND_CHARGE: hidden";
+            }
+            if (action !== "open" && action !== "card")
+                return "ISLAND_CHARGE_UNKNOWN_ACTION";
+            if (!body.charge.live)
+                return "ISLAND_CHARGE_UNAVAILABLE: not charging";
+            if (!body.charge.shown)
+                body.openChargeFace();
+            // Refused (island open, a plugin of higher rank, level infos in bubbles): say so, nothing shows.
+            if (!body.charge.shown)
+                return "ISLAND_CHARGE_UNAVAILABLE: island busy";
+            if (action === "card") {
+                body.charge.detail = true;
+                // The card shows while the pointer is in or the card is pinned: without a pointer, pin it.
+                host.islandController.faceCardPinned = true;
+            }
+            return "ISLAND_CHARGE: " + (body.charge.detail ? "card" : "face");
+        }
+
+        // The machine bubble's card without a pointer: open, close or toggle (IslandMachineCard.js).
+        function card(action: string): string {
+            const host = root.hostForScreen("", "", "island");
+            const open = MachineCard.ipc(host, action);
+            if (typeof open === "string")
+                return open;
+            host.islandController.machineCardOpen = open;
+            return "ISLAND_CARD: " + (open ? "open" : "closed");
+        }
+
         function cycle(): string {
             return root.ipcCycle("", "", "island");
         }
 
         function status(): string {
             return root.ipcStatus("", "", "island");
+        }
+
+        // Super+S (niri-binds.kdl): "toggle" opens the shelf's card in the focused island, or closes it where it shows.
+        // The key runs without a terminal: with no island to show it, a toast says so rather than nothing.
+        function shelf(action: string): string {
+            if (action !== "toggle")
+                return "ISLAND_SHELF_UNKNOWN_ACTION";
+            const s = root.hostForScreen("", "", "island")?.body?.shelf;
+            if (!s) {
+                ToastService.showInfo(I18n.tr("No island on this screen to show the shelf", "island shelf: its shortcut pressed where no island is"));
+                return "ISLAND_UNAVAILABLE";
+            }
+            const done = s.toggle();
+            return done === "open" ? "ISLAND_SHELF_OPEN" : done === "closed" ? "ISLAND_SHELF_CLOSED" : "ISLAND_SHELF_REFUSED";
         }
 
         function openOn(activity: string, screen: string): string {
@@ -404,6 +525,28 @@ Item {
 
         function centerOn(screen: string): string {
             return root.ipcCenter(screen, "island");
+        }
+
+        function activity(id: string, kind: string, data: string): string {
+            return root.ipcActivity(id, kind, "", data);
+        }
+
+        // screen "*" shows it on every island.
+        function activityOn(id: string, kind: string, screen: string, data: string): string {
+            return root.ipcActivity(id, kind, screen, data);
+        }
+
+        function activityUpdate(token: string, data: string): string {
+            return root.ipcActivityUpdate(token, data);
+        }
+
+        function activityEnd(token: string): string {
+            return root.ipcActivityEnd(token);
+        }
+
+        // The last action the user picked stays readable until the activity ends.
+        function activityStatus(token: string): string {
+            return root.ipcActivityStatus(token);
         }
     }
 

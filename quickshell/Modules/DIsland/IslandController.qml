@@ -7,6 +7,11 @@ import qs.Modals.DLauncherV2.Components
 import qs.Modules.ControlCenter
 import qs.Modules.DBar
 import qs.Modules.DDash
+import qs.Modules.Notifications
+import "../../Common/IslandActivities.js" as Activities
+import "../../Common/IslandArrival.js" as Arrival
+import "../../Common/IslandHover.js" as Hover
+import "../../Common/IslandKit.js" as IslandKit
 
 QtObject {
     id: root
@@ -71,14 +76,13 @@ QtObject {
     property bool dashTabs: false
     // Carries tab-bar focus across a face switch.
     property bool dashNavigationFocused: false
-
-    onExpandedChanged: {
-        if (!expanded)
-            dashNavigationFocused = false;
-    }
-    property int transientTimeout: 2200
-    property int notificationTimeout: 5000
+    property int transientTimeout: Activities.briefTimeoutMs
+    readonly property int undoTimeout: Activities.undoTimeoutMs
+    property int notificationTimeout: Activities.glanceTimeoutMs
     property string transientReturnActivity: ""
+    // The last system face a destination, an alert or another face pushed out: the host brings it back once idle.
+    // shortcut: only the latest one is kept, an older one pushed out meanwhile ends in its bubble; keep a list if it matters.
+    property string displacedSystemActivity: ""
     property string suspendedActivity: ""
     property bool suspendedExpanded: false
     property bool suspendedKeyboardDismissRequested: false
@@ -104,7 +108,9 @@ QtObject {
     readonly property real compactIconSize: Math.max(14, Math.min(32, (compactTight ? compactFaceThickness : compactThickness) - 8))
 
     property int unreadNotificationCount: 0
-    readonly property bool homeNotificationBadge: (root.dotMode || SettingsData.islandHomeGroupEnabled(root.barConfig, "notifications")) && unreadNotificationCount > 0
+    // The apps wing already shows how many wait: one figure on screen, not two that disagree.
+    property bool wingCountsNotifications: false
+    readonly property bool homeNotificationBadge: (root.dotMode || SettingsData.islandHomeGroupEnabled(root.barConfig, "notifications")) && unreadNotificationCount > 0 && !wingCountsNotifications
     readonly property bool homeWeatherEnabled: SettingsData.weatherEnabled && SettingsData.islandHomeGroupEnabled(root.barConfig, "weather")
     readonly property real homeSlotMargin: homeCompactTight ? Theme.spacingS : Theme.spacingM
     property real homeContentLength: 200
@@ -126,7 +132,420 @@ QtObject {
     readonly property real notificationCompactMinLength: isVertical ? compactFaceThickness : (compactDense ? 200 : 240)
     readonly property real notificationCompactMaxLength: mediaCompactMaxLength
 
+    property string pluginToken: ""
+    property string pluginKind: "live"
+    property bool pluginExpandable: false
+    property real pluginCompactLength: 240
+    property real pluginExpandedWidth: 460
+    property real pluginExpandedHeight: 200
+    property int pluginTimeoutMs: 0
+    property string pluginReturnActivity: ""
+    property bool pluginReturnExpanded: false
+    // The open card closes only from itself (the shelf: its close button, Super+S): clicks in or out and Escape keep it.
+    property bool holdOpen: false
+    readonly property bool pluginActive: activeActivity === "plugin"
+
+    // Set while the island shows what the user brought in from a bubble; an activity it pushed aside waits for it.
+    property bool userHeld: false
+    onActiveActivityChanged: {
+        userHeld = false;
+        faceCardPinned = false;
+        // A swell belongs to the face that arrived.
+        arrivalSwelling = false;
+    }
+    onExpandedChanged: {
+        if (expanded)
+            return;
+        userHeld = false;
+        dashNavigationFocused = false;
+    }
+    // The machine bubble's card opened without a pointer (island card), until that bubble leaves.
+    property bool machineCardOpen: false
+    // Off behind the lock screen and on islands away from the focused screen.
+    property bool bubblesEnabled: true
+    onBubblesEnabledChanged: {
+        if (!bubblesEnabled)
+            hideMachineBubble();
+    }
+    // The leading bubble: a machine change the island could not show.
+    property string machineBubbleKind: ""
+    // A bubble that leaves under the pointer gets no hover exit: without this reset the next one would never time out.
+    onMachineBubbleKindChanged: {
+        if (!machineBubbleKind)
+            machineBubbleHovered = false;
+    }
+    property bool machineBubbleHovered: false
+    // A card opened over IPC holds its bubble as a dwelt hover does (IslandMachineCard.js).
+    readonly property bool machineBubbleHeld: machineBubbleHovered || machineCardOpen
+    // A held bubble stays while the pointer is on it, and gets its full time again once let go.
+    onMachineBubbleHeldChanged: {
+        if (machineBubbleHeld)
+            machineBubbleTimer.stop();
+        else if (machineBubbleKind)
+            machineBubbleTimer.restart();
+    }
+
+    function showMachineBubble(activityId) {
+        // "eyes" (EyeBreakService) has its own island activity and comes here only while the island is busy.
+        if (!isSystemActivity(activityId) && activityId !== "eyes")
+            return false;
+        machineBubbleKind = activityId;
+        if (!machineBubbleHeld)
+            machineBubbleTimer.restart();
+        return true;
+    }
+
+    function hideMachineBubble() {
+        machineBubbleTimer.stop();
+        machineBubbleKind = "";
+    }
+
+    // Arrival of infos (IslandArrival.js): the island swells as an info arrives, opens its card a while (the burst: infos
+    // rolling over each other, a countdown dot each), then folds to compact until the notification's time is up.
+    property bool reducedMotion: false
+    readonly property real animationBase: Theme.currentAnimationBaseDuration
+    readonly property string arrivalStyle: SettingsData.islandArrivalStyle
+    property var burst: Arrival.emptyBurst()
+    readonly property var arrivalCurrent: burst.items[burst.index] ?? null
+    readonly property int arrivalCount: burst.items.length
+    readonly property int arrivalTopTier: Arrival.topTier(burst.items)
+    // Bumped each time the shown info changes, so the source can follow it.
+    property int arrivalShown: 0
+    // rest | big (the card) | compact (folded, until the notification's time is up)
+    property string arrivalPhase: "rest"
+    property var arrivalPulse: null
+    property bool arrivalSwelling: false
+    // Bumped per tint flash (arrivalTint its strength) and per small bounce of a newcomer rolling in (arrivalNudges).
+    property int arrivalFlashes: 0
+    property real arrivalTint: 0
+    property int arrivalNudges: 0
+    property var countdown: Arrival.freezeEmpty(Arrival.countdown(0, 0), 0, 0)
+    property bool arrivalDragging: false
+    property bool arrivalFocused: false
+    readonly property bool arrivalHeld: arrivalPhase === "big" && (pointerInside || arrivalDragging || arrivalFocused || expanded)
+    // The finger's pull on the island's height while it drags up or down.
+    property real arrivalPull: 0
+    property var arrivalWheelState: Arrival.wheelIdle()
+    readonly property bool arrivalBrowsable: arrivalPhase === "big" && !expanded && arrivalCount > 1
+    // Infos of a burst that ended: they leave the island for the notification list.
+    signal arrivalReleased(var items)
+
+    readonly property real arrivalDampingRatio: arrivalPhase !== "rest" || arrivalSwelling ? (arrivalPulse?.ratio ?? 0) : 0
+    readonly property real arrivalCardWidth: Math.min(NotificationMetrics.popupWidth, Math.max(NotificationMetrics.popupMinWidth, dashboardAvailableWidth * NotificationMetrics.popupScreenRatio)) + (arrivalTopTier >= 2 ? Theme.spacingL * 2 : 0)
+    readonly property real arrivalCardHeight: NotificationMetrics.cardPadding * 2 + NotificationMetrics.appIconSize + (arrivalCurrent?.action ? Theme.spacingS + Theme.buttonHeightS : 0) + (arrivalTopTier >= 2 ? Theme.spacingM : 0)
+    readonly property var arrivalBigTarget: {
+        const radius = Math.min(arrivalCardHeight / 2, NotificationMetrics.popupRadius);
+        return Object.assign(pillTarget(arrivalCardWidth, arrivalCardHeight), cardRadii(radius));
+    }
+    readonly property bool arrivalCardShown: arrivalPhase === "big" && notificationActive && !isVertical
+
+    // An island face whose info has a bubble (IslandBarHost.faceBubble): hovered (a click lands on a hovered face), the
+    // island grows in place into that bubble's own card, like an arrival card, never a bubble beside it. Its clock is
+    // frozen meanwhile (timeoutSuspended, the pointer is in) and starts over once it leaves. The surface measures the card.
+    property bool faceCardAvailable: false
+    property real faceCardHeight: 0
+    // Opened from a bubble that grows the island (weather): held until the pointer has been in the island and left it.
+    property bool faceCardPinned: false
+    onPointerInsideChanged: {
+        if (!pointerInside)
+            faceCardPinned = false;
+    }
+    readonly property bool faceCardShown: faceCardAvailable && (pointerInside || faceCardPinned) && !expanded && !isVertical
+    readonly property var faceCardTarget: {
+        const height = Math.max(compactFaceThickness, faceCardHeight);
+        const radius = Math.min(height / 2, NotificationMetrics.popupRadius);
+        return Object.assign(pillTarget(Math.min(NotificationMetrics.popupWidth, Math.max(NotificationMetrics.popupMinWidth, dashboardAvailableWidth * NotificationMetrics.popupScreenRatio)), height), cardRadii(radius));
+    }
+
+    function arrivalPulseFor(tier, card) {
+        return Arrival.pulse(arrivalStyle, tier, card === true && !isVertical, SettingsData.islandArrivalBounce, SettingsData.islandArrivalTint, reducedMotion);
+    }
+
+    // The compact target as an arrival shapes it: the card, a swell, the finger's pull.
+    function arrivalShape(target) {
+        let shaped = target;
+        if (activeActivity === "notification" && arrivalCardShown)
+            shaped = arrivalBigTarget;
+        else if (faceCardShown && faceCardHeight > 0)
+            shaped = faceCardTarget;
+        else if ((arrivalSwelling && arrivalPulse) || faceHoverSwell) {
+            const grow = (arrivalSwelling && arrivalPulse ? arrivalPulse : faceSwellPulse).swell;
+            const thick = compactFaceThickness;
+            shaped = Object.assign({}, target, isVertical ? {
+                "width": target.width + grow[1] * thick,
+                "height": target.height + grow[0] * thick
+            } : {
+                "width": target.width + grow[0] * thick,
+                "height": target.height + grow[1] * thick
+            });
+        }
+        return arrivalPulled(shaped);
+    }
+
+    // The finger's pull on the island's height: up toward the clock, down toward the full card.
+    function arrivalPulled(target) {
+        if (arrivalPull === 0 || isVertical || !notificationActive)
+            return target;
+        return Object.assign({}, target, {
+            "height": Math.max(compactFaceThickness / 2, Math.min(Math.max(target.height, notificationExpandedTarget.height), target.height + arrivalPull))
+        });
+    }
+
+    // Pulled down: the info stays open and grows into its full card (actions, quick reply), with no countdown; only a
+    // gesture closes it (pushed up, Escape, a click elsewhere), even once the pointer has left.
+    function arrivalOpen() {
+        if (!notificationActive || expanded || inputSuspended)
+            return false;
+        arrivalPull = 0;
+        hoverExpanded = false;
+        hoverCloseTimer.stop();
+        notificationTimer.stop();
+        keyboardDismissRequested = true;
+        expanded = true;
+        return true;
+    }
+
+    function arrivalNow() {
+        return Date.now();
+    }
+
+    function arrivalDrain() {
+        return IslandKit.beat("drain", reducedMotion ? 0 : animationBase);
+    }
+
+    function setBurst(next) {
+        const changed = next.items[next.index] !== burst.items[burst.index];
+        burst = next;
+        if (changed)
+            arrivalShown++;
+    }
+
+    function arrivalFlash(amount) {
+        if (amount <= 0 || reducedMotion)
+            return;
+        arrivalTint = amount;
+        arrivalFlashes++;
+    }
+
+    function arrivalSwell(pulse) {
+        arrivalPulse = pulse;
+        arrivalSwelling = pulse.swell[0] > 0 || pulse.swell[1] > 0;
+        arrivalSwellTimer.interval = pulse.holdMs;
+        if (arrivalSwelling)
+            arrivalSwellTimer.restart();
+    }
+
+    function arrivalStartCountdown() {
+        const t = arrivalNow();
+        // A page lives as long as its info is big (a brief one in a burst gets a notification's, to be read).
+        const hold = Activities.bigMs(Math.max(1, arrivalCurrent?.tier ?? 1));
+        // A ringing call stays big, with no countdown, until it is answered, refused or stops.
+        const ringing = !Arrival.expires(arrivalCurrent);
+        countdown = arrivalHeld || ringing ? Arrival.freezeEmpty(Arrival.countdown(hold, t), t, ringing ? 0 : arrivalDrain()) : Arrival.countdown(hold, t);
+        arrivalCountdownTimer.stop();
+        if (!arrivalHeld && !ringing) {
+            arrivalCountdownTimer.interval = Math.max(1, Arrival.remaining(countdown, t));
+            arrivalCountdownTimer.start();
+        }
+    }
+
+    // The swell a face took on arrival, and whose: hovered once folded, that face swells again.
+    property var faceSwellPulse: null
+    property string faceSwellOwner: ""
+    readonly property string faceOwner: activeActivity === "plugin" ? pluginToken : activeActivity
+    readonly property bool faceHoverSwell: !!faceSwellPulse && Arrival.hoverSwell({
+        "hovered": pointerInside,
+        "owner": faceSwellOwner,
+        "face": faceOwner,
+        "notification": notificationActive,
+        "expanded": expanded,
+        "vertical": isVertical
+    })
+
+    // A face that takes the island (system, plugin) only swells: it has no card.
+    function arrivalFace(tier) {
+        if (arrivalPhase !== "rest")
+            return;
+        const pulse = arrivalPulseFor(tier, false);
+        faceSwellPulse = pulse;
+        faceSwellOwner = faceOwner;
+        arrivalSwell(pulse);
+        arrivalFlash(pulse.tint);
+    }
+
+    // item: {tier, app, title, detail, image, icon, fallbackText, action, critical, wrapper?, timeout}.
+    function arrive(item) {
+        const first = arrivalPhase === "rest";
+        const held = !first && arrivalHeld;
+        setBurst(Arrival.arrive(burst, item, held));
+        if (held) {
+            // The info being read keeps its place: one more dot, which pops in.
+            arrivalFlash((arrivalPulseFor(item.tier, true).tint) * 0.3);
+            return;
+        }
+        const pulse = arrivalPulseFor(item.tier, true);
+        const big = arrivalPulseFor(Math.max(item.tier, arrivalTopTier), true);
+        arrivalFlash(first ? pulse.tint : pulse.tint * 0.6);
+        if (pulse.big || (!first && big.big && arrivalPhase === "big")) {
+            arrivalPulse = big;
+            arrivalSwelling = false;
+            arrivalSwellTimer.stop();
+            if (!first)
+                arrivalNudges++;
+            arrivalPhase = "big";
+            notificationTimer.stop();
+            arrivalStartCountdown();
+            return;
+        }
+        arrivalPhase = "compact";
+        arrivalSwell(pulse);
+        syncNotificationTimeout(true);
+    }
+
+    function arrivalGo(index) {
+        if (arrivalPhase !== "big")
+            return false;
+        const next = Arrival.go(burst, index);
+        if (!next)
+            return false;
+        setBurst(next);
+        arrivalStartCountdown();
+        return true;
+    }
+
+    function arrivalStep(direction) {
+        return arrivalBrowsable && arrivalGo(burst.index + direction);
+    }
+
+    function arrivalCountdownDone() {
+        if (arrivalPhase !== "big" || arrivalHeld)
+            return;
+        const next = Arrival.afterCountdown(burst);
+        if (next) {
+            setBurst(next);
+            arrivalStartCountdown();
+            return;
+        }
+        arrivalPhase = "compact";
+        countdown = Arrival.freezeEmpty(countdown, arrivalNow(), 0);
+        syncNotificationTimeout(true);
+    }
+
+    // Hovered or pulled down once folded: the card opens again, its dot empty and still while held.
+    function arrivalReopen() {
+        if (arrivalPhase !== "compact" || arrivalCount === 0 || !notificationActive || expanded || isVertical)
+            return false;
+        arrivalSwelling = false;
+        arrivalSwellTimer.stop();
+        if (!arrivalPulse?.big)
+            arrivalPulse = arrivalPulseFor(Math.max(1, arrivalTopTier), true);
+        arrivalPhase = "big";
+        notificationTimer.stop();
+        arrivalStartCountdown();
+        return true;
+    }
+
+    // Pushed up: straight back to the clock, every info to the notification list.
+    function arrivalTidy() {
+        if (!notificationActive)
+            return false;
+        return completeNotification();
+    }
+
+    function arrivalEnd() {
+        if (arrivalPhase === "rest" && arrivalCount === 0)
+            return;
+        // Released while still in the burst, so a source never takes them back in as new.
+        arrivalReleased(burst.items);
+        arrivalCountdownTimer.stop();
+        arrivalSwellTimer.stop();
+        arrivalSwelling = false;
+        arrivalPhase = "rest";
+        arrivalPull = 0;
+        burst = Arrival.emptyBurst();
+        arrivalShown++;
+    }
+
+    // The wheel or a touchpad over the open card turns its pages; false leaves the wheel to the island.
+    function arrivalWheel(delta) {
+        if (!arrivalBrowsable || !SettingsData.islandArrivalWheel)
+            return false;
+        arrivalWheelState = Arrival.wheel(arrivalWheelState, SettingsData.islandArrivalWheelInverted ? -delta : delta, arrivalNow());
+        if (arrivalWheelState.step !== 0)
+            arrivalStep(arrivalWheelState.step);
+        return true;
+    }
+
+    // A drag let go: sideways turns the page, toward the screen edge tidies away, away from it reopens.
+    function arrivalSwipe(dx, dy) {
+        arrivalPull = 0;
+        switch (Arrival.swipe(dx, dy, undefined, farEdge)) {
+        case "next":
+            return arrivalStep(1);
+        case "prev":
+            return arrivalStep(-1);
+        case "tidy":
+            return arrivalTidy();
+        case "open":
+            return arrivalOpen();
+        }
+        return false;
+    }
+
+    // The read info goes (dismissed, acted on): the next one shows, or the island goes back to the clock.
+    function arrivalDrop() {
+        const items = burst.items.filter((_, i) => i !== burst.index);
+        if (items.length === 0)
+            return completeNotification();
+        setBurst({
+            "items": items,
+            "index": Math.min(burst.index, items.length - 1),
+            "dir": 0,
+            "axis": "x"
+        });
+        if (arrivalPhase === "big")
+            arrivalStartCountdown();
+        return true;
+    }
+
+    // A burst lives as long as its notification face, or while a system face holds it.
+    function arrivalCheckAlive() {
+        if (!notificationActive && !notificationHeldForSystem)
+            arrivalEnd();
+    }
+    onNotificationActiveChanged: arrivalCheckAlive()
+    onNotificationHeldForSystemChanged: arrivalCheckAlive()
+
+    onArrivalHeldChanged: {
+        const t = arrivalNow();
+        if (arrivalHeld) {
+            arrivalCountdownTimer.stop();
+            countdown = Arrival.freeze(countdown, t, arrivalDrain());
+            return;
+        }
+        if (arrivalPhase === "big")
+            arrivalStartCountdown();
+    }
+
+    property Timer arrivalCountdownTimer: Timer {
+        onTriggered: root.arrivalCountdownDone()
+    }
+
+    property Timer arrivalSwellTimer: Timer {
+        onTriggered: {
+            root.arrivalSwelling = false;
+            root.syncNotificationTimeout(true);
+        }
+    }
+
     signal sessionStarted(string activityId)
+    // A destination or an alert opened over a system face; its source decides whether the face goes on in a bubble.
+    signal systemActivityDisplaced(string activityId)
+    // Another system face took this one's place in the island; a source that owns it goes on in its bubble.
+    signal systemActivityReplaced(string activityId)
+    // A system face's time in the island is over (before the island leaves it): a source that owns it ends its info too.
+    signal systemActivityEnding(string activityId)
+    signal pluginDismissed(string token, string reason)
 
     function setHomeContentLength(length) {
         const next = Math.ceil(length);
@@ -481,6 +900,17 @@ QtObject {
         return [near, near, far, far];
     }
 
+    // A card's corners: `radius` all round, but square on the edge a notch hangs from.
+    function cardRadii(radius) {
+        const radii = root.edgeRadii(root.notch ? 0 : radius, radius);
+        return {
+            "topLeftRadius": radii[0],
+            "topRightRadius": radii[1],
+            "bottomLeftRadius": radii[2],
+            "bottomRightRadius": radii[3]
+        };
+    }
+
     function pillTarget(alongSize, crossSize) {
         const radius = Math.min(crossSize / 2, root.pillRadius);
         const radii = root.edgeRadii(root.notch ? 0 : radius, radius);
@@ -522,9 +952,9 @@ QtObject {
             "bottomRightRadius": root.dotSize / 2
         })
     readonly property var systemLevelActivities: ["volume", "brightness", "mic"]
-    readonly property var systemStateActivities: ["capslock", "powerprofile", "idleinhibitor", "charging"]
+    readonly property var systemStateActivities: ["capslock", "powerprofile", "idleinhibitor", "charging", "charged", "unplugged", "battery", "batterycritical", "network", "keepawake", "dnd", "output", "reopen", "call", "print", "usb", "password", "vpn", "openwifi", "ssh", "camera", "copy", "trash", "disk", "display", "periph", "progress", "frozen", "weatheralert"]
     readonly property var systemActivities: systemLevelActivities.concat(systemStateActivities)
-    readonly property var dotTransientActivities: ["notification"].concat(systemActivities)
+    readonly property var dotTransientActivities: ["notification", "plugin"].concat(systemActivities)
     function isSystemActivity(activityId) {
         return root.systemActivities.indexOf(activityId) !== -1;
     }
@@ -540,12 +970,17 @@ QtObject {
     readonly property real launcherContentHeight: destinationContentHeight("launcher")
     readonly property var launcherExpandedTarget: sheetTarget(Math.min(dashboardAvailableWidth, LauncherMetrics.sizeWidth(SettingsData.dankLauncherV2Size)), launcherContentHeight > 0 ? Math.min(launcherMaxHeight, launcherContentHeight) : launcherMaxHeight)
     readonly property var controlCenterExpandedTarget: sheetTarget(controlCenterSheetWidth + controlCenterSheetInset, controlCenterHeight)
-    readonly property var systemCompactTarget: pillTarget(root.isVertical ? 240 : (SettingsData.osdAlwaysShowValue ? 330 : 282), compactFaceThickness)
+    // A plugin drawing the system face may size it; zero keeps the shell's size.
+    property real systemFaceCompactLength: 0
+    property real systemFaceExpandedWidth: 0
+    property real systemFaceExpandedHeight: 0
+    readonly property var systemCompactTarget: pillTarget(systemFaceCompactLength > 0 ? systemFaceCompactLength : root.isVertical ? 240 : (SettingsData.osdAlwaysShowValue ? 330 : 282), compactFaceThickness)
     property real systemStateContentLength: 0
-    readonly property var systemStateCompactTarget: pillTarget(Math.ceil(Math.max(compactFaceThickness, systemStateContentLength + destinationCompactEndPad * 2)), compactFaceThickness)
-    readonly property var systemExpandedTarget: sheetTarget(460, 176)
+    readonly property var systemStateCompactTarget: systemFaceCompactLength > 0 ? systemCompactTarget : pillTarget(Math.ceil(Math.max(compactFaceThickness, systemStateContentLength + destinationCompactEndPad * 2)), compactFaceThickness)
+    readonly property var systemExpandedTarget: sheetTarget(systemFaceExpandedWidth > 0 ? systemFaceExpandedWidth : 460, systemFaceExpandedHeight > 0 ? systemFaceExpandedHeight : 176)
     readonly property var notificationCompactTarget: pillTarget(Math.ceil(Math.max(notificationCompactMinLength, Math.min(notificationCompactMaxLength, notificationContentLength))), compactFaceThickness)
-    readonly property var notificationExpandedTarget: sheetTarget(520, 220)
+    // Opened from a burst it keeps the arrival card's width, as every card does.
+    readonly property var notificationExpandedTarget: sheetTarget(arrivalCount > 0 ? arrivalCardWidth : 520, 220)
     readonly property var notificationCenterExpandedTarget: dashboardTargetFor("notificationcenter")
     readonly property var clipboardExpandedTarget: sheetTarget(Math.min(dashboardAvailableWidth, ClipboardConstants.sizeWidth(SettingsData.clipboardSize)), Math.min(dashboardAvailableHeight, ClipboardConstants.sizeHeight(SettingsData.clipboardSize)))
     readonly property var powerMenuExpandedTarget: sheetTarget(Math.max(1, Math.min(dashboardAvailableWidth, powerMenuContentWidth)), Math.max(1, Math.min(dashboardAvailableHeight, destinationContentHeight("powermenu"))))
@@ -554,7 +989,7 @@ QtObject {
     readonly property bool notificationActive: activeActivity === "notification"
     readonly property bool outsideClickCollapses: expanded && !notificationActive
     readonly property bool notificationHeldForSystem: root.systemActivityActive && root.transientReturnActivity === "notification"
-    readonly property bool transientActive: systemActivityActive || notificationActive
+    readonly property bool transientActive: systemActivityActive || notificationActive || pluginActive
     readonly property bool timeoutSuspended: pointerInside || (expanded && !notificationActive)
     readonly property bool activityOwnsBlankClicks: blankClickOwners.indexOf(activeActivity) !== -1
     readonly property bool hoverExpandEnabled: root.interactionMode === "hybrid" && !root.systemActivityActive
@@ -564,6 +999,8 @@ QtObject {
         switch (activityId) {
         case "notification":
             return notificationCompactTarget;
+        case "plugin":
+            return pillTarget(pluginCompactLength, compactFaceThickness);
         case "media":
             return mediaCompactTarget;
         case "home":
@@ -576,13 +1013,15 @@ QtObject {
         return isDestination(activityId) ? pillTarget(destinationCompactLength(activityId), compactFaceThickness) : homeCompactTarget;
     }
 
-    readonly property var compactTarget: compactTargetFor(activeActivity)
+    readonly property var compactTarget: arrivalShape(compactTargetFor(activeActivity))
     function expandedTargetFor(activityId) {
         switch (activityId) {
         case "home":
             return homeExpandedTarget;
         case "notification":
             return notificationExpandedTarget;
+        case "plugin":
+            return sheetTarget(pluginExpandedWidth, pluginExpandedHeight);
         case "launcher":
             return launcherExpandedTarget;
         case "controlcenter":
@@ -600,10 +1039,11 @@ QtObject {
     }
 
     readonly property var expandedTarget: expandedTargetFor(activeActivity)
-    readonly property var targetDescriptor: expanded ? expandedTarget : compactTarget
+    readonly property var targetDescriptor: expanded ? arrivalPulled(expandedTarget) : compactTarget
 
     function syncNotificationTimeout(restart) {
-        if (!notificationActive || timeoutSuspended || notificationTimeout <= 0) {
+        // The time in compact starts once the card has folded.
+        if (!notificationActive || timeoutSuspended || notificationTimeout <= 0 || arrivalPhase === "big" || arrivalSwelling || !Arrival.expires(arrivalCurrent)) {
             notificationTimer.stop();
             return;
         }
@@ -612,6 +1052,15 @@ QtObject {
     }
 
     onNotificationTimeoutChanged: syncNotificationTimeout(true)
+
+    function syncPluginTimeout(restart) {
+        if (!pluginActive || timeoutSuspended || pluginTimeoutMs <= 0) {
+            pluginTimer.stop();
+            return;
+        }
+        if (restart === true || !pluginTimer.running)
+            pluginTimer.restart();
+    }
 
     function syncTransientTimeout(restart) {
         if (!systemActivityActive || timeoutSuspended) {
@@ -687,7 +1136,7 @@ QtObject {
     }
 
     function requestHoverExpand() {
-        if (inputSuspended || hoverHeld || !hoverExpandEnabled || activeActivity === "powermenu")
+        if (!Hover.hoverExpandAllowed(root))
             return false;
         if (notificationActive) {
             hoverExpanded = true;
@@ -725,6 +1174,14 @@ QtObject {
         }
         if (isDestination(activeActivity))
             return requestActivity(activeActivity, true, requestKeyboardFocus);
+        if (pluginActive && !pluginExpandable)
+            return false;
+        // An info in the island grows where it is: its card again, or whole.
+        const click = notificationActive ? Arrival.click(arrivalPhase, arrivalCount) : "";
+        if (click === "reopen")
+            return arrivalReopen();
+        if (click === "open")
+            return arrivalOpen();
         if (notificationActive && !notificationExpandAllowed)
             return requestNotificationCenter(false);
         hoverExpanded = false;
@@ -735,6 +1192,16 @@ QtObject {
         keyboardDismissRequested = requestKeyboardFocus === true;
         expanded = true;
         return true;
+    }
+
+    // A click outside or Escape: closes the sheet, unless a card holds it open; then a click outside only hands the
+    // keyboard back to the windows (a click in the card takes it again, IslandShelfSource.wake).
+    function requestDismiss() {
+        if (expanded && holdOpen) {
+            keyboardYielded = true;
+            return false;
+        }
+        return requestCollapse();
     }
 
     function requestCollapse() {
@@ -755,6 +1222,13 @@ QtObject {
             finishTransient();
             return true;
         }
+        // Alerts and live activities fold back to their pill; only a glance goes away.
+        if (pluginActive) {
+            syncPluginTimeout(true);
+            if (pluginKind === "glance")
+                pluginDismissed(pluginToken, "dismissed");
+            return true;
+        }
         activeActivity = idleActivity();
         return true;
     }
@@ -766,15 +1240,18 @@ QtObject {
             return activityId;
         case "media":
             return mediaAvailable ? "media" : "home";
+        case "plugin":
+            return pluginToken ? "plugin" : idleActivity();
         }
         if (isDestination(activityId))
             return activityId;
         return idleActivity();
     }
 
-    function requestActivity(activityId, shouldExpand, requestKeyboardFocus) {
-        const destination = isDestination(activityId);
-        if (activityId !== "home" && activityId !== "media" && !destination)
+    // Whether activityId may open: home, media while it plays, or a destination that is turned on; none while input is
+    // suspended, if it would expand.
+    function activityAllowed(activityId, shouldExpand) {
+        if (activityId !== "home" && activityId !== "media" && !isDestination(activityId))
             return false;
         if (inputSuspended && shouldExpand === true)
             return false;
@@ -782,7 +1259,20 @@ QtObject {
             return false;
         if (activityId === "weather" && !SettingsData.weatherEnabled)
             return false;
-        if (activityId === "wellbeing" && !SettingsData.wellbeingEnabled)
+        return activityId !== "wellbeing" || SettingsData.wellbeingEnabled;
+    }
+
+    // A system face pushed aside by a destination or a plugin: kept, to take the island back once it is idle.
+    function displaceSystem(displaced) {
+        if (!displaced)
+            return;
+        displacedSystemActivity = displaced;
+        systemActivityDisplaced(displaced);
+    }
+
+    function requestActivity(activityId, shouldExpand, requestKeyboardFocus) {
+        const destination = isDestination(activityId);
+        if (!activityAllowed(activityId, shouldExpand))
             return false;
 
         if (activityId !== "launcher")
@@ -814,8 +1304,10 @@ QtObject {
         transientTimer.stop();
         consumeTransientNotification();
         keyboardDismissRequested = shouldExpand === true && requestKeyboardFocus === true;
+        const displaced = destination && shouldExpand === true && systemActivityActive ? activeActivity : "";
         expanded = shouldExpand === true;
         activeActivity = activityId;
+        displaceSystem(displaced);
         if ((activityId === "media" || activityId === "home") && shouldExpand !== true)
             mediaPreferred = activityId === "media";
         launcherSessionActive = activityId === "launcher" && expanded;
@@ -907,6 +1399,7 @@ QtObject {
             return;
 
         transientTimer.stop();
+        systemActivityEnding(activeActivity);
         const returnActivity = resolvedReturnActivity(transientReturnActivity);
         transientReturnActivity = "";
         if (returnActivity === "notification") {
@@ -927,21 +1420,30 @@ QtObject {
         systemStateContentLength = next;
     }
 
-    function requestSystemActivity(activityId) {
+    // force: the user clicked the machine bubble, so the island makes room while they adjust.
+    function requestSystemActivity(activityId, force) {
         if (!isSystemActivity(activityId))
+            return false;
+        if (force !== true && (Activities.levelInBubble(activityId, SettingsData.islandLevelBubbles) || Activities.briefInBubble(activityId, SettingsData.islandBriefBubbles)))
+            return false;
+        if (force !== true && pluginActive && Activities.kindRank(pluginKind) >= Activities.occupantRank({
+                "system": true
+            }))
             return false;
 
         launcherSessionActive = false;
         clearPendingRequests("");
 
-        if (expanded && !notificationActive) {
+        // An open alert folds to its pill while the user adjusts; any other open sheet keeps the island.
+        const foldsPlugin = force === true && pluginActive && expanded;
+        if (expanded && !notificationActive && !foldsPlugin) {
             if (activeActivity !== activityId)
                 return false;
             transientTimer.stop();
             return true;
         }
 
-        if (notificationActive) {
+        if (notificationActive || foldsPlugin) {
             notificationTimer.stop();
             hoverExpanded = false;
             hoverOpenTimer.stop();
@@ -950,15 +1452,32 @@ QtObject {
             expanded = false;
         }
 
+        const replaced = systemActivityActive && activeActivity !== activityId ? activeActivity : "";
+        const arriving = activeActivity !== activityId;
         if (!systemActivityActive)
             transientReturnActivity = activeActivity;
         activeActivity = activityId;
+        // A repeat (another volume step) never swells again.
+        if (arriving && force !== true)
+            arrivalFace(Activities.faceTier(activityId));
+        userHeld = force === true;
+        if (machineBubbleKind === activityId)
+            hideMachineBubble();
         syncTransientTimeout(true);
+        if (replaced) {
+            displacedSystemActivity = replaced;
+            systemActivityReplaced(replaced);
+        }
         return true;
     }
 
     function canRequestNotification(critical) {
-        return notificationActive || !expanded || critical === true;
+        if (pluginActive)
+            return Activities.occupantRank({
+                "activity": "notification",
+                "critical": critical === true
+            }) > Activities.kindRank(pluginKind);
+        return Arrival.takesIsland(notificationActive, expanded, critical, activeActivity);
     }
 
     function consumeTransientNotification() {
@@ -972,8 +1491,9 @@ QtObject {
         suspendedKeyboardDismissRequested = false;
     }
 
-    function requestNotification(critical) {
-        if (!canRequestNotification(critical))
+    // force: brought in from its bubble, so it opens with the keyboard for a reply.
+    function requestNotification(critical, force) {
+        if (force !== true && !canRequestNotification(critical))
             return false;
 
         if (notificationActive)
@@ -985,9 +1505,10 @@ QtObject {
         suspendedExpanded = expanded;
         suspendedKeyboardDismissRequested = keyboardDismissRequested;
         launcherSessionActive = false;
-        keyboardDismissRequested = false;
-        expanded = notificationExpandAllowed;
+        keyboardDismissRequested = force === true;
+        expanded = force === true || notificationExpandAllowed;
         activeActivity = "notification";
+        userHeld = force === true;
         syncNotificationTimeout(true);
         return true;
     }
@@ -1004,6 +1525,7 @@ QtObject {
             return;
 
         notificationTimer.stop();
+        arrivalEnd();
         const nextExpanded = restoreExpanded === true && suspendedExpanded;
         const suspendedFace = suspendedActivity === "home" || suspendedActivity === "media";
         const nextActivity = !suspendedActivity || (suspendedFace && !nextExpanded) ? idleActivity() : suspendedActivity === "media" && !mediaAvailable ? "home" : suspendedActivity;
@@ -1030,9 +1552,69 @@ QtObject {
         return true;
     }
 
+    function beginPluginActivity(token, kind, expand, timeoutMs) {
+        if (!pluginActive) {
+            pluginReturnActivity = activeActivity;
+            pluginReturnExpanded = expanded;
+        }
+        clearPendingRequests("");
+        launcherSessionActive = false;
+        hoverExpanded = false;
+        hoverOpenTimer.stop();
+        hoverCloseTimer.stop();
+        transientTimer.stop();
+        notificationTimer.stop();
+        keyboardDismissRequested = false;
+        pluginKind = kind;
+        pluginTimeoutMs = timeoutMs;
+        // The host loads the plugin's faces from the token, so expandability is known only after it is set.
+        pluginToken = token;
+        const displaced = systemActivityActive ? activeActivity : "";
+        const arriving = !pluginActive && kind !== "live";
+        expanded = expand === true && pluginExpandable;
+        activeActivity = "plugin";
+        if (arriving && !expanded)
+            arrivalFace(Arrival.tierOf({
+                "urgent": kind === "alert"
+            }));
+        syncPluginTimeout(true);
+        displaceSystem(displaced);
+    }
+
+    function endPluginActivity() {
+        pluginToken = "";
+        pluginTimer.stop();
+        if (suspendedActivity === "plugin") {
+            suspendedActivity = idleActivity();
+            suspendedExpanded = false;
+        }
+        if (transientReturnActivity === "plugin")
+            transientReturnActivity = "";
+        const back = pluginReturnActivity;
+        const backExpanded = pluginReturnExpanded;
+        pluginReturnActivity = "";
+        pluginReturnExpanded = false;
+        if (!pluginActive)
+            return;
+        expanded = false;
+        keyboardDismissRequested = false;
+        activeActivity = idleActivity();
+        // A sheet the user had open comes back once the activity is done.
+        if (backExpanded && isDestination(back))
+            requestActivity(back, true, true);
+    }
+
     function requestToggle(requestKeyboardFocus) {
         if (notificationActive && hoverExpanded && expanded)
             return requestNotificationCenter(false);
+        // An alert opens without taking the keyboard from what the user is typing in; a click hands it over.
+        if (pluginActive && expanded && !keyboardDismissRequested && requestKeyboardFocus === true) {
+            keyboardDismissRequested = true;
+            return true;
+        }
+        // A card held open (the shelf) closes only by its own close button or shortcut, never by a click.
+        if (expanded && holdOpen)
+            return true;
         if (expanded)
             return requestCollapse();
         return requestExpand(requestKeyboardFocus);
@@ -1057,8 +1639,11 @@ QtObject {
 
     function updatePointerInside(inside) {
         pointerInside = inside === true;
+        if (pointerInside)
+            arrivalReopen();
         syncNotificationTimeout(!pointerInside);
         syncTransientTimeout(!pointerInside);
+        syncPluginTimeout(!pointerInside);
         if (!pointerInside) {
             hoverHeld = false;
             slotHoverCount = 0;
@@ -1104,7 +1689,7 @@ QtObject {
     }
 
     property Timer transientTimer: Timer {
-        interval: root.transientTimeout
+        interval: Activities.faceTimeoutMs(root.activeActivity)
         onTriggered: {
             if (!root.transientActive || root.expanded)
                 return;
@@ -1115,6 +1700,17 @@ QtObject {
     property Timer notificationTimer: Timer {
         interval: root.notificationTimeout
         onTriggered: root.completeNotification()
+    }
+
+    property Timer pluginTimer: Timer {
+        interval: Math.max(1, root.pluginTimeoutMs)
+        onTriggered: root.pluginDismissed(root.pluginToken, "timeout")
+    }
+
+    property Timer machineBubbleTimer: Timer {
+        // A bubble with an Undo keeps it for an Undo's lifetime.
+        interval: Activities.faceTimeoutMs(root.machineBubbleKind)
+        onTriggered: root.machineBubbleKind = ""
     }
 
     property Timer visualsReleaseTimer: Timer {

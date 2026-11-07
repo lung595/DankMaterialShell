@@ -277,6 +277,7 @@ Singleton {
     property bool searchAppActions: true
 
     property string vpnLastConnected: ""
+    property var vpnAutoNetworks: []
 
     property string bluetoothAdapterOverride: ""
 
@@ -302,6 +303,12 @@ Singleton {
     property var lockScreenAutoPositions: ({})
     property var greeterAutoPositions: ({})
     property var islandFreePositions: ({})
+    // The island's screen bubble: the layout picked for each monitor (IslandScreen.key -> extend|duplicate|only).
+    property var islandScreenChoices: ({})
+    // Per UPower model name: the peripheral type reported another time, when UPower now guesses "keyboard" (IslandPeriph.kind).
+    property var islandPeriphTypes: ({})
+    // The island's shelf: absolute paths of the files kept there, newest first (links, never copies).
+    property var islandShelf: []
     property var builtInPluginState: ({})
     property bool greeterSyncPending: false
     property var greeterSyncBaseline: ({})
@@ -644,6 +651,18 @@ Singleton {
         const updated = Object.assign({}, islandFreePositions);
         updated[key] = next;
         islandFreePositions = updated;
+        saveSettings();
+    }
+
+    function setIslandScreenChoice(key, choice) {
+        if (key && islandScreenChoices[key] !== choice)
+            set("islandScreenChoices", Object.assign({}, islandScreenChoices, { [key]: choice }));
+    }
+
+    function setIslandShelf(list) {
+        if (JSON.stringify(list) === JSON.stringify(islandShelf))
+            return;
+        islandShelf = list;
         saveSettings();
     }
 

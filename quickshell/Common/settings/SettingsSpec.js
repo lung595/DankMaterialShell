@@ -1699,6 +1699,262 @@ var LOCAL_SPEC = {
     launcherPluginOrder: {
         def: []
     },
+    islandPluginsBlocked: {
+        def: []
+    },
+    islandSystemFaces: {
+        def: {}
+    },
+    islandLevelBubbles: {
+        def: false
+    },
+    islandBriefBubbles: {
+        def: false
+    },
+    islandArrivalStyle: {
+        def: "bc"
+    },
+    // Per tier: brief, normal, important (IslandArrival.js).
+    islandArrivalBounce: {
+        def: ["light", "light", "medium"]
+    },
+    islandArrivalTint: {
+        def: ["light", "normal", "strong"]
+    },
+    islandArrivalWheel: {
+        def: true
+    },
+    islandArrivalWheelInverted: {
+        def: false
+    },
+    islandBubbleOutline: {
+        def: false
+    },
+    islandBubbleMotion: {
+        def: 80
+    },
+    islandBubbleDialStyle: {
+        def: "wave"
+    },
+    islandBubbleCorners: {
+        def: "island"
+    },
+    islandBubbleLauncherTransition: {
+        def: "liquid"
+    },
+    islandBubbleShapeStyle: {
+        def: "flat"
+    },
+    islandBubbleShapeTone: {
+        def: "theme"
+    },
+    islandBubbleOutlineWidth: {
+        def: 1
+    },
+    // The weather kinds that raise an alert bubble.
+    islandWeatherAlerts: {
+        def: ["rain", "hail", "storm", "snow", "fog", "heat"]
+    },
+    // The shelf's drop zones, in order ({id, enabled}; empty: Convert, Share, Cloud) and the synced folders of its Cloud zone.
+    islandShelfZones: {
+        def: []
+    },
+    islandShelfClouds: {
+        def: []
+    },
+    // The shelf's own settings (island settings page Shelf); nothing reads them yet.
+    islandShelfLayout: {
+        def: "list"
+    },
+    islandShelfDensity: {
+        def: "comfortable"
+    },
+    islandShelfPreviews: {
+        def: "thumbnails"
+    },
+    islandShelfRichPreviews: {
+        def: true
+    },
+    islandShelfPreviewSize: {
+        def: 32
+    },
+    islandShelfLabel: {
+        def: "name"
+    },
+    islandShelfHoverDetails: {
+        def: true
+    },
+    islandShelfMaxRows: {
+        def: 7
+    },
+    islandShelfSort: {
+        def: "recent"
+    },
+    islandShelfPinnedFirst: {
+        def: true
+    },
+    islandShelfKeyHints: {
+        def: "press"
+    },
+    islandShelfCountMode: {
+        def: "files"
+    },
+    islandShelfDropPosition: {
+        def: "top"
+    },
+    islandShelfOpenOnArrival: {
+        def: "island"
+    },
+    islandShelfStayOpen: {
+        def: false
+    },
+    islandShelfDragOut: {
+        def: "copy"
+    },
+    islandShelfRemoveOnDragOut: {
+        def: false
+    },
+    islandShelfCloseOnDragOut: {
+        def: false
+    },
+    islandShelfDoubleClick: {
+        def: "open"
+    },
+    islandShelfLightDismiss: {
+        def: false
+    },
+    islandShelfMessageMs: {
+        def: 2000
+    },
+    islandShelfClearConfirm: {
+        def: "hold"
+    },
+    islandShelfFolderHoldMs: {
+        def: 600
+    },
+    islandShelfKeepFor: {
+        def: "forever"
+    },
+    islandShelfMaxItems: {
+        def: 100
+    },
+    islandShelfMissing: {
+        def: "grey"
+    },
+    islandShelfStoreMode: {
+        def: "links"
+    },
+    islandShelfUndoSteps: {
+        def: 30
+    },
+    islandShelfRecentRemoved: {
+        def: 10
+    },
+    islandShelfDropIsland: {
+        def: true
+    },
+    islandShelfEdgeDrop: {
+        def: true
+    },
+    islandShelfAcceptText: {
+        def: true
+    },
+    islandShelfPaste: {
+        def: true
+    },
+    islandShelfPasteAs: {
+        def: "note"
+    },
+    islandShelfScreenshots: {
+        def: "off"
+    },
+    islandShelfDownloads: {
+        def: false
+    },
+    islandShelfKeepOutputs: {
+        def: true
+    },
+    islandShelfZonesShown: {
+        def: "dragging"
+    },
+    islandShelfCloudSpring: {
+        def: true
+    },
+    islandShelfCloudMode: {
+        def: "copy"
+    },
+    islandShelfCloudAfter: {
+        def: "nothing"
+    },
+    islandShelfShareKdeConnect: {
+        def: true
+    },
+    islandShelfShareLocalSend: {
+        def: true
+    },
+    islandShelfShareDevice: {
+        def: "ask"
+    },
+    islandShelfTypeToSearch: {
+        def: false
+    },
+    islandShelfPersist: {
+        def: true
+    },
+    islandShelfClearOnLogout: {
+        def: false
+    },
+    islandShelfHideNames: {
+        def: false
+    },
+    islandShelfForgetRemovable: {
+        def: false
+    },
+    islandShelfPreviewCache: {
+        def: "memory"
+    },
+    islandShelfReduceMotion: {
+        def: "follow"
+    },
+    islandShelfTextScale: {
+        def: "follow"
+    },
+    islandShelfLargeTargets: {
+        def: false
+    },
+    islandShelfAnnounce: {
+        def: true
+    },
+    islandShelfScreen: {
+        def: "focused"
+    },
+    islandShelfBubbleScreens: {
+        def: "focused"
+    },
+    islandShelfNewFilesDir: {
+        def: ""
+    },
+    islandShelfConvertFormats: {
+        def: {}
+    },
+    islandReopenApps: {
+        def: "signal, discord, steam, telegram, element, slack"
+    },
+    islandBubbleOutlineOpacity: {
+        def: 100
+    },
+    islandBubbleOutlineColor: {
+        def: "type"
+    },
+    islandEyeBreak: {
+        def: false
+    },
+    islandEyeBreakInterval: {
+        def: 20
+    },
+    islandEyeBreakDuration: {
+        def: 20
+    },
     launcherKeybinds: {
         def: {}
     },

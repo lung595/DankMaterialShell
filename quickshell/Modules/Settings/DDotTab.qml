@@ -13,17 +13,17 @@ Item {
     LayoutMirroring.enabled: I18n.isRtl
     LayoutMirroring.childrenInherit: true
 
-    readonly property var paletteValues: ["default", "bright", "dim"]
+    property var parentModal: null
 
     readonly property IslandSettingsStore dot: IslandSettingsStore {
         barId: SettingsData.dotBarConfig?.id ?? ""
     }
 
-    readonly property bool highContrast: dot.setting("islandHighContrast")
-    readonly property bool paletteTinted: ["bright", "dim"].includes(dot.setting("islandPalette"))
+    readonly property bool highContrast: root.dot.setting("islandHighContrast")
+    readonly property bool paletteTinted: ["bright", "dim"].includes(root.dot.setting("islandPalette"))
     readonly property var iconModes: ["icon", "os", "dank", "compositor", "custom"]
-    readonly property string iconMode: dot.setting("islandFreeIconMode")
-    readonly property string iconColor: dot.setting("islandFreeIconColor")
+    readonly property string iconMode: root.dot.setting("islandFreeIconMode")
+    readonly property string iconColor: root.dot.setting("islandFreeIconColor")
     readonly property bool iconColorCustom: iconColor !== "" && iconColor !== "primary" && iconColor !== "surface"
     readonly property string compositorLabel: CompositorService.displayName || I18n.tr("Compositor")
 
@@ -55,15 +55,15 @@ Item {
             SettingsSliderRow {
                 settingKey: "islandFreeSize"
                 tags: ["dot", "size", "diameter"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["islandFreeSize"]
                 text: I18n.tr("Size")
                 unit: "px"
                 minimum: 24
                 maximum: 160
                 step: 1
-                value: dot.setting("islandFreeSize")
-                onSliderDragFinished: finalValue => dot.apply("islandFreeSize", finalValue)
+                value: root.dot.setting("islandFreeSize")
+                onSliderDragFinished: finalValue => root.dot.apply("islandFreeSize", finalValue)
             }
 
             SettingsButtonGroupRow {
@@ -151,21 +151,21 @@ Item {
             SettingsSliderRow {
                 settingKey: "dotEdgeMargin"
                 tags: ["dot", "edge", "margin", "gap"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["islandFreeEdgeMargin"]
                 text: I18n.tr("Edge margin", "island settings: gap kept from the display edge")
                 unit: "px"
                 minimum: 0
                 maximum: 64
                 step: 1
-                value: dot.setting("islandFreeEdgeMargin")
-                onSliderDragFinished: finalValue => dot.apply("islandFreeEdgeMargin", finalValue)
+                value: root.dot.setting("islandFreeEdgeMargin")
+                onSliderDragFinished: finalValue => root.dot.apply("islandFreeEdgeMargin", finalValue)
             }
 
             SettingsSliderRow {
                 settingKey: "islandFreeIdleDelay"
                 tags: ["dot", "idle", "delay", "fade", "timeout"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["islandFreeIdleDelay"]
                 text: I18n.tr("Idle delay", "island settings: time before the dot fades, 0 disables idling")
                 unit: "ms"
@@ -173,38 +173,38 @@ Item {
                 minimum: 0
                 maximum: 30000
                 step: 500
-                value: dot.setting("islandFreeIdleDelay")
-                onSliderDragFinished: finalValue => dot.apply("islandFreeIdleDelay", finalValue)
+                value: root.dot.setting("islandFreeIdleDelay")
+                onSliderDragFinished: finalValue => root.dot.apply("islandFreeIdleDelay", finalValue)
             }
 
             SettingsSliderRow {
                 settingKey: "islandFreeIdleScale"
                 tags: ["dot", "idle", "shrink", "scale"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["islandFreeIdleScale"]
                 text: I18n.tr("Idle size", "island settings: how far the dot shrinks while idle")
                 unit: "%"
                 minimum: 20
                 maximum: 100
                 step: 1
-                value: Math.round(dot.setting("islandFreeIdleScale") * 100)
-                enabled: dot.setting("islandFreeIdleDelay") > 0
-                onSliderDragFinished: finalValue => dot.apply("islandFreeIdleScale", finalValue / 100)
+                value: Math.round(root.dot.setting("islandFreeIdleScale") * 100)
+                enabled: root.dot.setting("islandFreeIdleDelay") > 0
+                onSliderDragFinished: finalValue => root.dot.apply("islandFreeIdleScale", finalValue / 100)
             }
 
             SettingsSliderRow {
                 settingKey: "islandFreeIdleOpacity"
                 tags: ["dot", "idle", "opacity", "fade"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["islandFreeIdleOpacity"]
                 text: I18n.tr("Idle opacity", "island settings: dot opacity while idle")
                 unit: "%"
                 minimum: 5
                 maximum: 100
                 step: 1
-                value: Math.round(dot.setting("islandFreeIdleOpacity") * 100)
-                enabled: dot.setting("islandFreeIdleDelay") > 0
-                onSliderDragFinished: finalValue => dot.apply("islandFreeIdleOpacity", finalValue / 100)
+                value: Math.round(root.dot.setting("islandFreeIdleOpacity") * 100)
+                enabled: root.dot.setting("islandFreeIdleDelay") > 0
+                onSliderDragFinished: finalValue => root.dot.apply("islandFreeIdleOpacity", finalValue / 100)
             }
 
             SettingsRow {
@@ -221,62 +221,38 @@ Item {
             iconName: "palette"
             title: I18n.tr("Surface")
             settingKey: "dotSurface"
-            tags: ["dot", "background", "color", "opacity", "palette", "contrast"]
+            tags: ["dot", "background", "color", "opacity"]
 
             SurfaceColorRow {
                 settingKey: "dotSurfaceColor"
                 tags: ["dot", "background", "color", "surface"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["surfaceColor", "surfaceCustomColor"]
                 text: I18n.tr("Background")
                 enabled: !root.highContrast && !root.paletteTinted
                 defaultColor: Theme.hostSurface
-                currentMode: dot.config?.surfaceColor ?? "default"
-                customColor: dot.config?.surfaceCustomColor ?? SettingsData.barConfigDefault("surfaceCustomColor")
+                currentMode: root.dot.config?.surfaceColor ?? "default"
+                customColor: root.dot.config?.surfaceCustomColor ?? SettingsData.barConfigDefault("surfaceCustomColor")
                 pickerTitle: I18n.tr("Background")
-                onModeSelected: mode => dot.apply("surfaceColor", mode)
-                onCustomColorSelected: selectedColor => dot.apply("surfaceCustomColor", selectedColor.toString())
+                onModeSelected: mode => root.dot.apply("surfaceColor", mode)
+                onCustomColorSelected: selectedColor => root.dot.apply("surfaceCustomColor", selectedColor.toString())
             }
 
             SettingsSliderRow {
                 settingKey: "dotOpacity"
                 tags: ["dot", "opacity", "transparency", "background"]
-                resetStore: dot
+                resetStore: root.dot
                 resetKeys: ["transparency"]
                 text: I18n.tr("Opacity")
                 enabled: !root.highContrast
                 minimum: 0
                 maximum: 100
                 step: 1
-                value: Math.round(SettingsData.barTransparency(dot.config) * 100)
-                onSliderDragFinished: finalValue => SettingsData.updateBarConfig(dot.config.id, {
+                value: Math.round(SettingsData.barTransparency(root.dot.config) * 100)
+                onSliderDragFinished: finalValue => SettingsData.updateBarConfig(root.dot.config.id, {
                         followInterfaceStyle: false,
                         transparency: finalValue / 100
                     })
-            }
-
-            SettingsButtonGroupRow {
-                settingKey: "dotPalette"
-                tags: ["dot", "palette", "surface", "bright", "dim"]
-                resetStore: dot
-                resetKeys: ["islandPalette"]
-                text: I18n.tr("Palette", "island settings: surface tone choice")
-                model: [I18n.tr("Default", "island settings: default surface tone"), I18n.tr("Bright", "island settings: bright surface tone"), I18n.tr("Dim", "island settings: dim surface tone")]
-                values: root.paletteValues
-                enabled: !root.highContrast
-                value: dot.setting("islandPalette")
-                fallbackValue: "default"
-                onValueSelected: value => dot.apply("islandPalette", value)
-            }
-
-            SettingsToggleRow {
-                settingKey: "dotHighContrast"
-                tags: ["dot", "contrast", "accessibility", "outline"]
-                resetStore: root.dot
-                resetKeys: ["islandHighContrast"]
-                text: I18n.tr("High contrast", "island settings: high contrast toggle")
-                checked: dot.setting("islandHighContrast")
-                onToggled: checked => dot.apply("islandHighContrast", checked)
             }
         }
 
@@ -287,32 +263,19 @@ Item {
             tags: ["dot", "display", "monitor", "screen"]
 
             SettingsDisplayPicker {
-                displayPreferences: dot.config?.screenPreferences || ["all"]
+                displayPreferences: root.dot.config?.screenPreferences || ["all"]
                 emptyMeansAll: false
                 allowEmpty: true
                 showLastDisplay: true
-                showOnLastDisplay: dot.config?.showOnLastDisplay ?? true
-                preferencesHandler: prefs => dot.apply("screenPreferences", prefs)
-                onLastDisplayToggled: checked => dot.apply("showOnLastDisplay", checked)
+                showOnLastDisplay: root.dot.config?.showOnLastDisplay ?? true
+                preferencesHandler: prefs => root.dot.apply("screenPreferences", prefs)
+                onLastDisplayToggled: checked => root.dot.apply("showOnLastDisplay", checked)
             }
         }
 
-        IslandBehaviorCard {
-            store: dot
-            keyPrefix: "dot"
-            docked: false
-            isDot: true
-        }
-
-        IslandNotificationsCard {
-            store: dot
-            keyPrefix: "dot"
-            badgeGated: false
-        }
-
-        IslandMotionCard {
-            store: dot
-            keyPrefix: "dot"
+        IslandHubLink {
+            parentModal: root.parentModal
+            barId: root.dot.barId
         }
     }
 }

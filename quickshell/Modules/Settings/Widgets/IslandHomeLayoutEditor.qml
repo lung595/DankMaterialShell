@@ -100,7 +100,7 @@ Column {
         bottomRadius: SettingsMetrics.groupInnerRadius
         body: StyledText {
             width: parent.width
-            text: I18n.tr("Drag groups above the clock to sit left of it, below to sit right. Click the eye to hide a group.", "island settings: home layout editor hint")
+            text: I18n.tr("Drag groups above the clock to sit left of it, below to sit right. Click the eye to hide a group", "island settings: home layout editor hint")
             color: Theme.surfaceVariantText
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
@@ -183,7 +183,7 @@ Column {
                 topRadius: SettingsMetrics.groupInnerRadius
                 bottomRadius: index === root.disabledGroups.length - 1 ? root.bottomRadius : SettingsMetrics.groupInnerRadius
                 title: root.presentation[modelData.id].text
-                subtitle: root.presentation[modelData.id].description
+                subtitle: root.presentation[modelData.id].description ?? ""
                 iconName: root.presentation[modelData.id].icon
                 iconColor: Theme.onSurfaceVariant
 

@@ -1,6 +1,6 @@
 # Shell tests
 
-`make test-qml` runs three suites: `logic` (the `*.test.mjs` files here under `node --test`), `qt` (`qmltestrunner` over `unit/`) and `lock` (`qmltestrunner` over `lock/` with the mocks in `lock/mocks`). It needs Python 3, Node.js, Lua, make and the Qt 6 `qmltestrunner`. The Nix development shell includes them.
+`make test-qml` runs four suites: `logic` (the `*.test.mjs` files here under `node --test`), `qt` (`qmltestrunner` over `unit/`), `lock` (`qmltestrunner` over `lock/` with the mocks in `lock/mocks`) and `island` (`qmltestrunner` over `island/`, the island's kit pieces with the theme and widget doubles in `island/mocks`). It needs Python 3, Node.js, Lua, make and the Qt 6 `qmltestrunner`. The Nix development shell includes them.
 
 The `qml-tests` pre-commit hook runs the same suites when shell code, tests or their configuration changes. CI runs that hook in the QML tests job.
 
@@ -9,6 +9,7 @@ prek run qml-tests --all-files
 python3 quickshell/tests/run-qml.py logic
 python3 quickshell/tests/run-qml.py qt
 python3 quickshell/tests/run-qml.py lock
+python3 quickshell/tests/run-qml.py island
 ```
 
 Set `QMLTESTRUNNER` to override the Qt 6 executable.
