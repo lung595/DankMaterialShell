@@ -24,7 +24,9 @@ test("the ready face keeps what it can draw and drops the rest", () => {
         "progress": 1,
         "actions": [{ "id": "stop", "label": "Stop" }, { "id": "snooze", "label": "Snooze" }, { "id": "a", "label": "A" }],
         "accent": "primary",
+        "image": "",
         "detail": "42",
+        "lines": ["42"],
         "name": "Pasta, 42"
     });
     assert.equal(activities.readyFace({ "progress": null }).progress, -1);
@@ -45,6 +47,35 @@ test("a state accent is said in words beside the detail and in the name a screen
     const info = activities.readyFace({ "title": "Backup", "text": "3 left", "accent": "info" }, words);
     assert.equal(info.detail, "3 left", "an accent that is not a state says nothing");
     assert.equal(info.name, "Backup, 3 left");
+});
+
+test("a face's text keeps three lines; the folded face and the bubble read the first one", () => {
+    const words = { "error": "Error" };
+    const face = activities.readyFace({ "title": "Backup", "text": "a\r\nb\nc\nd", "accent": "error" }, words);
+    assert.equal(face.text, "a\nb\nc");
+    assert.deepEqual(plain(face.lines), ["Error · a", "b", "c"]);
+    assert.equal(face.detail, "Error · a");
+    assert.deepEqual(plain(activities.readyFace({ "title": "Backup" }).lines), []);
+});
+
+test("a script's image is an icon of the theme or a local picture, never a URL; its accent a role of the theme", () => {
+    const hasIcon = name => name === "drive-harddisk";
+    assert.equal(activities.scriptImage(undefined, hasIcon), "");
+    assert.equal(activities.scriptImage("", hasIcon), "");
+    assert.equal(activities.scriptImage("drive-harddisk", hasIcon), "image://icon/drive-harddisk");
+    assert.equal(activities.scriptImage("/tmp/My shots/a#1.PNG", hasIcon), "file:///tmp/My%20shots/a%231.PNG");
+    for (const bad of ["no-such-icon", "https://example.com/a.png", "file:///tmp/a.png", "image://icon/x", "data:image/png;base64,AA", "/dev/zero", "tmp/a.png", "/tmp/a\n.png", "/" + "a".repeat(3000) + ".png", 42, {}])
+        assert.equal(activities.scriptImage(bad, hasIcon), null, String(bad));
+    assert.equal(activities.scriptImage("drive-harddisk"), null, "without a theme to ask, no icon name passes");
+
+    const s = serviceDouble();
+    assert.equal(activities.ipcActivity(s, "backup", "live", "", "{\"title\":\"Backup\",\"image\":\"https://example.com/a.png\"}", hasIcon), "ISLAND_ACTIVITY_BAD_IMAGE");
+    assert.equal(activities.ipcActivity(s, "backup", "live", "", "{\"title\":\"Backup\",\"accent\":\"#ff0000\"}", hasIcon), "ISLAND_ACTIVITY_BAD_ACCENT");
+    assert.equal(activities.ipcActivityUpdate(s, "script:backup:1", "{\"title\":\"Backup\",\"image\":\"nope\"}", hasIcon), "ISLAND_ACTIVITY_BAD_IMAGE");
+    assert.equal(s.calls.length, 0, "a refused call never reaches the service");
+    assert.equal(activities.ipcActivity(s, "backup", "live", "", "{\"image\":\"drive-harddisk\",\"accent\":\"success\"}", hasIcon), "script:backup:1", "an image alone says what it is");
+    assert.deepEqual(plain(s.calls[0][2].data), { "image": "image://icon/drive-harddisk", "accent": "success" });
+    assert.equal(activities.readyFace(s.calls[0][2].data).image, "image://icon/drive-harddisk");
 });
 
 test("IPC data must be a JSON object", () => {
@@ -78,9 +109,14 @@ test("face sizes stay inside the island bounds", () => {
     assert.equal(activities.faceSize({ "expandedWidth": 280 }, "expandedWidth", true), 400);
     assert.equal(activities.faceSize({ "expandedWidth": 280 }, "expandedWidth"), 280, "a plugin drawing its own sheet keeps it");
     assert.equal(activities.faceSize({ "expandedHeight": 300 }, "expandedHeight", true), 300);
-    assert.equal(activities.systemFaceSize(null, "compactLength"), 0);
-    assert.equal(activities.systemFaceSize({ "compactLength": 0 }, "compactLength"), 0);
-    assert.equal(activities.systemFaceSize({ "expandedWidth": 2000 }, "expandedWidth"), 736);
+    assert.equal(activities.ownFaceSize(null, "compactLength"), 0);
+    assert.equal(activities.ownFaceSize({ "compactLength": 0 }, "compactLength"), 0);
+    assert.equal(activities.ownFaceSize({ "expandedWidth": 2000 }, "expandedWidth"), 736);
+    // A plugin's own bubble and card: none asked keeps the shell's size, a big one stays within the island's reach.
+    assert.equal(activities.ownFaceSize({ "bubbleLength": 0 }, "bubbleLength"), 0);
+    assert.equal(activities.ownFaceSize({ "bubbleLength": 9000 }, "bubbleLength"), 240);
+    assert.equal(activities.ownFaceSize({ "cardHeight": 90.2 }, "cardHeight"), 91);
+    assert.equal(activities.ownFaceSize({ "cardHeight": 9000 }, "cardHeight"), 240);
 });
 
 test("a bubble face keeps the ready face fields and a very short text", () => {

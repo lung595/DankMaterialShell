@@ -114,6 +114,11 @@ Item {
         return kind === "dot" ? "DANK_DOT" : "DANK_ISLAND";
     }
 
+    // A script's image may name an icon of the theme (IslandActivityInput.scriptImage).
+    function hasIcon(name) {
+        return Quickshell.hasThemeIcon(name);
+    }
+
     function activityName(activity) {
         const requested = (activity || "home").trim().toLowerCase();
         switch (requested) {
@@ -451,16 +456,16 @@ Item {
 
         // The answers are listed at IslandActivityInput.ipcRefusal.
         function activity(id: string, kind: string, data: string): string {
-            return Input.ipcActivity(IslandActivityService, id, kind, "", data);
+            return Input.ipcActivity(IslandActivityService, id, kind, "", data, root.hasIcon);
         }
 
         // screen "*" shows it on every island there is now, not on a screen plugged in later.
         function activityOn(id: string, kind: string, screen: string, data: string): string {
-            return Input.ipcActivity(IslandActivityService, id, kind, screen, data);
+            return Input.ipcActivity(IslandActivityService, id, kind, screen, data, root.hasIcon);
         }
 
         function activityUpdate(token: string, data: string): string {
-            return Input.ipcActivityUpdate(IslandActivityService, token, data);
+            return Input.ipcActivityUpdate(IslandActivityService, token, data, root.hasIcon);
         }
 
         function activityEnd(token: string): string {

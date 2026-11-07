@@ -9,6 +9,7 @@ Item {
     id: root
 
     property string iconName: ""
+    property string image: ""
     property real progress: -1
 
     // A plain Item has no value interface: the percent is read as its description (the face names the activity).
@@ -63,9 +64,23 @@ Item {
         }
     }
 
+    // A script's or a plugin's picture (a file or a theme icon) in place of the icon; the icon stays while it cannot load.
+    Image {
+        id: picture
+
+        anchors.centerIn: parent
+        width: root.iconSize
+        height: width
+        sourceSize: Qt.size(width, height)
+        fillMode: Image.PreserveAspectFit
+        asynchronous: true
+        source: root.image
+        visible: status === Image.Ready
+    }
+
     DIcon {
         anchors.centerIn: parent
-        visible: root.iconName !== ""
+        visible: root.iconName !== "" && !picture.visible
         name: root.iconName
         size: root.iconSize
         color: root.iconColor

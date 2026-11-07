@@ -16,6 +16,7 @@ import "../../Common/IslandKit.js" as IslandKit
 import "../../Common/IslandArrival.js" as Arrival
 import "../../Common/IslandArrivalGestures.js" as Gestures
 import "../../Common/IslandActivities.js" as Activities
+import "../../Common/IslandActivityInput.js" as Input
 import "../../Common/IslandClock.js" as Clock
 
 // Wings of the island: the machine grows out of its leading side, apps out of its trailing one (above and below on a vertical bar).
@@ -401,6 +402,31 @@ Item {
         wing: trailing
     }
 
+    // A waiting plugin activity's IslandActivityComponent, made while its bubble shows, for the bubble and card row it
+    // may draw (bubbleContent, cardContent). Its faces stay unloaded: the island has its own surface for what it shows.
+    component PluginSurface: Loader {
+        id: own
+
+        property var bubble: null
+        readonly property string token: own.bubble?.source === "plugin" ? own.bubble.token ?? "" : ""
+
+        active: !!own.sourceComponent
+        sourceComponent: own.token ? IslandActivityService.islandComponents[own.bubble.pluginId] ?? null : null
+        onLoaded: {
+            // As the island's own host gives them: a surface sets only the properties it declares.
+            const give = (name, value) => {
+                if (name in item)
+                    item[name] = value;
+            };
+            give("pluginId", own.bubble?.pluginId ?? "");
+            give("pluginService", PluginService);
+            give("token", Qt.binding(() => own.token));
+            give("kind", Qt.binding(() => own.bubble?.kind ?? "live"));
+            give("activityData", Qt.binding(() => IslandActivityService.revision >= 0 ? IslandActivityService.entry(own.token)?.data ?? {} : {}));
+            give("interrupted", true);
+        }
+    }
+
     component PermanentSlot: Loader {
         id: slot
 
@@ -500,7 +526,23 @@ Item {
         readonly property var tone: root.toneOf(wing.family)
         // An app's own icon (no symbol over it): the kit's flower outline, never a filled backdrop.
         readonly property bool appFace: wing.symbol === "" && (wing.face?.image ?? "") !== ""
-        readonly property string symbol: wing.face?.call === true ? "call" : wing.face?.source === "notification" ? (wing.family === "mail" ? "mail" : wing.family === "alert" ? "priority_high" : "chat") : (wing.face?.icon ?? "")
+        // A plugin's or a script's image shows on the pill as an app's does; the media bubble keeps its note over the art.
+        readonly property string symbol: wing.face?.call === true ? "call" : wing.face?.source === "notification" ? (wing.family === "mail" ? "mail" : wing.family === "alert" ? "priority_high" : "chat") : wing.face?.source === "plugin" && wing.face?.image ? "" : (wing.face?.icon ?? "")
+        // The plugin's own surface for the face shown and for the card's page (when another), and what they draw.
+        PluginSurface {
+            id: faceSurface
+
+            bubble: wing.face
+        }
+        PluginSurface {
+            id: pageSurface
+
+            bubble: wing.paged !== wing.face ? wing.paged : null
+        }
+        readonly property var pagedSurface: wing.paged !== wing.face ? pageSurface.item : faceSurface.item
+        readonly property Component ownBubble: faceSurface.item?.bubbleContent ?? null
+        readonly property Component ownCard: wing.pagedSurface?.cardContent ?? null
+        readonly property real ownCardHeight: Math.max(root.rowHeight, Input.ownFaceSize(wing.pagedSurface, "cardHeight"))
         readonly property string count: wing.items.length > 1 ? "+" + (wing.items.length - 1) : ""
         // A change of what the wing says (birth, occupant, count, alert) moves it to its grammar shape.
         // The machine's bubbles share one id: their kind tells them apart.
@@ -517,7 +559,7 @@ Item {
         }
 
         // Analog dial: the shape's own spring toward a turn of the level, ticking only while it moves.
-        readonly property real level: wing.face?.progress ?? -1
+        readonly property real level: wing.ownBubble ? -1 : wing.face?.progress ?? -1
         readonly property bool dialing: !root.reducedMotion && wing.level >= 0
         property real dialAngle: 0
         property real dialVel: 0
@@ -694,10 +736,10 @@ Item {
         readonly property real stopRoom: root.size / 2 + root.trackGap
         readonly property string caption: wing.levelled ? wing.face?.text ?? "" : ""
         readonly property real labelWidth: compactLabel.implicitWidth
-        readonly property real need: !wing.has ? 0 : root.size + (wing.levelled ? root.trackGap + root.trackPad + wing.stopRoom + wing.labelWidth : 0)
+        readonly property real need: !wing.has ? 0 : wing.ownBubble ? Math.max(root.size, Input.ownFaceSize(faceSurface.item, "bubbleLength")) : root.size + (wing.levelled ? root.trackGap + root.trackPad + wing.stopRoom + wing.labelWidth : 0)
         // Text shows only in the last few pixels of the wing's growth, at its final width, never cut on the way.
         readonly property real labelRoom: IslandKit.unit(((wing.upright ? wing.thick - wing.standLength : Math.max(wing.length, wing.thick) - wing.need)) / Theme.spacingS + 1)
-        property real listHeight: root.pad * 2 + root.rowHeight
+        property real listHeight: root.pad * 2 + (wing.ownCard ? wing.ownCardHeight : root.rowHeight)
         // An open card whose list changes resizes instead of jumping.
         Behavior on listHeight {
             enabled: !root.reducedMotion && wing.hoverGrow > IslandKit.shownFrom
@@ -1460,7 +1502,7 @@ Item {
             ]
             // Fusing, the shape stays whole while the rest fades, until the goo takes it.
             opacity: wing.fusing ? 1 : wing.iconOpacity
-            visible: opacity > IslandKit.shownFrom && wing.face !== null
+            visible: opacity > IslandKit.shownFrom && wing.face !== null && (!wing.ownBubble || wing.fusing)
 
             Behavior on color {
                 enabled: !root.reducedMotion
@@ -1561,7 +1603,7 @@ Item {
                 y: liquid.visible ? IslandKit.wave(0, liquid.amp / 2, liquid.phase) : 0 // A1
             }
             opacity: wing.iconOpacity
-            visible: opacity > IslandKit.shownFrom
+            visible: opacity > IslandKit.shownFrom && !wing.ownBubble
 
             NumberAnimation {
                 id: swapRun
@@ -1616,6 +1658,15 @@ Item {
                     blur: 1 - IslandKit.unit(iconSwap.swap)
                 }
             }
+        }
+
+        // A plugin's own bubble, over the pill in place of its icon, made only while it shows.
+        Loader {
+            z: 3
+            anchors.fill: parent
+            opacity: wing.iconOpacity
+            active: !!wing.ownBubble && opacity > IslandKit.shownFrom
+            sourceComponent: wing.ownBubble
         }
 
         // The value's dry part: all of the wing but the liquid's (all of it while no liquid is drawn).
@@ -1705,7 +1756,7 @@ Item {
                     required property int index
                     readonly property var modelData: wing.paged ?? ({})
                     width: cardFace.width
-                    height: root.rowHeight
+                    height: wing.ownCard ? wing.ownCardHeight : root.rowHeight
 
                     Rectangle {
                         anchors.fill: parent
@@ -1716,6 +1767,7 @@ Item {
                     Glyph {
                         id: rowGlyph
 
+                        visible: !wing.ownCard
                         bubble: row.modelData
                         x: Theme.spacingXS
                         anchors.verticalCenter: parent.verticalCenter
@@ -1724,6 +1776,7 @@ Item {
                     }
 
                     Column {
+                        visible: !wing.ownCard
                         anchors.left: rowGlyph.right
                         anchors.leftMargin: Theme.spacingS
                         anchors.right: parent.right
@@ -1764,6 +1817,13 @@ Item {
                         Accessible.description: I18n.tr("Right click to dismiss", "island bubble: what a right click on a bubble or its card does")
                         Accessible.onPressAction: root.activated(row.modelData)
                         onClicked: mouse => mouse.button === Qt.RightButton ? root.dismissed(row.modelData) : root.activated(row.modelData)
+                    }
+
+                    // A plugin's own row, above the row's clicks so its controls take theirs; the rest of the row keeps them.
+                    Loader {
+                        anchors.fill: parent
+                        active: !!wing.ownCard
+                        sourceComponent: wing.ownCard
                     }
                 }
             }
@@ -1999,7 +2059,7 @@ Item {
             bare: glyph.onBackdrop
             iconSize: glyph.onBackdrop ? root.iconFit : Math.round(glyph.width * root.imageShare)
             source: visible ? glyph.bubble.image : ""
-            iconName: "notifications"
+            iconName: glyph.notification ? "notifications" : glyph.bubble?.icon || "extension"
         }
 
         ReadyActivityRing {

@@ -29,6 +29,7 @@ Item {
 
             anchors.verticalCenter: parent.verticalCenter
             iconName: root.face.icon
+            image: root.face.image
             progress: root.face.progress
             accent: root.accent
         }

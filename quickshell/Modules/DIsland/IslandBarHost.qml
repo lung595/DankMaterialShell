@@ -299,6 +299,9 @@ Item {
     // ReadyActivityRing's stroke (its ringWidth): the ready sheet's ring is the icon and four of them.
     readonly property real readyRingWidth: 3
     readonly property var readyFace: root.pluginRevision >= 0 && root.pluginEntry && !root.pluginActivity?.compactContent ? Input.readyFace(root.pluginEntry.data, root.stateWords) : null
+    // The ready sheet's header: the ring, or a title line and the text's lines (ReadyActivityExpanded) if taller.
+    readonly property int readyLines: root.readyFace?.lines.length ?? 0
+    readonly property real readyHeaderHeight: Math.max(Theme.iconSize + 4 * root.readyRingWidth, (NotificationMetrics.summarySize + root.readyLines * NotificationMetrics.bodySize) * NotificationMetrics.lineHeight + root.readyLines * NotificationMetrics.contentSpacing / 2)
     readonly property var stateWords: ({
             "error": I18n.tr("Error", "island activity state, said beside its detail"),
             "warning": I18n.tr("Warning", "island activity state, said beside its detail"),
@@ -397,11 +400,13 @@ Item {
                 "source": "plugin",
                 "kind": entry.kind,
                 "token": entry.token,
+                "pluginId": entry.pluginId,
                 "app": PluginService.availablePlugins[entry.pluginId]?.name ?? "",
                 "seq": entry.seq,
                 "icon": face.icon || "extension",
+                "image": ready.image,
                 "title": ready.title,
-                "detail": ready.text
+                "detail": ready.detail
             }));
         }
         // A popup the island could not take (an open launcher or sheet) waits beside it, for as long as the popup lives.
@@ -783,14 +788,13 @@ Item {
         hoverOpenDelay: Math.max(0, Math.min(root.maxHoverDelay, root.setting("islandHoverOpenDelay")))
         hoverCloseDelay: Math.max(0, Math.min(root.maxHoverDelay, root.setting("islandHoverCloseDelay")))
         pluginExpandable: root.readyFace ? (root.readyFace.text !== "" || root.readyFace.actions.length > 0) : !!root.pluginActivity?.expandedContent
-        systemFaceCompactLength: Input.systemFaceSize(systemFaceLoader.item, "compactLength")
-        systemFaceExpandedWidth: Math.min(dashboardAvailableWidth, Input.systemFaceSize(systemFaceLoader.item, "expandedWidth"))
-        systemFaceExpandedHeight: Math.min(dashboardAvailableHeight, Input.systemFaceSize(systemFaceLoader.item, "expandedHeight"))
+        systemFaceCompactLength: Input.ownFaceSize(systemFaceLoader.item, "compactLength")
+        systemFaceExpandedWidth: Math.min(dashboardAvailableWidth, Input.ownFaceSize(systemFaceLoader.item, "expandedWidth"))
+        systemFaceExpandedHeight: Math.min(dashboardAvailableHeight, Input.ownFaceSize(systemFaceLoader.item, "expandedHeight"))
         pluginCompactLength: Input.faceSize(root.pluginActivity, "compactLength", !!root.readyFace)
         pluginExpandedWidth: Math.min(dashboardAvailableWidth, Input.faceSize(root.pluginActivity, "expandedWidth", !!root.readyFace))
-        // The ready sheet on the card grid: margins, the header (one line each beside the ring, which is the icon and four
-        // of its strokes: ReadyActivityRing.ringWidth, 3 px), then the button row.
-        pluginExpandedHeight: Math.min(dashboardAvailableHeight, root.readyFace ? NotificationMetrics.cardPadding * 2 + Theme.iconSize + 4 * root.readyRingWidth + (root.readyFace.actions.length > 0 ? Theme.spacingS + Theme.buttonHeightS : 0) : Input.faceSize(root.pluginActivity, "expandedHeight"))
+        // The ready sheet on the card grid: margins, the header, then the button row.
+        pluginExpandedHeight: Math.min(dashboardAvailableHeight, root.readyFace ? NotificationMetrics.cardPadding * 2 + root.readyHeaderHeight + (root.readyFace.actions.length > 0 ? Theme.spacingS + Theme.buttonHeightS : 0) : Input.faceSize(root.pluginActivity, "expandedHeight"))
         plugin.activity: root.pluginActivity
         plugin.face: root.readyFace
         plugin.systemFace: systemFaceLoader.item

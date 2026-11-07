@@ -17,6 +17,51 @@ IslandActivityComponent {
     compactLength: 200
     expandedWidth: 420
     expandedHeight: 150
+    bubbleLength: 112
+    cardHeight: 64
+
+    // Pushed aside by another activity: its own bubble (icon and label) and its own card row (label and a button).
+    bubbleContent: Item {
+        Row {
+            anchors.centerIn: parent
+            spacing: Theme.spacingXS
+
+            DIcon {
+                anchors.verticalCenter: parent.verticalCenter
+                name: root.kind === "glance" ? "bluetooth" : "timer"
+                size: Theme.iconSizeSmall
+                color: Theme.primary
+            }
+
+            StyledText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.label
+                color: Theme.surfaceText
+                font.pixelSize: Theme.fontSizeSmall
+            }
+        }
+    }
+
+    cardContent: Item {
+        StyledText {
+            anchors.left: parent.left
+            anchors.leftMargin: Theme.spacingS
+            anchors.verticalCenter: parent.verticalCenter
+            text: root.label
+            color: Theme.surfaceText
+            font.pixelSize: Theme.fontSizeLarge
+            font.weight: Theme.fontWeightMedium
+        }
+
+        IslandButton {
+            anchors.right: parent.right
+            anchors.rightMargin: Theme.spacingS
+            anchors.verticalCenter: parent.verticalCenter
+            role: "primary"
+            text: I18n.tr("Dismiss", "island example plugin: dismiss button")
+            onClicked: root.dismiss()
+        }
+    }
 
     compactContent: Item {
         Row {

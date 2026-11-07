@@ -29,6 +29,7 @@ Item {
     readonly property bool on: !!perm.spec && !perm.bubbles.isVertical && perm.bubbles.controller.bubblesEnabled
     readonly property bool receiving: perm.on && perm.spec.receiving === true
     readonly property bool tucked: perm.on && perm.wing.has
+    readonly property Component ownFace: perm.spec?.bubbleContent ?? null
 
     // Its icon alone says whose it is: the plugin's name, and what it does with a file when it says.
     Accessible.role: Accessible.Graphic
@@ -199,8 +200,16 @@ Item {
         // An app's icon backdrop stays round; only the bubble takes the wings' corners.
         Rectangle {
             anchors.fill: parent
+            visible: !perm.ownFace
             radius: width / 2
             color: perm.tone[0]
+        }
+
+        // The plugin's own face (its bubbleContent) in place of the icon and its backdrop, made only while it shows.
+        Loader {
+            anchors.fill: parent
+            active: !!perm.ownFace && face.visible
+            sourceComponent: perm.ownFace
         }
 
         // The icon: squeezed as the bubble starts to swell, then stretched toward the file while it is held open; all from
@@ -208,6 +217,7 @@ Item {
         Item {
             id: glyph
 
+            visible: !perm.ownFace
             // Squeeze per unit of swelling speed, kept under pulseMax; stretchMax once fully swollen; its share of the face.
             readonly property real pulseGain: 0.02
             readonly property real pulseMax: 0.14
