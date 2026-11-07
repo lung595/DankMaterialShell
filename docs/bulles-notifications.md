@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![The notification arrives as a card, folds, then the clock comes back, dark](../island/3-bulles/notif-sombre.gif)
+
+*The notification arrives as a card, folds, then the clock comes back, dark*
+
+In one sentence: Notification popups become island activities: a short card on arrival, a compact face, and an open face with the body, the action buttons and an inline reply.
+
 ## What it does
 
 - A notification popup is adopted by the island when the island is not open, or already shows a notification. It gets a compact face (icon, summary), a short card on arrival, and an open face (body, action buttons, an inline reply when the server offers it).
@@ -10,6 +16,12 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - A ringing call keeps its rocking icon, even when the compact face is made again.
 - A notification that only repeats a bubble does not take the island. In this branch, only the battery is known: a notice from `dms`, `upower` or a power app that talks about the battery is not shown next to the battery bubble. Alerts always pass.
 - Do Not Disturb hides what is not let through on the apps side.
+
+## Try it
+
+- Check out `island/3-bubbles`, use a bar in the Island layout, and send a notification: `notify-send "Anna" "Are you coming tonight?"`. It arrives as a short card, then folds to its compact face.
+- Send one while the island is open, for example on the launcher: it waits as a bubble. Click it to bring it in, right click to close it.
+- `dms ipc call island status` lists the held notification as `notification:ID`, and `dms ipc call island bubble open notification:ID` brings it in.
 
 ## Why
 
@@ -35,8 +47,18 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-![Before, dark: the compact face only](../island/3-bulles/notif-avant-sombre.png)
-![After, dark: a short card with title and text](../island/3-bulles/notif-apres-sombre.png)
-![After, light: a short card with title and text](../island/3-bulles/notif-apres-clair.png)
+The notification arrives as a card, folds, then the clock comes back, dark.
+
 ![The notification arrives as a card, folds, then the clock comes back, dark](../island/3-bulles/notif-sombre.gif)
 
+Before, dark: the compact face only.
+
+![Before, dark: the compact face only](../island/3-bulles/notif-avant-sombre.png)
+
+After, dark: a short card with title and text.
+
+![After, dark: a short card with title and text](../island/3-bulles/notif-apres-sombre.png)
+
+After, light: a short card with title and text.
+
+![After, light: a short card with title and text](../island/3-bulles/notif-apres-clair.png)

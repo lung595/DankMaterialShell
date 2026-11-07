@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![A USB drive arrives, its card offers Open and Eject, and Eject ends on "You can unplug it"](../media/faces-b-usb-drive/usb-eject.gif)
+
+*A USB drive arrives, its card offers Open and Eject, and Eject ends on "You can unplug it"*
+
+In one sentence: A plugged USB drive gets a bubble with its name and free space, and its card opens or safely ejects it.
+
 ## What it does
 
 - When a removable drive (USB stick, plugged disk) appears, the island plays its arrival first, then keeps a bubble with a USB icon.
@@ -9,6 +15,11 @@ Status: working prototype
 - The card has two buttons. Open mounts the drive if needed and opens it in the file manager. Eject unmounts every mounted file system of the drive, then powers the drive off.
 - After Eject, the card says "You can unplug it" for a moment, then the bubble goes away.
 - If the drive is pulled out without ejecting, the bubble disappears. A failed action shows an error toast.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and plug in a USB stick.
+- Click the bubble: Open mounts and opens it in the file manager, Eject unmounts and powers it off, then the card says "You can unplug it".
 
 ## Why
 
@@ -31,5 +42,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A USB drive arrives, its card offers Open and Eject, and Eject ends on "You can unplug it".
 
+![A USB drive arrives, its card offers Open and Eject, and Eject ends on "You can unplug it"](../media/faces-b-usb-drive/usb-eject.gif)
+
+The USB drive card: label, free space, Open and Eject.
+
+![The USB drive card: label, free space, Open and Eject](../media/faces-b-usb-drive/usb-card.png)

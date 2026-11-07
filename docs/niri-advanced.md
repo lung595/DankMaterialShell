@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Advanced section: 4 risky settings with the Keep timer](../media/niri-advanced/advanced-dark-wide.png)
+
+*The Advanced section: 4 risky settings with the Keep timer*
+
+In one sentence: An Expert-only section for four risky settings (the Mod key, the power button, X11 apps and debug options), each guarded by a 15 second "Keep this change?" timer.
+
 ## What it does
 
 - An Advanced section, shown in Expert mode only, groups four risky settings: the Mod key, "DMS handles the power button", X11 apps (xwayland-satellite) and debug options.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - X11 apps can be turned off; the tip says they then stop opening. Debug options are a few switches for niri's `debug` block, with no compatibility promise from niri.
 - A line "4 risky settings" warns first. Any change to one of the four starts the "Keep this change?" banner: after 15 seconds it goes back unless the user keeps it. Reset does the same.
 - A Notifications row shows or hides DMS's own toast after niri reloads its config.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, switch the niri page to Expert and run `dms ipc call settings openNiri advanced`.
+- Change the Mod key: the banner counts down 15 seconds and goes back unless you press Keep.
 
 ## Why
 
@@ -29,5 +40,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Advanced section: 4 risky settings with the Keep timer.
 
+![The Advanced section: 4 risky settings with the Keep timer](../media/niri-advanced/advanced-dark-wide.png)

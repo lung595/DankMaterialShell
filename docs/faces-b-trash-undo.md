@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![The trash bubble: file name and an Undo button](../media/faces-b-trash-undo/trash.png)
+
+*The trash bubble: file name and an Undo button*
+
+In one sentence: When a file goes to the trash, from DMS, a file manager or a terminal, the island shows its name with an Undo button while a ring drains.
+
 ## What it does
 
 - When a file goes to the home trash, the island shows its name, with an Undo button. If several files go at once, the text shows the first name and how many more.
@@ -10,6 +16,11 @@ Status: working prototype
 - Deletions made by the disk card are not announced twice; the disk card shows its own Undo.
 - Restoring or emptying the trash does not raise the bubble.
 - On the card, a page falls into the trash icon.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and run `gio trash some-file.txt`, or delete a file in a file manager.
+- Press Undo before the ring empties: the file goes back. Hovering pauses the time.
 
 ## Why
 
@@ -31,5 +42,6 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+The trash bubble: file name and an Undo button.
 
+![The trash bubble: file name and an Undo button](../media/faces-b-trash-undo/trash.png)

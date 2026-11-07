@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Search by words, then record a key combination and get the matching shortcut](../media/niri-search/search-steps.gif)
+
+*Search by words, then record a key combination and get the matching shortcut*
+
+In one sentence: One search bar finds niri settings by plain words ("more space" finds Gaps) and shortcuts by pressing the keys themselves.
+
 ## What it does
 
 - One search bar in the page header finds settings and shortcuts.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - A typed combination such as "supr + space" is also understood.
 - Results show settings (with their section) and shortcuts (with their keys). Ctrl+K moves the focus to the bar.
 - Titles are matched in English and in the translated text.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, open the niri page and press Ctrl+K.
+- Type "more space". Then press the key button and press Super+W: the shortcut bound to it shows.
 
 ## Why
 
@@ -31,5 +42,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Search by words, then record a key combination and get the matching shortcut.
 
+![Search by words, then record a key combination and get the matching shortcut](../media/niri-search/search-steps.gif)
+
+Typing "more space" finds Gaps and other settings, with their section.
+
+![Typing "more space" finds Gaps and other settings, with their section](../media/niri-search/search-words.png)
+
+Pressing Super+W in the key box finds the shortcut bound to it.
+
+![Pressing Super+W in the key box finds the shortcut bound to it](../media/niri-search/search-keys.png)

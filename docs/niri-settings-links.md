@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![A "Set in niri" row in the Displays page opens the niri page on the right section](../media/niri-settings-links/set-in-niri.png)
+
+*A "Set in niri" row in the Displays page opens the niri page on the right section*
+
+In one sentence: Under niri, old Settings tabs that the niri page replaces are hidden, and "Set in niri" rows take you to the right section of the niri page.
+
 ## What it does
 
 - Under niri, the old Settings tabs whose settings now live on the niri page are hidden: Keybinds, Keyboard, Mouse and touchpad, and Window rules.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - The IPC call `settings openWith niri` opens the niri page. `SettingsUiState.niriSection` picks the section.
 - Right click on a workspace in the bar opens a small menu under niri. The menu keeps the old action and adds a way to open the niri page on its Workspaces section. Other compositors keep the direct action.
 - Hyprland and Mango are not changed.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and open Settings, Displays: a "Set in niri" row opens the niri page.
+- Right click a workspace in the bar: the menu can open the niri page on its Workspaces section.
 
 ## Why
 
@@ -31,5 +42,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+A "Set in niri" row in the Displays page opens the niri page on the right section.
 
+![A "Set in niri" row in the Displays page opens the niri page on the right section](../media/niri-settings-links/set-in-niri.png)

@@ -2,6 +2,12 @@
 
 Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (closed)
 
+![A script shows a live activity at 60 %, updates it, then ends it. Dark theme](../island/2-api/apres-ipc-live-dark.gif)
+
+*A script shows a live activity at 60 %, updates it, then ends it. Dark theme*
+
+In one sentence: A shell script can show an activity on the island with `dms ipc call island activity`, update it, end it, and read which button the user pressed.
+
 ## What it does
 
 - A shell script can show an activity on the island with `dms ipc call island activity ...`. On master this call prints `Function not found.` and the island stays on its clock.
@@ -9,6 +15,21 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 - The activity shows an icon, a title, a text, a progress ring and up to 3 buttons. The script can read which button the user picked.
 - A call that is refused prints an answer. It is never silent.
 - `island status` also says which activity the island of the focused screen holds: its source, kind and state.
+- New on `island/3-bubbles` (commit [0423d9c](https://github.com/lung595/DankMaterialShell/commit/0423d9c835baa724b9c7c5960078f7492ceff149), ported to `island-prototype` in [5b4b0f1](https://github.com/lung595/DankMaterialShell/commit/5b4b0f12eab702ccc70db793679bfb13d25df79f)): the data also takes `image` (an icon of the theme or the absolute path of a local picture, never a URL), an `accent` checked against the theme's roles, and a `text` of up to 3 lines. A refused image or accent prints `ISLAND_ACTIVITY_BAD_IMAGE` or `ISLAND_ACTIVITY_BAD_ACCENT`. See [Plugins and scripts draw their own bubbles](api-custom-bubbles.md).
+
+## Try it
+
+- Check out `island/2-api` and use a bar in the Island layout. Then:
+
+```bash
+tok=$(dms ipc call island activity backup live '{"title":"Backup","icon":"backup","progress":0.3}')
+dms ipc call island activityUpdate "$tok" '{"title":"Backup","icon":"backup","progress":0.8}'
+dms ipc call island activityEnd "$tok"
+```
+
+- An alert with buttons opens as a sheet: `dms ipc call island activity backup alert '{"title":"Backup failed","text":"Disk full","actions":[{"id":"retry","label":"Retry"}]}'`, then `dms ipc call island activityStatus TOKEN` tells which button was picked.
+- On `island/3-bubbles`, add an image and more lines: `'{"title":"Photo sync","image":"drive-harddisk","accent":"tertiary","text":"Album Summer trip\n128 of 206 photos\nAbout 2 minutes left"}'`.
+- A demo script, [`demo-ipc.sh`](../island/2-api/demo-ipc.sh), and the recorded answers, [`apres-ipc.txt`](../island/2-api/apres-ipc.txt), are in this branch under `island/2-api/`.
 
 ## Why
 
@@ -33,8 +54,6 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 - A script goes to `requestScript` in [`IslandActivityService.qml`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/Services/IslandActivityService.qml). From there it follows the same path as a plugin activity.
 - The face is drawn by the shell from the data, in `Activities/ReadyActivity*.qml` (see the activities API page).
 - Tests: [`island-activity-input.test.mjs`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/tests/island-activity-input.test.mjs) and [`island-activity-service.test.mjs`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/tests/island-activity-service.test.mjs).
-- Try it: you need a bar set to the Island layout. Run `dms ipc call island activity backup live '{"title":"Backup","icon":"backup","progress":0.3}'`, then `activityUpdate` and `activityEnd` with the token.
-- A demo script, `demo-ipc.sh`, and the recorded answers, `apres-ipc.txt`, are on the `island-assets` branch under `island/2-api/`.
 - There are no new settings for scripts.
 
 ## Known limits
@@ -50,9 +69,8 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 
 A script shows a live activity at 60 %, updates it, then ends it. Dark theme.
 
-![Progress goes from 0 to 100 percent, then the clock comes back](../island/2-api/apres-ipc-live-dark.gif)
+![A script shows a live activity at 60 %, updates it, then ends it. Dark theme](../island/2-api/apres-ipc-live-dark.gif)
 
 A script shows an alert. It opens as a sheet, then closes. Dark theme.
 
-![An alert opens as a sheet, then closes](../island/2-api/apres-ipc-alert-dark.gif)
-
+![A script shows an alert. It opens as a sheet, then closes. Dark theme](../island/2-api/apres-ipc-alert-dark.gif)

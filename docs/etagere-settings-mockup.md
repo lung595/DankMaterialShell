@@ -2,6 +2,12 @@
 
 Status: mock-up
 
+![The Shelf settings page: pick a layout and a density, then search "cloud" to jump to the cloud folders](../media/etagere-settings-mockup/settings-live.gif)
+
+*The Shelf settings page: pick a layout and a density, then search "cloud" to jump to the cloud folders*
+
+In one sentence: A mock-up of one "Island" entry in Settings that gathers every island setting into eleven pages, with a full Shelf page and a table of all 41 bubbles.
+
 ## What it does
 
 - A new entry "Island" in the settings sidebar, just after Bar widgets. It opens a hub like the Dock hub, with eleven pages: General, Home, Behavior, Bubbles, Each bubble (a sub-page), Notifications, Shelf, Appearance, Motion, Plugins and Advanced.
@@ -10,6 +16,11 @@ Status: mock-up
 - "Each bubble" is a table of 41 bubbles (18 system, 16 apps, 7 alerts). A chip filter picks System, Apps, Alerts or "Allowed in Do Not Disturb". An editor sets side, lifetime, importance, sound and Do Not Disturb for each bubble.
 - New rows (13 new keys): a shape under the logo, a time scale for each bubble family, an app filter and a privacy option for notifications, and quiet hours that can follow Do Not Disturb.
 - The Shelf page has 11 cards and 70 settings: Look, Arrivals, Keeping, Inputs, Drop zones, Cloud folders, Share (KDE Connect, LocalSend, default device), Shortcuts, Privacy, Accessibility and Screens. Each row reads and writes its own `islandShelf*` key.
+
+## Try it
+
+- Check out `island-settings-mockup` and open Settings, then "Island", just after Bar widgets (or run `dms ipc call settings openWith island`).
+- Open the Shelf page, or "Each bubble" and filter by System, Apps or Alerts. Type "cloud" in the settings search to jump to the cloud folders.
 
 ## Why
 
@@ -37,5 +48,22 @@ Status: mock-up
 
 ## Images
 
-No screenshot yet.
+The Shelf settings page: pick a layout and a density, then search "cloud" to jump to the cloud folders.
 
+![The Shelf settings page: pick a layout and a density, then search "cloud" to jump to the cloud folders](../media/etagere-settings-mockup/settings-live.gif)
+
+The Shelf page of the island settings: drop zones and cloud folders.
+
+![The Shelf page of the island settings: drop zones and cloud folders](../media/etagere-settings-mockup/set-shelf.png)
+
+The Island hub in Settings, with its pages.
+
+![The Island hub in Settings, with its pages](../media/etagere-settings-mockup/set-hub.png)
+
+The Look card of the Shelf settings: layout, density, previews, preview size.
+
+![The Look card of the Shelf settings: layout, density, previews, preview size](../media/etagere-settings-mockup/set-look-live.png)
+
+The Cloud folders card: one row per synced folder, open on hover, copy or move.
+
+![The Cloud folders card: one row per synced folder, open on hover, copy or move](../media/etagere-settings-mockup/set-cloud-live.png)

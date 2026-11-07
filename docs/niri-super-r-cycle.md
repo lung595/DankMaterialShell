@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Columns card, where the Super+R option sits](../media/niri-super-r-cycle/windows-columns-dark-wide.png)
+
+*The Columns card, where the Super+R option sits*
+
+In one sentence: An option makes Super+R first stretch the focused column over the remaining width, then go back, then walk the preset widths.
+
 ## What it does
 
 - An option on the Columns card: "Super+R fills the remaining space". It is off by default.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Example from the notes: two windows at 1/3, Super+R on the first gives it the remaining 2/3.
 - If the focused window is floating, or no tiled window has focus, the key uses niri's own switch, so it always does something.
 - If the user has their own shortcut on that key, it is kept and the page tells it.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, and turn on "Super+R fills the remaining space" in the Columns card of the Windows section.
+- Open two windows at 1/3 and press Super+R on the first: it takes the remaining 2/3. Press it again to go back.
 
 ## Why
 
@@ -31,5 +42,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Columns card, where the Super+R option sits.
 
+![The Columns card, where the Super+R option sits](../media/niri-super-r-cycle/windows-columns-dark-wide.png)

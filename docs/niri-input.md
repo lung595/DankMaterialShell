@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Input section: layout, repeat delay and rate](../media/niri-input/input-dark-wide.png)
+
+*The Input section: layout, repeat delay and rate*
+
+In one sentence: Keyboard layouts and repeat, touchpad, mouse and cursor settings for niri, with picture tiles and a countdown that brings back the old layout if the new one locks you out.
+
 ## What it does
 
 - A Keyboard card: layouts (comma separated, for example `us,fr`), the shortcut that switches layout (Alt + Shift, Ctrl + Shift, Caps lock, Super + Space or custom), repeat delay and rate, Num Lock at startup, remember layout (globally or per window), and XKB options, variant, model and a keymap file.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Mouse rows: natural scrolling, speed, acceleration, scroll speed, left-handed, scroll method and middle click emulation.
 - A Cursor card: theme (with a preview image of the real cursor shapes), size, hide while typing and hide when idle.
 - Several options are picture tiles instead of plain switches.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri input`.
+- Add a layout, for example `us,fr`, and watch the countdown: press Keep to keep it.
 
 ## Why
 
@@ -31,5 +42,10 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Input section: layout, repeat delay and rate.
 
+![The Input section: layout, repeat delay and rate](../media/niri-input/input-dark-wide.png)
+
+The same section in the light theme.
+
+![The same section in the light theme](../media/niri-input/input-light-wide.png)

@@ -2,6 +2,8 @@
 
 Status: working prototype
 
+In one sentence: While a document prints, a bubble shows the printer and the document with Cancel, and it turns orange with Resume and Cancel when the printer has a problem.
+
 ## What it does
 
 - While a CUPS job is printing, a bubble with a printer icon appears. The card, titled "Printing", shows the document name, the printer, and a Cancel button.
@@ -10,6 +12,11 @@ Status: working prototype
 - A new job or a new error plays on the free island first, then stays as a bubble.
 - The cross on the bubble hides that job in that state. A new job or a new reason shows it again.
 - The printer glyph slides a sheet out of the tray on each new page, once, and rests. With reduced motion there is no sheet.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and print a document on a CUPS printer.
+- Hover the bubble for the card. If the printer stops with an error while a job waits, the bubble turns orange and the card offers Resume and Cancel.
 
 ## Why
 
@@ -33,5 +40,4 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
-
+No screenshot yet: the test bench could not run a print server.

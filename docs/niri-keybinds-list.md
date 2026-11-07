@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![A category chip (Workspace) lists its shortcuts with edit and delete buttons](../media/niri-keybinds-list/list-workspace.png)
+
+*A category chip (Workspace) lists its shortcuts with edit and delete buttons*
+
+In one sentence: Next to the drawn keyboard, a list of the shortcuts of a key or category, with Test, Edit and Delete, a guided "New shortcut", ready-made packs and export.
+
 ## What it does
 
 - A side pane lists the shortcuts of the key or category picked on the drawn keyboard. Each row has Test, Edit and Delete.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Test runs the action once. A "More" menu offers: Packs, Export, Remove duplicates, Add default shortcuts, Cheatsheet, a "Show" filter (All, DMS, niri config), and "Unused" (greyed out, it needs usage information that niri does not give).
 - Packs are ready-made sets: Vim HJKL, Arrows, GNOME-like and Hyprland-like. The keyboard previews a pack before it is applied, and the pack lists keys that change and keys kept in `config.kdl`.
 - Remove duplicates removes the DMS copy of a key bound twice, with an Undo. Export saves an image of the shortcuts, one sheet by category. A first-time banner offers Setup: create the DMS binds file and add the include to the compositor config, and warns when config binds after the include may override DMS binds.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, run `dms ipc call settings openNiri keybinds` and click a category chip.
+- Press "New shortcut", pick an action, press the keys: a free key says "Free", a taken one says who uses it.
 
 ## Why
 
@@ -33,5 +44,10 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+A category chip (Workspace) lists its shortcuts with edit and delete buttons.
 
+![A category chip (Workspace) lists its shortcuts with edit and delete buttons](../media/niri-keybinds-list/list-workspace.png)
+
+The shortcut list under the keyboard, with a New button.
+
+![The shortcut list under the keyboard, with a New button](../media/niri-keybinds-list/keybinds-dark-narrow.png)

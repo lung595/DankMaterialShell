@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![A file dragged onto the island: the card shows its drop zones, release keeps the file](../media/etagere-drop-and-keep/drop-live.gif)
+
+*A file dragged onto the island: the card shows its drop zones, release keeps the file*
+
+In one sentence: Drag a file onto the island and let go: the shelf keeps a link to it, so you can drop it into another app later.
+
 ## What it does
 
 - Drag a file over the island and let go: the file goes on the shelf. The shelf card opens, shows the new file at the top and says "Added".
@@ -10,6 +16,12 @@ Status: working prototype
 - The shelf keeps links to the real files, never copies. The list is saved in the DMS session data and survives a restart.
 - A file that is already on the shelf is not added twice. The shelf says "Already on the shelf" and moves it to the top. A file that was deleted from the disk is removed from the shelf when the card opens or when you press on it, with a message.
 - While you drag, the card header says what will happen: "Drop to keep", "Into <shelf folder>" or "Move into <folder>" (see the "send and remove" page for moving).
+
+## Try it
+
+- Check out `island-prototype` and use a bar in the Island layout.
+- Drag a file from a file manager over the island and let go: the shelf card opens with the file at the top and says "Added".
+- Or press Super+S to open the shelf, then Ctrl+V to paste copied files, or Ctrl+O to pick files.
 
 ## Why
 
@@ -35,5 +47,26 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A file dragged onto the island: the card shows its drop zones, release keeps the file.
 
+![A file dragged onto the island: the card shows its drop zones, release keeps the file](../media/etagere-drop-and-keep/drop-live.gif)
+
+Drag a file over the shelf, over a folder, then it is kept.
+
+![Drag a file over the shelf, over a folder, then it is kept](../media/etagere-drop-and-keep/drop-steps.gif)
+
+Dragging a file onto the open card: Drop to keep and three drop zones.
+
+![Dragging a file onto the open card: Drop to keep and three drop zones](../media/etagere-drop-and-keep/drop-zones.png)
+
+The dropped file is kept and chosen, with its actions below.
+
+![The dropped file is kept and chosen, with its actions below](../media/etagere-drop-and-keep/drop-added.png)
+
+While dragging: "Drop to keep" and the Convert, Share and Cloud zones.
+
+![While dragging: "Drop to keep" and the Convert, Share and Cloud zones](../media/etagere-drop-and-keep/drop-zones-live.png)
+
+The dropped file is kept, chosen, with its actions below.
+
+![The dropped file is kept, chosen, with its actions below](../media/etagere-drop-and-keep/drop-kept-live.png)

@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Gestures section: hover a gesture to watch it](../media/niri-gestures/gestures-dark-wide.png)
+
+*The Gestures section: hover a gesture to watch it*
+
+In one sentence: The Gestures section lists niri's touchpad, mouse and touchscreen gestures and plays each one on a drawn desktop when you hover it.
+
 ## What it does
 
 - The Gestures section shows the gestures niri has today, with a short phrase for each.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Touchscreen: drag a finger with Super held to move, and tap a second finger while moving to float or tile.
 - Hovering a gesture plays it on a drawn desktop with an animated hand, in the side pane.
 - A "While dragging" card sets the edge size that scrolls the view while something is dragged, and the edge size that switches workspace in the overview. 0 turns each off.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri gestures`.
+- Hover a gesture: the side pane plays it with an animated hand.
 
 ## Why
 
@@ -30,5 +41,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Gestures section: hover a gesture to watch it.
 
+![The Gestures section: hover a gesture to watch it](../media/niri-gestures/gestures-dark-wide.png)

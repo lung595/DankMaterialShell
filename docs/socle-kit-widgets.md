@@ -2,6 +2,12 @@
 
 Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (closed)
 
+![The widgets on a bench scene, light theme, caught 350 ms into the loop](../island/1-kit/apres-widgets-clair.png)
+
+*The widgets on a bench scene, light theme, caught 350 ms into the loop*
+
+In one sentence: A small kit of island widgets (buttons, app and notice icons, a liquid meter, alert rings) and the shared motion rules they all use, so every island face moves and looks the same.
+
 ## What it does
 
 - Adds one file of shared rules, `IslandKit.js`. It is plain arithmetic with no QML, so node can test it. It holds the two springs (CELL and FILL), the alert colours, the split of a row into whole pixels, the pulse of a shape change, the wave of the liquid and the alert rings.
@@ -10,6 +16,11 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 - A button row spreads the actions of a card over the full width and keeps the edges sharp.
 - An icon sits on a Material shape. A notice icon shows the sender picture, an icon or an initial, and uses an alert shape when the notice is critical or important.
 - The liquid is a meter that rises with a ripple. A settled meter draws nothing new. The alert wave draws rings that go out from the island.
+
+## Try it
+
+- Check out `island/1-kit` and run `node --test quickshell/tests/island-kit.test.mjs quickshell/tests/island-kit-faces.test.mjs quickshell/tests/island-kit-cadence.test.mjs`. This step adds no caller, so the tests are the way to run it.
+- To see the widgets on screen, use `island/3-bubbles`: the arrival card, the notification face and the shell-drawn activity sheet are built with `IslandButton`.
 
 ## Why
 
@@ -40,17 +51,16 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 
 The widgets on a bench scene, light theme, caught 350 ms into the loop.
 
-![Kit widgets, light theme](../island/1-kit/apres-widgets-clair.png)
+![The widgets on a bench scene, light theme, caught 350 ms into the loop](../island/1-kit/apres-widgets-clair.png)
 
 Buttons pressed one after the other on the CELL spring.
 
-![Buttons, close-up](../island/1-kit/kit-boutons-ressort.gif)
+![Buttons pressed one after the other on the CELL spring](../island/1-kit/kit-boutons-ressort.gif)
 
 A liquid rising and falling on the FILL spring, next to a liquid at rest.
 
-![Liquids, close-up](../island/1-kit/kit-liquide.gif)
+![A liquid rising and falling on the FILL spring, next to a liquid at rest](../island/1-kit/kit-liquide.gif)
 
 App and notification icons, and the alert wave.
 
-![Icons and alert wave, close-up](../island/1-kit/kit-icones-alerte.gif)
-
+![App and notification icons, and the alert wave](../island/1-kit/kit-icones-alerte.gif)

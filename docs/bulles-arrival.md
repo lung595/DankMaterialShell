@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![The island swells for the activity, then goes back to the clock, dark](../island/3-bulles/arrivee-sombre.gif)
+
+*The island swells for the activity, then goes back to the clock, dark*
+
+In one sentence: When a notification or a short info arrives, the island swells on a spring into a short card with its icon, title, text and buttons, then folds back to the clock.
+
 ## What it does
 
 - When an info arrives (a notification, a brief info such as caps lock or a volume change, a call), the island swells on a spring into a short card with the icon, the title, the text and buttons (Dismiss, and the notification's own action if it has one). Then the card folds to the compact face, and the clock comes back.
@@ -10,6 +16,13 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - A pull toward the screen edge puts everything away. A pull away from the edge, or a click on the short card, opens the notification whole: the full card with the app, the time, the title, the text and Dismiss. A click on the compact face brings the short card back.
 - Three tiers set how long the arrival stays and how strongly it bounces and takes colour: brief, normal (a notification) and important (a call, a critical alert).
 - Three styles: `bc` (step and bounce, with the card, the default), `c` (the bounce only) and `a` (one quiet breath).
+
+## Try it
+
+- Check out `island/3-bubbles`, use a bar in the Island layout, and send a notification, for example `notify-send "Backup" "Done in 2 minutes"`. The island swells into the short card, then folds.
+- Send a few in a row: they become pages of one card. Turn them with the wheel, a sideways swipe, or `dms ipc call island arrival next`.
+- `dms ipc call island arrival open` opens the full card, `arrival tidy` puts everything away.
+- Change the style, the bounce and the colour in Settings, card "Arrival of info".
 
 ## Why
 
@@ -39,9 +52,22 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-![Before, dark: the activity shown by the API face](../island/3-bulles/arrivee-avant-sombre.png)
-![After, dark: the arrival of the activity](../island/3-bulles/arrivee-apres-sombre.png)
-![The island swells for the activity, then goes back to the clock, dark](../island/3-bulles/arrivee-sombre.gif)
-![After, light: the open card of the notification](../island/3-bulles/carte-apres-clair.png)
-![The card opens under the island, then is put away, dark](../island/3-bulles/carte-sombre.gif)
+The island swells for the activity, then goes back to the clock, dark.
 
+![The island swells for the activity, then goes back to the clock, dark](../island/3-bulles/arrivee-sombre.gif)
+
+Before, dark: the activity shown by the API face.
+
+![Before, dark: the activity shown by the API face](../island/3-bulles/arrivee-avant-sombre.png)
+
+After, dark: the arrival of the activity.
+
+![After, dark: the arrival of the activity](../island/3-bulles/arrivee-apres-sombre.png)
+
+After, light: the open card of the notification.
+
+![After, light: the open card of the notification](../island/3-bulles/carte-apres-clair.png)
+
+The card opens under the island, then is put away, dark.
+
+![The card opens under the island, then is put away, dark](../island/3-bulles/carte-sombre.gif)

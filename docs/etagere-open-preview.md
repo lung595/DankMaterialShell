@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![Space previews a Markdown note, then page 1 and page 2 of a PDF](../media/etagere-open-preview/preview-live.gif)
+
+*Space previews a Markdown note, then page 1 and page 2 of a PDF*
+
+In one sentence: Space on a file of the shelf previews it inside the card (images, video, sound, PDF, Office, Markdown, code, archives, folders), and Enter opens it in its app.
+
 ## What it does
 
 - Enter, or a double click on a tile, opens the file in its default app. This is the same for every type: audio, archives and disk images too. Inside the folder view, Enter opens the app and a double click enters the folder or previews the file. If a file type has no default app, "Open with..." asks which app to use. The shelf no longer hands the file to the browser.
@@ -10,6 +16,11 @@ Status: working prototype
 - Right and left arrows go to the next or previous file without closing the look. For a video they step through the files too. Zoom is one step per wheel notch (x1.25, from 1 to 8), or follows the touchpad. Page Up and Page Down turn the pages of a document.
 - Short words explain the odd cases: "Too large to preview", "No preview", "Binary file", "Empty file", "File not found". The footer of the look lists its keys, for example "Enter open in app".
 - The shelf hides a convert button that would give the format the files already have (no "Convert to MP3" on an MP3).
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, put a PDF and a Markdown file on the shelf, and press Super+S.
+- Pick a file with the arrows and press Space. Right and left arrows go to the next file, Page Down turns a page, Space again closes the look.
 
 ## Why
 
@@ -33,5 +44,22 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+Space previews a Markdown note, then page 1 and page 2 of a PDF.
 
+![Space previews a Markdown note, then page 1 and page 2 of a PDF](../media/etagere-open-preview/preview-live.gif)
+
+Preview of a PDF, a Markdown file, code, a song and a video.
+
+![Preview of a PDF, a Markdown file, code, a song and a video](../media/etagere-open-preview/preview-types.gif)
+
+Space on a PDF shows its first page inside the card.
+
+![Space on a PDF shows its first page inside the card](../media/etagere-open-preview/prev-pdf.png)
+
+A Markdown file drawn with its list, table and link.
+
+![A Markdown file drawn with its list, table and link](../media/etagere-open-preview/prev-md.png)
+
+A PDF previewed inside the card, page 2 of 3.
+
+![A PDF previewed inside the card, page 2 of 3](../media/etagere-open-preview/preview-pdf-live.png)

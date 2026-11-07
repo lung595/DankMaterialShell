@@ -2,7 +2,14 @@
 
 Status: working prototype
 
+![An app starts the camera: the island plays it, then a bubble stays and opens its card](../media/faces-a-camera/camera-bubble-card.gif)
+
+*An app starts the camera: the island plays it, then a bubble stays and opens its card*
+
+In one sentence: While an app uses the camera, a bubble shows that app's logo with a green dot, and its card names the app and can bring its window forward.
+
 ## What it does
+
 - Shows a bubble on the apps side of the island while an app uses the camera: the app's logo on the flat pill and a green dot while it films. If the logo is missing, a camera icon is used.
 - Screen sharing is not counted as a camera.
 - Click the bubble to open a card with the app name (or the names, separated by commas, if several apps film) and the detail "Camera". The card has a "Go to app" button when the app has a window.
@@ -10,12 +17,20 @@ Status: working prototype
 - When the camera stops, the bubble goes and the card closes. An app that loses its stream for less than 3 seconds (a renegotiation) does not play the arrival again and does not lift a hidden state.
 - The bubble is not shown when the island already shows the camera activity.
 
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and open an app that uses the camera.
+- The island plays the arrival, then the bubble stays on the apps side. Click it for the card, right click to hide it until the next time.
+- Close the app: the bubble goes away.
+
 ## Why
+
 - The author wanted a visible sign that the camera is on, in the same place and style as the other app bubbles.
 - The notes ask for the app's logo on the flat pill with a green dot, and no count on the pill (the "+N" was removed on 24 October); the card names every app that films.
 - The bubble ranks ahead of the other app bubbles, after a call, because the camera is on the user.
 
 ## How it is built
+
 - [`quickshell/Common/IslandCamera.js`](https://github.com/lung595/DankMaterialShell/blob/island-prototype/quickshell/Common/IslandCamera.js): plain JavaScript logic. It finds the apps that film (an input video stream linked to a `Video/Source`, without the Screen role), makes a key per app, and handles the 3-second grace delay.
 - [`quickshell/Modules/DIsland/IslandCameraSource.qml`](https://github.com/lung595/DankMaterialShell/blob/island-prototype/quickshell/Modules/DIsland/IslandCameraSource.qml): the source (apps side, `camera`). It reads PipeWire nodes and links only, with no polling, like the microphone privacy indicator. It binds the video streams so their app properties arrive.
 - [`quickshell/Modules/DIsland/Cards/BubbleCardCamera.qml`](https://github.com/lung595/DankMaterialShell/blob/island-prototype/quickshell/Modules/DIsland/Cards/BubbleCardCamera.qml) and [`quickshell/Modules/DIsland/Cards/BubbleCameraGlyph.qml`](https://github.com/lung595/DankMaterialShell/blob/island-prototype/quickshell/Modules/DIsland/Cards/BubbleCameraGlyph.qml): the card and the logo with the green dot.
@@ -23,6 +38,7 @@ Status: working prototype
 - Tests: [`quickshell/tests/island-camera.test.mjs`](https://github.com/lung595/DankMaterialShell/blob/island-prototype/quickshell/tests/island-camera.test.mjs) covers the JavaScript logic.
 
 ## Known limits
+
 - Only simulated on a test bench (a private PipeWire with a fake video source and a fake app), not with real camera hardware or a real video call.
 - The arrival logic in QML has no test; only the JavaScript logic does.
 - A first review of the first branch scored it 58 out of 100 and asked for corrections (the "+N" count, duplicated code with the call source, magic numbers such as the rank 1.9e6). Some were fixed. The fixes were not reviewed a second time.
@@ -30,5 +46,11 @@ Status: working prototype
 - No animation measurement was made.
 
 ## Images
-No screenshot yet.
 
+An app starts the camera: the island plays it, then a bubble stays and opens its card.
+
+![An app starts the camera: the island plays it, then a bubble stays and opens its card](../media/faces-a-camera/camera-bubble-card.gif)
+
+The camera card names the app that films.
+
+![The camera card names the app that films](../media/faces-a-camera/camera-card.png)

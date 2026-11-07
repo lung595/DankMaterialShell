@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Startup section: environment card with a NAME=value field](../media/niri-session-startup/startup-dark-wide.png)
+
+*The Startup section: environment card with a NAME=value field*
+
+In one sentence: Reopen chosen programs at login, each on its own workspace and screen, and set environment variables for the session.
+
 ## What it does
 
 - A "Session" card (in Workspaces) can reopen programs at login, each on its own workspace and screen.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - The card shows how many programs are in the session. It tells that a change counts at the next login.
 - The Startup section (Expert mode only) has an Environment list: variables in the form NAME=value. Programs see a change after the next login.
 - The apps that start at login are still managed in Applications, Autostart. The page shows a link to it.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri workspaces`. In the Session card, press "Save open windows".
+- For the environment, switch to Expert and run `dms ipc call settings openNiri startup`.
 
 ## Why
 
@@ -29,5 +40,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Startup section: environment card with a NAME=value field.
 
+![The Startup section: environment card with a NAME=value field](../media/niri-session-startup/startup-dark-wide.png)

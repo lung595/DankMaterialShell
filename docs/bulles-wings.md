@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![Tea goes to the wing, the alert passes, Tea comes back, dark](../island/3-bulles/aile-sombre.gif)
+
+*Tea goes to the wing, the alert passes, Tea comes back, dark*
+
+In one sentence: What the island cannot show right now waits beside it in a small bubble, machine things on one side and apps on the other, and comes back with a click.
+
 ## What it does
 
 - The island has two wings. The leading wing is the machine side (volume, brightness, battery, and so on). The trailing wing is the apps side.
@@ -10,6 +16,13 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - A machine bubble keeps an auto-hide bar out while it shows, so the change is seen. Bubbles show on the focused screen only, and not while the session is locked.
 - Do Not Disturb filters the apps side. The same info is never shown twice: a battery notification does not show next to the battery bubble.
 - With the "Always show levels in a bubble" setting, volume, brightness and microphone changes go to a bubble instead of the island.
+
+## Try it
+
+- Check out `island/3-bubbles`, use a bar in the Island layout, and install the example plugin: copy `quickshell/PLUGINS/IslandActivityExample` into `~/.config/dms/plugins/` and turn it on in Settings, Plugins.
+- Run `dms ipc call islandActivityExample request live`: "Tea" shows in the island.
+- Then show an alert from a script: `dms ipc call island activity demo alert '{"title":"Backup failed","text":"Disk full"}'`. The alert takes the island and Tea waits in the apps wing.
+- Click the Tea bubble to bring it back, or right click it to end it. `dms ipc call island status` lists the bubbles of each wing.
 
 ## Why
 
@@ -41,8 +54,18 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-![Before, dark: the alert replaces Tea, no wing](../island/3-bulles/aile-avant-sombre.png)
-![After, dark: Tea waits in the wing, the alert has the island](../island/3-bulles/aile-apres-sombre.png)
-![After, light: Tea waits in the wing, the alert has the island](../island/3-bulles/aile-apres-clair.png)
+Tea goes to the wing, the alert passes, Tea comes back, dark.
+
 ![Tea goes to the wing, the alert passes, Tea comes back, dark](../island/3-bulles/aile-sombre.gif)
 
+Before, dark: the alert replaces Tea, no wing.
+
+![Before, dark: the alert replaces Tea, no wing](../island/3-bulles/aile-avant-sombre.png)
+
+After, dark: Tea waits in the wing, the alert has the island.
+
+![After, dark: Tea waits in the wing, the alert has the island](../island/3-bulles/aile-apres-sombre.png)
+
+After, light: Tea waits in the wing, the alert has the island.
+
+![After, light: Tea waits in the wing, the alert has the island](../island/3-bulles/aile-apres-clair.png)

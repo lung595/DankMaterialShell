@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Rows with an icon, a title and a control, light theme](../media/niri-row-controls/windows-light-wide.png)
+
+*Rows with an icon, a title and a control, light theme*
+
+In one sentence: Every niri setting is the same kind of row, with an icon, a tip, a "Modified" dot and Reset, and risky changes ask "Keep this change?" before they stay.
+
 ## What it does
 
 - Every setting is a row with an icon, a title, a tip on hover and, in Expert mode, its KDL key.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - A "New" pill marks options that arrived with the running niri version, until the user has seen them. Settings that depend on a parent (for example ring width under the focus ring switch) fold under it.
 - For settings that can cut off the keyboard or the screen, a "Keep this change?" banner floats at the top. It counts down 15 seconds and then reverts, unless the user presses Keep.
 - Slider, choice (segmented), color swatches, tile and card components share the same look.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and open the niri page. Change the gaps: the row shows the "Modified" dot and a "Reset to default" button.
+- Switch to Expert: each row shows its KDL key.
 
 ## Why
 
@@ -34,5 +45,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Rows with an icon, a title and a control, light theme.
 
+![Rows with an icon, a title and a control, light theme](../media/niri-row-controls/windows-light-wide.png)

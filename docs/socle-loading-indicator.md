@@ -2,6 +2,12 @@
 
 Status: in [PR #42](https://github.com/duxlabs-dev/dux-qml-common/pull/42) of dux-qml-common (closed)
 
+![Four shapes picked by the caller, with the morph and the angle driven by the caller](../island/0-dux/morph-custom-light.gif)
+
+*Four shapes picked by the caller, with the morph and the angle driven by the caller*
+
+In one sentence: The Material 3 Expressive loading indicator of dux-qml-common can now draw the caller's own shapes, and the caller can drive its morph and angle by hand.
+
 ## What it does
 
 - `DLoadingIndicator` is the Material 3 Expressive loading indicator. It used to morph between seven built-in shapes on its own clock, and a caller could change none of that. Now a caller can.
@@ -10,6 +16,12 @@ Status: in [PR #42](https://github.com/duxlabs-dev/dux-qml-common/pull/42) of du
 - `fromShape` and `toShape` are indexes into `shapes`. They say which two shapes the morph goes between. An index out of range draws the nearest shape.
 - `morph` (0 to 1) and `angle` (in degrees) are writable. With `running: false`, the component draws exactly what the caller binds to `fromShape`, `toShape`, `morph` and `angle`.
 - The default does not change: the same seven shapes, the same spring and the same spin. Callers that set nothing (the file browser path bar, the text field, the gallery) draw what they drew before.
+
+## Try it
+
+- Check out `island/common` of dux-qml-common. Give a `DLoadingIndicator` your own list, for example `shapes: ["pill", "cookie4"]`, or 256 polar radii between 0 and 1 for a shape of your own.
+- Set `running: false` and bind `fromShape`, `toShape`, `morph` (0 to 1) and `angle` (degrees): the indicator draws exactly that.
+- Set nothing: it draws the same seven shapes, spring and spin as before.
 
 ## Why
 
@@ -35,15 +47,14 @@ Status: in [PR #42](https://github.com/duxlabs-dev/dux-qml-common/pull/42) of du
 
 ## Images
 
+Four shapes picked by the caller, with the morph and the angle driven by the caller.
+
+![Four shapes picked by the caller, with the morph and the angle driven by the caller](../island/0-dux/morph-custom-light.gif)
+
 Before, light theme. The three rows under the default show what could not be done.
 
-![Before, light theme](../island/0-dux/board-before-light.png)
+![Before, light theme. The three rows under the default show what could not be done](../island/0-dux/board-before-light.png)
 
 After, light theme. Catalog shapes picked by the caller, shapes drawn from polar radii, and a morph driven by the caller.
 
-![After, light theme](../island/0-dux/board-after-light.png)
-
-Four shapes picked by the caller, with the morph and the angle driven by the caller.
-
-![Custom shapes, light theme](../island/0-dux/morph-custom-light.gif)
-
+![After, light theme. Catalog shapes picked by the caller, shapes drawn from polar radii, and a morph driven by the caller](../island/0-dux/board-after-light.png)

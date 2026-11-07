@@ -2,12 +2,24 @@
 
 Status: working prototype
 
+![A fullscreen window, then a request lifts the island over it until it is dismissed](../media/faces-b-overlay-layer/overlay-request.gif)
+
+*A fullscreen window, then a request lifts the island over it until it is dismissed*
+
+In one sentence: When a request needs an answer, the island lifts itself over fullscreen windows, then goes back to its layer when the request ends.
+
 ## What it does
 
 - When a request needs an answer, the island moves to the overlay layer so it is visible over a fullscreen window. It goes back to its normal layer when the request ends.
 - This applies to requests that ask for it with `showInFullscreen` (the polkit request and plugins that set it).
 - A new setting, "Show requests over fullscreen" (`islandOverlayOnRequest`), turns this on or off. It is on by default.
 - The existing setting `islandUseOverlayLayer` still keeps the island on the overlay layer all the time.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and put a window in fullscreen.
+- Raise a request that asks for it, for example a polkit request (`pkexec true`): the island shows over the fullscreen window.
+- Turn off "Show requests over fullscreen" to keep the island under fullscreen windows.
 
 ## Why
 
@@ -29,5 +41,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A fullscreen window, then a request lifts the island over it until it is dismissed.
 
+![A fullscreen window, then a request lifts the island over it until it is dismissed](../media/faces-b-overlay-layer/overlay-request.gif)
+
+The island card of a request, shown over a fullscreen window.
+
+![The island card of a request, shown over a fullscreen window](../media/faces-b-overlay-layer/overlay-card.png)

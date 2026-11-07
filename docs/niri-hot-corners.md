@@ -2,12 +2,23 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Pick a corner, choose an action, the legend lists the active corners](../media/niri-hot-corners/corners.gif)
+
+*Pick a corner, choose an action, the legend lists the active corners*
+
+In one sentence: Pick what each screen corner does (Overview, Notifications, Launcher, Control Center, Screenshot or nothing) by clicking it on a drawn screen.
+
 ## What it does
 
 - A "Hot corners" card in the Gestures section lets the user choose what each screen corner does: Overview, Notifications, Launcher, Control Center, Screenshot, or Nothing.
 - The user clicks a corner on a drawn screen and picks an action from a menu. A legend lists the active corners and marks the ones that DMS runs.
 - By default the top left corner opens the overview, as in niri.
 - A corner can differ per screen. The global setting is the default; a screen that has its own corners uses them instead.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri gestures`, then go to Hot corners.
+- Click the top right corner, pick Notifications, then push the pointer into that corner.
 
 ## Why
 
@@ -30,5 +41,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Pick a corner, choose an action, the legend lists the active corners.
 
+![Pick a corner, choose an action, the legend lists the active corners](../media/niri-hot-corners/corners.gif)
+
+The Hot corners card: a drawn screen with the top left corner set to Overview.
+
+![The Hot corners card: a drawn screen with the top left corner set to Overview](../media/niri-hot-corners/corners.png)
+
+Clicking a corner opens a menu: Overview, Notifications, Launcher, Control Center, Screenshot, Nothing.
+
+![Clicking a corner opens a menu: Overview, Notifications, Launcher, Control Center, Screenshot, Nothing](../media/niri-hot-corners/corners-menu.png)

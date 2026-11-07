@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Open the drawer, write a line of KDL, see the diff, save](../media/niri-kdl-drawer/kdl-drawer.gif)
+
+*Open the drawer, write a line of KDL, see the diff, save*
+
+In one sentence: In Expert mode, a drawer shows the KDL the page writes for the current section and lets you add your own lines, with a diff and a check by niri before saving.
+
 ## What it does
 
 - In Expert mode, a drawer opens in the right column (button in the header or Ctrl+E).
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Before saving, a diff shows what changes. Niri checks the whole config; if it refuses, nothing is saved and its message is shown.
 - If the text contains a `spawn` line, the first click on Save shows a warning and the lines. A second click, "Save and run programs", saves it.
 - An unsaved text is marked "Draft, not saved". Changes made elsewhere (undo, restore) are followed while the user has no pending draft.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, open the niri page, switch to Expert and press Ctrl+E.
+- Type a line of KDL under the generated text, look at the diff, then Save. A line niri refuses is not saved and its message is shown.
 
 ## Why
 
@@ -31,5 +42,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Open the drawer, write a line of KDL, see the diff, save.
 
+![Open the drawer, write a line of KDL, see the diff, save](../media/niri-kdl-drawer/kdl-drawer.gif)
+
+The KDL drawer: generated text on top, a draft below marked "Draft, not saved", and the diff under the buttons.
+
+![The KDL drawer: generated text on top, a draft below marked "Draft, not saved", and the diff under the buttons](../media/niri-kdl-drawer/kdl-draft.png)
+
+After Save: niri checked the config and reloaded, the drawer says "Saved. niri reloaded.".
+
+![After Save: niri checked the config and reloaded, the drawer says "Saved. niri reloaded."](../media/niri-kdl-drawer/kdl-saved.png)

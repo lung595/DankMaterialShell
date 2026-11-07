@@ -2,6 +2,12 @@
 
 Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (closed)
 
+![An alert sheet with a title, a text and three buttons, dark theme](../island/2-api/apres-alert-sheet-dark.png)
+
+*An alert sheet with a title, a text and three buttons, dark theme*
+
+In one sentence: Plugins can show an activity in the island (an alert, a live activity or a short glance), update it and end it, with one fixed order for who takes the island.
+
 ## What it does
 
 - A plugin can show an activity on the island, update it and end it. Before this, a plugin had no surface in the island.
@@ -10,6 +16,23 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 - A plugin that is blocked in the settings gets an empty token, and its activities are dropped.
 - One activity per source: a new call from the same source replaces the old one. The highest rank goes first, the oldest on a tie. An activity takes the island only if its rank is strictly above what the island shows now. These rules are the same for plugins and scripts.
 - Do Not Disturb holds every activity except the sources the user lets through, as for notifications. Nothing starts while the session is locked. An alert opens its sheet without the keyboard, so it does not take the keyboard from the window the user is typing in.
+- New on `island/3-bubbles` (commit [0423d9c](https://github.com/lung595/DankMaterialShell/commit/0423d9c835baa724b9c7c5960078f7492ceff149), ported to `island-prototype` in [5b4b0f1](https://github.com/lung595/DankMaterialShell/commit/5b4b0f12eab702ccc70db793679bfb13d25df79f)): when its activity waits beside the island, a plugin can draw its own bubble and its own row in the bubble's card, and a script's face takes an image, a theme accent and up to 3 lines. See [Plugins and scripts draw their own bubbles](api-custom-bubbles.md).
+
+## Try it
+
+- Check out `island/2-api` and use a bar in the Island layout. The quickest way to see an activity is a script: `dms ipc call island activity backup live '{"title":"Backup","icon":"backup","progress":0.3}'` (see [the scripts page](socle-activities-ipc.md)).
+- In a loaded plugin whose manifest declares the `island` surface, the same in QML:
+
+```qml
+const token = IslandActivityService.request(pluginId, {
+    "kind": "live",
+    "data": { "title": "Backup", "icon": "backup", "progress": 0.3 }
+});
+IslandActivityService.update(token, { "title": "Backup", "icon": "backup", "progress": 0.8 });
+IslandActivityService.release(token);
+```
+
+- On `island/3-bubbles`, the example plugin `IslandActivityExample` shows all three kinds: `dms ipc call islandActivityExample request alert`.
 
 ## Why
 
@@ -30,6 +53,7 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 - Manifest: [`PluginService.qml`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/Services/PluginService.qml) adds the surfaces `island` and `islandSystem`. The manifest block `island` has `notifyApp` and `systemFaces`, described in [`plugin-manifest-reference.md`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/.agents/skills/dms-plugin-dev/references/plugin-manifest-reference.md).
 - Settings (no settings page yet), in [`SettingsSpec.js`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/Common/settings/SettingsSpec.js): `islandPluginsBlocked` is a list of plugin ids, empty by default. `islandSystemFaces` maps a shell face to the plugin that draws it, empty by default.
 - Tests: [`island-activities.test.mjs`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/tests/island-activities.test.mjs) and [`island-activity-service.test.mjs`](https://github.com/lung595/DankMaterialShell/blob/island/2-api/quickshell/tests/island-activity-service.test.mjs).
+- Extension, in commit [0423d9c](https://github.com/lung595/DankMaterialShell/commit/0423d9c835baa724b9c7c5960078f7492ceff149) on `island/3-bubbles`: `IslandActivityComponent` gains `bubbleContent`, `cardContent`, `bubbleLength` and `cardHeight`; `setPermanent` takes a `bubbleContent`. The [custom bubbles page](api-custom-bubbles.md) has the details and a short example.
 
 ## Known limits
 
@@ -41,22 +65,22 @@ Status: in [PR #4181](https://github.com/duxlabs-dev/dux-shell/pull/4181) (close
 - Not proven: Escape and a real click on a button of the sheet, several real screens, a system face on a real screen. Node tests cover the logic.
 - The free island (idle, and its reaction to an activity) was not measured.
 - The island host files were already very long and grow with this change (for example `IslandController.qml` from 1136 to 1186 lines).
+- On `island/3-bubbles`, commit 0423d9c adds the IPC answers to the plugin docs (section "Island Activities from Scripts" of `PLUGINS/README.md`).
 
 ## Images
 
-A live activity as a compact bubble, dark theme.
-
-![Live activity as a compact bubble, dark theme](../island/2-api/apres-live-compact-dark.png)
-
 An alert sheet with a title, a text and three buttons, dark theme.
 
-![Alert sheet with three buttons, dark theme](../island/2-api/apres-alert-sheet-dark.png)
+![An alert sheet with a title, a text and three buttons, dark theme](../island/2-api/apres-alert-sheet-dark.png)
+
+A live activity as a compact bubble, dark theme.
+
+![A live activity as a compact bubble, dark theme](../island/2-api/apres-live-compact-dark.png)
 
 A live activity opened as a sheet with two buttons, dark theme.
 
-![Live activity as a sheet, dark theme](../island/2-api/apres-live-sheet-dark.png)
+![A live activity opened as a sheet with two buttons, dark theme](../island/2-api/apres-live-sheet-dark.png)
 
 The four accents, from top to bottom: primary, success, warning, error.
 
-![The four accents, dark theme](../island/2-api/apres-accents-dark.png)
-
+![The four accents, from top to bottom: primary, success, warning, error](../island/2-api/apres-accents-dark.png)

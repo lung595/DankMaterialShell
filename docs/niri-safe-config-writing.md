@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Change a risky setting, watch the 15 second countdown, press Keep](../media/niri-safe-config-writing/keep-this-change.gif)
+
+*Change a risky setting, watch the 15 second countdown, press Keep*
+
+In one sentence: Every change on the niri page is written as KDL to its own file, checked by niri before it is saved, and brought back if niri fails to reload.
+
 ## What it does
 
 - Every change made on the page is turned into KDL and written to `dms/niri.kdl` in the niri config folder. Text the user writes in the KDL drawer goes to `dms/niri-custom.kdl`.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - After the write, DMS waits for niri to reload. If the reload fails, the previous file comes back. Older versions are kept, so a change can be undone or an old version restored.
 - DMS adds the line `include optional=true "dms/niri.kdl"` to `config.kdl` once, after niri accepts it. This can be undone.
 - Only values the user changed are written. niri keeps its own defaults for the rest.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and change any setting on the niri page. Look at `dms/niri.kdl` in the niri config folder: only the changed value is there.
+- Change the keyboard layout: the "Keep this change?" banner counts down and reverts unless you press Keep.
 
 ## Why
 
@@ -34,5 +45,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Change a risky setting, watch the 15 second countdown, press Keep.
 
+![Change a risky setting, watch the 15 second countdown, press Keep](../media/niri-safe-config-writing/keep-this-change.gif)
+
+A risky setting was changed: "Keep this change?" with a countdown, Keep and Revert now.
+
+![A risky setting was changed: "Keep this change?" with a countdown, Keep and Revert now](../media/niri-safe-config-writing/keep-banner.png)
+
+niri checks the whole config before saving, then reloads: "Saved. niri reloaded.".
+
+![niri checks the whole config before saving, then reloads: "Saved. niri reloaded."](../media/niri-kdl-drawer/kdl-saved.png)

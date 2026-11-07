@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![A notification arrives and its card opens, then tidies](../media/bulles-card/carte-sombre.gif)
+
+*A notification arrives and its card opens, then tidies*
+
+In one sentence: Rest the pointer on a bubble and a card opens under the island with what waits behind it, one page per info.
+
 ## What it does
 
 - Rest the pointer on a bubble for 220 ms and it opens a card that lists what waits behind it.
@@ -9,6 +15,13 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - The shape under an app's logo takes the tone that contrasts most with the logo, so a white logo is not lost on the light theme.
 - Settings (card "Bubbles"): the shape style (filled, or tone on tone), the shape tone (from the theme or from a colour scheme of the wallpaper), the corners (like the island, or round), an optional outline with its width, opacity and colour, and how much the bubbles lean, stretch and bounce.
 - IPC: `bubble card NAME` holds the card open on that bubble's page, a second call lets it go. It prints `DANK_ISLAND_BUBBLE_CARD: NAME`, a tab and the screen name. It answers `DANK_ISLAND_BUBBLE_UNAVAILABLE: NAME` when no wing shows the bubble, or on a vertical bar, which opens no card.
+
+## Try it
+
+- Check out `island/3-bubbles`, use a bar in the Island layout, and make a bubble wait in a wing (see [the wings page](bulles-wings.md)).
+- Rest the pointer on the bubble for a moment: the card opens. With several infos, the wheel turns its pages.
+- Without a pointer: `dms ipc call island bubble card machine` holds the card of the machine bubble open, a second call lets it go.
+- Change the shape, the corners and the outline in Settings, card "Bubbles".
 
 ## Why
 
@@ -30,5 +43,14 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-No screenshot yet.
+A notification arrives and its card opens, then tidies.
 
+![A notification arrives and its card opens, then tidies](../media/bulles-card/carte-sombre.gif)
+
+The open card under the island, dark theme.
+
+![The open card under the island, dark theme](../media/bulles-card/carte-apres-sombre.png)
+
+The same card, light theme.
+
+![The same card, light theme](../media/bulles-card/carte-apres-clair.png)

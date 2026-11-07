@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Animations section with its preview box and Play button](../media/niri-animations/animations-dark-wide.png)
+
+*The Animations section with its preview box and Play button*
+
+In one sentence: Turn niri's animations on or off, slow them down, give them one style, or fine tune each of the 11 with a live preview.
+
 ## What it does
 
 - A "Window animations" switch turns every niri animation on or off. A "Slowdown" slider (0.2 to 4, 1.0 is normal) makes all of them longer or shorter.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - A gallery shows one tile for each of the 11 animations (workspace switch, window open, window close, view scroll, window move, window resize, config notice, exit dialog, screenshot, overview, Alt-Tab close). A tile plays its motion on hover and a click picks it.
 - A "Fine tune" card edits the picked animation. Type Spring: damping ratio (below 1 bounces), stiffness, epsilon. Type Curve: duration in ms and a curve (Quad, Cubic, Expo, Linear). A Play button runs a preview.
 - A motion pane in the side column draws the animation on a sample window. It follows the slowdown and shows when animations are off.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri animations`.
+- Hover a tile of the gallery to play it, set the style to Bouncy, then press Play in Fine tune.
 
 ## Why
 
@@ -30,5 +41,10 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Animations section with its preview box and Play button.
 
+![The Animations section with its preview box and Play button](../media/niri-animations/animations-dark-wide.png)
+
+The same section in the light theme.
+
+![The same section in the light theme](../media/niri-animations/animations-light-wide.png)

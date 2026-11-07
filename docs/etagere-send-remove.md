@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![Open the tile menu, remove the file with Delete, bring it back with Ctrl+Z](../media/etagere-send-remove/send-live.gif)
+
+*Open the tile menu, remove the file with Delete, bring it back with Ctrl+Z*
+
+In one sentence: From the shelf you drag files into any app, copy, convert, move, send to a phone or remove them, and every move or removal can be undone with Ctrl+Z.
+
 ## What it does
 
 - Drag a tile out of the shelf into any app: that file goes there. Drag the shelf title or the file count and all the chosen files go. A long press on a tile also starts the drag.
@@ -10,6 +16,12 @@ Status: working prototype
 - A file dropped on a folder in the explorer tree, or on a folder tile, is moved there (hold Ctrl to copy). Its name stays free: a taken name becomes "notes (2).md". The shelf links follow the file.
 - Under the details sheet of the explorer, the two or three main actions of the selection are shown, with "Open" first. The rest is in "More" and in the right-click menu (also the Menu key and Shift+F10). Rename (F2) keeps the file in its folder and never takes the name of another file. Other actions for the type of file are in the menu; they create new files next to the source, under a free name, and never overwrite.
 - Remove with the x on a tile, or Delete: this only forgets the link, the file stays on the disk. Shift+Delete moves the files to the trash. "Clear all" must be held for about two seconds, and says "Hold 2 s to clear all" when you only click. Every move, remove or clear says "Ctrl Z undoes it" and shows an Undo button with a countdown. Ctrl+Z puts files back, even from the trash. Ctrl+Y does it again.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, put files on the shelf, and press Super+S.
+- Drag a tile into another app. Press the Menu key on a tile for its actions.
+- Press Delete to remove a file from the shelf (it stays on the disk), then Ctrl+Z to bring it back.
 
 ## Why
 
@@ -37,5 +49,22 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+Open the tile menu, remove the file with Delete, bring it back with Ctrl+Z.
 
+![Open the tile menu, remove the file with Delete, bring it back with Ctrl+Z](../media/etagere-send-remove/send-live.gif)
+
+The tile menu: copy, compress, move, send to phone, remove, trash.
+
+![The tile menu: copy, compress, move, send to phone, remove, trash](../media/etagere-send-remove/send-menu.png)
+
+After a removal the card says Ctrl Z undoes it and shows Undo.
+
+![After a removal the card says Ctrl Z undoes it and shows Undo](../media/etagere-send-remove/send-undo.png)
+
+The tile menu of an image: copy, send to phone, cloud, rename, remove.
+
+![The tile menu of an image: copy, send to phone, cloud, rename, remove](../media/etagere-send-remove/send-menu-live.png)
+
+After a removal: "Ctrl Z undoes it" and an Undo button.
+
+![After a removal: "Ctrl Z undoes it" and an Undo button](../media/etagere-send-remove/send-undo-live.png)

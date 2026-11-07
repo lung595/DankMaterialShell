@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Health popover: doctor result, include banner with Undo, auto-restore, and which file overrides what](../media/niri-health-doctor/health-popover.png)
+
+*The Health popover: doctor result, include banner with Undo, auto-restore, and which file overrides what*
+
+In one sentence: A "Health" pill on the niri page checks the config files niri reads and lists what is wrong, such as a key bound twice or a missing include, with a fix and Undo where one exists.
+
 ## What it does
 
 - A "Health" pill in the header shows the state: Checking, Healthy, "N to check", errors, or "Reload failed".
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - It lists findings: a key bound twice, a setting set twice, a later file that hides the user's setting, a missing include, a file that is not included, a window rule that matches no app, an obsolete option, a program started twice (Autostart and the page), and an unreadable file.
 - One finding has a fix: "Add include" for a DMS file that niri never reads. DMS adds the include itself, with a backup, and a banner offers Undo.
 - The popover shows the saved versions of the page config and marks a failed reload and the automatic restore.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, open the niri page and click the Health pill in the header.
+- Bind one key twice in your config: the popover lists it.
 
 ## Why
 
@@ -30,5 +41,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Health popover: doctor result, include banner with Undo, auto-restore, and which file overrides what.
 
+![The Health popover: doctor result, include banner with Undo, auto-restore, and which file overrides what](../media/niri-health-doctor/health-popover.png)

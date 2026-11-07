@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![Two file copies in progress: the island shows the total, hovering opens the transfers card](../media/faces-b-transfers/transfers-move.gif)
+
+*Two file copies in progress: the island shows the total, hovering opens the transfers card*
+
+In one sentence: One bubble shows every file transfer at once (copies, archives, torrents, downloads), with the total progress, the time left, and a card to pause or cancel each one.
+
 ## What it does
 
 - One bubble shows everything that is moving files: file copies, archive extractions, downloaders, senders, image writers, qBittorrent torrents, and browser downloads still in progress.
@@ -10,6 +16,11 @@ Status: working prototype
 - When the island is free, the transfer is shown on the island itself: the app icon, a wave progress bar and the time left. The island shows "Done" at the end.
 - The card has one section per category (download, copy, archive, send, disk) with Pause all and Cancel all. Each row can Pause or Resume (only when the app allows it), Cancel (held for 2 seconds), Open folder and, when finished, Open.
 - A browser download that disappears without a finished file is treated as cancelled or failed, never as "Done".
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and start a long copy in a file manager or a download.
+- With the island free, the transfer shows on it. Hover the bubble for the card: Pause, Resume, Cancel (held for 2 seconds), Open folder.
 
 ## Why
 
@@ -37,5 +48,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+Two file copies in progress: the island shows the total, hovering opens the transfers card.
 
+![Two file copies in progress: the island shows the total, hovering opens the transfers card](../media/faces-b-transfers/transfers-move.gif)
+
+The transfers card: a row per copy with its progress, speed and time left.
+
+![The transfers card: a row per copy with its progress, speed and time left](../media/faces-b-transfers/transfers-card.png)

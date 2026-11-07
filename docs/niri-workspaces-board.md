@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Live workspaces: one lane per workspace, a chip per window](../media/niri-workspaces-board/workspaces-dark-wide.png)
+
+*Live workspaces: one lane per workspace, a chip per window*
+
+In one sentence: A live board of niri's workspaces, one lane each with a chip per window: drag a chip to move the window, name workspaces, and move or close many windows at once.
+
 ## What it does
 
 - A "Live workspaces" card draws one lane for each workspace niri reports, screen by screen, with a chip for each window.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - "Order and screens" lists named workspaces. The user can add a name, pick a screen for it (or "Any screen"), move it up, and remove it. Two workspaces cannot share a name (compared without case). Without names, niri uses numbered workspaces.
 - "Bulk actions": Group an app (every window of the app goes to one workspace), Move a workspace (all windows of one go to another), and Close an app (all its windows, on every workspace, after a confirmation that says there is no undo).
 - A side pane "Workspaces per screen" shows each screen with its workspaces and window thumbnails.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri with a few windows open, and run `dms ipc call settings openNiri workspaces`.
+- Drag a window chip to another lane, or focus a chip and press Alt+Right.
 
 ## Why
 
@@ -29,5 +40,10 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Live workspaces: one lane per workspace, a chip per window.
 
+![Live workspaces: one lane per workspace, a chip per window](../media/niri-workspaces-board/workspaces-dark-wide.png)
+
+The same board in the light theme.
+
+![The same board in the light theme](../media/niri-workspaces-board/workspaces-light-wide.png)

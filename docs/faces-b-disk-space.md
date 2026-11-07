@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![The disk almost full bubble opens its card: treemap, rings, largest files, then a folder is picked](../media/faces-b-disk-space/disk-card.gif)
+
+*The disk almost full bubble opens its card: treemap, rings, largest files, then a folder is picked*
+
+In one sentence: When a disk has less than 10 % free, a bubble says so, and its card shows what takes the space as a treemap, rings or a list, with Trash, Open and Shelf actions.
+
 ## What it does
 
 - When a disk has less than 10 % free space, a "Disk almost full" bubble appears. It shows the free share and the free size. A liquid level shows the used share and turns to the alert tone as the disk fills.
@@ -9,6 +15,11 @@ Status: working prototype
 - The card has a breadcrumb to go back up, the scan time and file count, the size and share of the current folder, and keyboard keys: arrows to move, Enter to open, Backspace to go up, Del to trash.
 - A "Free up space" row lists what each cleanup suggestion would free. Actions: Trash (with Undo), Open, and Shelf (send a file to the island shelf).
 - Trashing never deletes: files go to the trash and can be restored. Emptying the trash and the tools' own prune are separate actions; cleaning is done by holding a button.
+
+## Try it
+
+- Check out `island-prototype` and use a bar in the Island layout. The bubble shows by itself when a disk goes under 10 % free.
+- Click it for the card. Arrows move, Enter opens, Backspace goes up, Del moves the file to the trash with an Undo.
 
 ## Why
 
@@ -34,5 +45,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+The disk almost full bubble opens its card: treemap, rings, largest files, then a folder is picked.
 
+![The disk almost full bubble opens its card: treemap, rings, largest files, then a folder is picked](../media/faces-b-disk-space/disk-card.gif)
+
+The disk card as a treemap, with a file selected and its Trash, Open and Shelf actions.
+
+![The disk card as a treemap, with a file selected and its Trash, Open and Shelf actions](../media/faces-b-disk-space/disk-treemap.png)

@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![A one-time code arrives: shown hidden on the island, then the digits appear when the pointer rests on it](../media/faces-b-code-2fa/code-arrives.gif)
+
+*A one-time code arrives: shown hidden on the island, then the digits appear when the pointer rests on it*
+
+In one sentence: A one-time code from a notification shows in the island with its digits hidden until you hover it, and Copy puts it in the clipboard for 30 seconds only.
+
 ## What it does
 
 - When a notification arrives with a one-time code (for example an SMS relayed by a phone app, a mail or an authenticator), the island shows it as a bubble. The sending app's icon is shown with it.
@@ -10,6 +16,11 @@ Status: working prototype
 - The code leaves the clipboard 30 seconds after Copy, and it does not enter the clipboard history.
 - While the screen is being shared, the digits stay hidden, even on hover.
 - Only a notification that arrived in the last 10 seconds is used.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and send a notification with a code: `notify-send "Bank" "Your code is 482913"`.
+- Hover the island or the bubble to see the digits, then press Copy.
 
 ## Why
 
@@ -36,5 +47,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A one-time code arrives: shown hidden on the island, then the digits appear when the pointer rests on it.
 
+![A one-time code arrives: shown hidden on the island, then the digits appear when the pointer rests on it](../media/faces-b-code-2fa/code-arrives.gif)
+
+The code face with its digits shown and the Copy button.
+
+![The code face with its digits shown and the Copy button](../media/faces-b-code-2fa/code-card.png)

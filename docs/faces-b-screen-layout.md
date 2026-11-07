@@ -2,6 +2,8 @@
 
 Status: working prototype
 
+In one sentence: When you plug in a new monitor under niri, a bubble offers Extend, Duplicate or Only this one, with Undo, and can remember the choice for that monitor.
+
 ## What it does
 
 - When a new monitor is plugged in (niri), a "display" bubble offers three layouts: Extend, Duplicate, Only this one.
@@ -9,6 +11,11 @@ Status: working prototype
 - Once a layout is applied, the face shows it with an Undo button until the Undo delay ends. Undo restores the outputs as they were before.
 - The choice can be kept for that monitor ("Kept for this screen"). The next time the same monitor is plugged, the kept choice is applied, with Undo available.
 - Only the focused screen's island answers.
+
+## Try it
+
+- Check out `island-prototype`, run niri with a bar in the Island layout, and plug in a monitor.
+- Pick a layout in the bubble, or wait: Extend is applied after the countdown. Press Undo to go back.
 
 ## Why
 
@@ -32,5 +39,4 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
-
+No screenshot yet: the test bench had no second monitor to plug in.

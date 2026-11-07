@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Close a whole workspace card with its shortcut](../media/niri-close-workspace/workspaces-dark-wide.png)
+
+*The Close a whole workspace card with its shortcut*
+
+In one sentence: A new shortcut, Super+Delete, closes every window of the focused workspace, and asks first when there are many.
+
 ## What it does
 
 - A new shortcut, Mod+Delete (Super+Delete by default), closes every window on the focused workspace.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - A confirmation asks first when the workspace has a number of windows at or above a limit. The limit is set on the page: "Ask from" N windows (default 3, 0 means always ask), or "Never ask" (closes at once, no undo).
 - The card "Close a whole workspace" shows the shortcut, a Change button, the two settings and how many windows the focused workspace has.
 - An empty workspace does nothing and the call says so.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri with its default binds, open three windows on one workspace and press Super+Delete.
+- The same action from a terminal: `dms ipc call workspace closeAll`. Set "Ask from" in the "Close a whole workspace" card of the Workspaces section.
 
 ## Why
 
@@ -32,5 +43,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Close a whole workspace card with its shortcut.
 
+![The Close a whole workspace card with its shortcut](../media/niri-close-workspace/workspaces-dark-wide.png)

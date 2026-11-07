@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![The bubble becomes a tile beside the launcher, then folds back, dark](../island/3-bulles/tuile-sombre.gif)
+
+*The bubble becomes a tile beside the launcher, then folds back, dark*
+
+In one sentence: When the launcher opens, each bubble beside the island turns into a tall tile next to the launcher, and folds back when the launcher closes.
+
 ## What it does
 
 - When the launcher opens, the island goes down under it and each wing bubble becomes a vertical tile beside the launcher, with its icon at the top.
@@ -9,6 +15,12 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - Three motions, chosen in Settings (Bubbles, launcher transition): Liquid (the default), Jelly and Pivot.
 - With several bubbles waiting on the apps side, a left click on the tile opens or closes its list. With one bubble, the click brings it into the island.
 - A card opens on hover for any standing tile, on both sides.
+
+## Try it
+
+- Check out `island/3-bubbles`, use a bar in the Island layout, make a bubble wait in a wing (see [the wings page](bulles-wings.md)), then open the launcher (`dms ipc call island open launcher`).
+- The bubble reaches its tile in about half a second. Close the launcher (`dms ipc call island close`): the tile folds back.
+- Pick Liquid, Jelly or Pivot in Settings, card "Bubbles", launcher transition.
 
 ## Why
 
@@ -37,8 +49,18 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-![Before, dark: the launcher alone](../island/3-bulles/tuile-avant-sombre.png)
-![After, dark: a tile beside the launcher](../island/3-bulles/tuile-apres-sombre.png)
-![After, light: a tile beside the launcher](../island/3-bulles/tuile-apres-clair.png)
+The bubble becomes a tile beside the launcher, then folds back, dark.
+
 ![The bubble becomes a tile beside the launcher, then folds back, dark](../island/3-bulles/tuile-sombre.gif)
 
+Before, dark: the launcher alone.
+
+![Before, dark: the launcher alone](../island/3-bulles/tuile-avant-sombre.png)
+
+After, dark: a tile beside the launcher.
+
+![After, dark: a tile beside the launcher](../island/3-bulles/tuile-apres-sombre.png)
+
+After, light: a tile beside the launcher.
+
+![After, light: a tile beside the launcher](../island/3-bulles/tuile-apres-clair.png)

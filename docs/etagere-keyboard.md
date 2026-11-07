@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![Arrow keys move the ring, ? shows the keys sheet, the Menu key opens the tile menu](../media/etagere-keyboard/keys-live.gif)
+
+*Arrow keys move the ring, ? shows the keys sheet, the Menu key opens the tile menu*
+
+In one sentence: Super+S opens the shelf and the whole shelf works from the keyboard; press ? for the list of keys.
+
 ## What it does
 
 - **Super+S** opens the shelf card in the island of the focused screen, and closes it where it shows. A click on the card or outside it does not close a card that you opened on purpose. Only its close button or Super+S does.
@@ -10,6 +16,12 @@ Status: working prototype
 - Super+Space stays the DMS launcher. If the launcher opens while the shelf card is open, the card folds into its bubble next to the island and keeps its files. If the shelf is already a bubble, nothing happens.
 - After a click outside, a file picker, or an opened app, the card gives the keyboard away and says "Click or press Super S to type here". Super+S on a visible card takes the keyboard back instead of closing it.
 - The shelf bubble has the name "Shelf, N files" for screen readers. Its page dot opens the shelf from the Keep Awake bubble page.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout under niri, and press Super+S (or run `dms ipc call island shelf toggle`).
+- Move with the arrows, press ? for the keys sheet, the Menu key for a tile's menu, Escape to go back one level.
+- Press Super+Space with the card open: it folds into its bubble and the launcher opens.
 
 ## Why
 
@@ -36,5 +48,22 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+Arrow keys move the ring, ? shows the keys sheet, the Menu key opens the tile menu.
 
+![Arrow keys move the ring, ? shows the keys sheet, the Menu key opens the tile menu](../media/etagere-keyboard/keys-live.gif)
+
+The keys sheet, opened with ?
+
+![The keys sheet, opened with ?](../media/etagere-keyboard/keys-sheet.png)
+
+The tile menu shows the key next to each action.
+
+![The tile menu shows the key next to each action](../media/etagere-keyboard/send-menu.png)
+
+The keys sheet, opened with ?
+
+![The keys sheet, opened with ?](../media/etagere-keyboard/keys-sheet-live.png)
+
+The tile menu with the key next to each action.
+
+![The tile menu with the key next to each action](../media/etagere-keyboard/keys-menu-live.png)

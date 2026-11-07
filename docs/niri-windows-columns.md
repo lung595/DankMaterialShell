@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Columns card: width, overview zoom, Alt-Tab](../media/niri-windows-columns/windows-columns-dark-wide.png)
+
+*The Columns card: width, overview zoom, Alt-Tab*
+
+In one sentence: The Columns card sets how niri lays out columns (centering, new column width, preset widths), the overview zoom and the Alt-Tab switcher.
+
 ## What it does
 
 - A "Columns" card in the Windows section sets how niri lays out columns.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Preset widths: an editable list that replaces the list in `config.kdl` (Expert mode). New columns open Normal or Tabbed.
 - Overview zoom, and "Close on window focus" (the overview closes when DMS launches an app or focuses a window). "No app title bars" (`prefer-no-csd`).
 - Alt-Tab switcher (niri 25.11 recent windows): on or off, delay before it shows, and the size of the window previews.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri windows`, then scroll to Columns.
+- Set the new column width to 1/3 and open a window.
 
 ## Why
 
@@ -32,5 +43,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Columns card: width, overview zoom, Alt-Tab.
 
+![The Columns card: width, overview zoom, Alt-Tab](../media/niri-windows-columns/windows-columns-dark-wide.png)

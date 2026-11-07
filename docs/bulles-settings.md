@@ -2,6 +2,12 @@
 
 Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (closed)
 
+![The same switches on the Bubbles page of the settings mock-up: levels, brief info, apps to reopen, eye breaks](../media/bulles-settings/set-bubbles.png)
+
+*The same switches on the Bubbles page of the settings mock-up: levels, brief info, apps to reopen, eye breaks*
+
+In one sentence: Three new settings cards, "Plugins", "Bubbles" and "Arrival of info", decide what goes into a bubble, how bubbles look and move, and how a new info arrives.
+
 ## What it does
 
 - Three new cards in the island settings: "Plugins", "Bubbles" and "Arrival of info". They show in the Bar settings (island layout), the Dot settings and the island widget options.
@@ -9,6 +15,12 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 - "Arrival of info": the arrival style, the bounce and the colour for each tier (brief, normal, important), the wheel over the cards, and the wheel direction.
 - With the defaults, volume, brightness and brief infos stay in the island as before. The only change by default is that a notification arrives with the new motion (style `bc`).
 - No existing setting changes.
+
+## Try it
+
+- Check out `island/3-bubbles` and open the settings of a bar in the Island layout, the Dot settings, or the options of the island widget. The three cards are there.
+- Turn on "Always show levels in a bubble", then change the volume: it shows in a bubble beside the island instead of inside it.
+- In "Arrival of info", pick the style `a` (one quiet breath), then send a notification to compare it with the default `bc`.
 
 ## Why
 
@@ -31,5 +43,10 @@ Status: in [PR #4182](https://github.com/duxlabs-dev/dux-shell/pull/4182) (close
 
 ## Images
 
-No screenshot yet.
+The same switches on the Bubbles page of the settings mock-up: levels, brief info, apps to reopen, eye breaks.
 
+![The same switches on the Bubbles page of the settings mock-up: levels, brief info, apps to reopen, eye breaks](../media/bulles-settings/set-bubbles.png)
+
+The Each bubble page of the settings mock-up: a filter and one row per bubble.
+
+![The Each bubble page of the settings mock-up: a filter and one row per bubble](../media/bulles-settings/set-each.png)

@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![An app crashes: a red bubble opens a card with Details and Relaunch, Details shows the end of the log](../media/faces-b-app-events/crash-card.gif)
+
+*An app crashes: a red bubble opens a card with Details and Relaunch, Details shows the end of the log*
+
+In one sentence: The island tells you when a desktop app crashes (with the end of its log and Relaunch), offers to reopen a background app whose last window you closed, and shows urgent windows.
+
 ## What it does
 
 - Crash: when a desktop app crashes, a card shows the app, its crash mark, the end of its log, and the buttons Details and Relaunch. Only apps that map to a desktop entry count (no command-line tools, no daemons).
@@ -9,6 +15,12 @@ Status: working prototype
 - Urgent: when a window turns urgent in niri, the island shows its icon and title for 5 seconds. A click goes to the window.
 - For reopen and urgent, the free island shows the event itself first; a busy island leaves it to a bubble.
 - A setting "reopen apps" (`islandReopenApps`) in the Bubbles settings card lists the apps. Its default is `signal, discord, steam, telegram, element, slack`, so reopen is on by default.
+
+## Try it
+
+- Check out `island-prototype` and use a bar in the Island layout.
+- Reopen: close the last window of an app in the "reopen apps" list (by default signal, discord, steam, telegram, element, slack). A bubble offers to show it again.
+- Crash: when a desktop app crashes, a red bubble opens a card with Details and Relaunch.
 
 ## Why
 
@@ -31,5 +43,18 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+An app crashes: a red bubble opens a card with Details and Relaunch, Details shows the end of the log.
 
+![An app crashes: a red bubble opens a card with Details and Relaunch, Details shows the end of the log](../media/faces-b-app-events/crash-card.gif)
+
+The last window of a background app is closed: the island offers to reopen it.
+
+![The last window of a background app is closed: the island offers to reopen it](../media/faces-b-app-events/reopen-offer.gif)
+
+The "closed, Reopen" face of an app that was closed.
+
+![The "closed, Reopen" face of an app that was closed](../media/faces-b-app-events/reopen-bubble.png)
+
+The crash card with the end of the log, Details and Relaunch.
+
+![The crash card with the end of the log, Details and Relaunch](../media/faces-b-app-events/crash-details.png)

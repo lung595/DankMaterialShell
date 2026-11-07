@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Look card: gaps, focus ring, border, corners, shadow](../media/niri-windows-look/windows-dark-wide.png)
+
+*The Look card: gaps, focus ring, border, corners, shadow*
+
+In one sentence: The Look card sets how niri draws windows: gaps, focus ring, border, corners, shadows and blur, with colours from the DMS theme.
+
 ## What it does
 
 - A "Look" card in the Windows section sets how windows are drawn.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Colors come from the DMS theme (Primary, Secondary, Tertiary) or a picked color.
 - Corner radius: an override of the window radius, applied with a DMS window rule. Off means it follows the DMS theme. Window shadows are on or off.
 - Blur (niri 26.04): on or off, strength, and two xray options (blurred surfaces show the wallpaper, not the windows below; one for frames and one for the bar).
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri windows`.
+- Move the gaps slider or turn on the border: niri reloads and the windows change at once.
 
 ## Why
 
@@ -31,5 +42,10 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Look card: gaps, focus ring, border, corners, shadow.
 
+![The Look card: gaps, focus ring, border, corners, shadow](../media/niri-windows-look/windows-dark-wide.png)
+
+The same card in the light theme.
+
+![The same card in the light theme](../media/niri-windows-look/windows-light-wide.png)

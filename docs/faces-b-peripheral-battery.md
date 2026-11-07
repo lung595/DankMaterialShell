@@ -2,12 +2,23 @@
 
 Status: working prototype
 
+![A wireless mouse goes under 15 %, then starts charging](../media/faces-b-peripheral-battery/battery-low.gif)
+
+*A wireless mouse goes under 15 %, then starts charging*
+
+In one sentence: When a wireless mouse, keyboard, gamepad or headset goes under 15 %, and again under 5 %, a bubble shows the device and its level, and another one when it starts charging.
+
 ## What it does
 
 - When the battery of a wireless mouse, keyboard, gamepad or headset (seen by UPower) goes under 15 %, a bubble appears. It appears again under 5 %.
 - When the device starts charging, a "charging" bubble appears.
 - The level gauge of the bubble blinks a few times when it appears or when its level moves. With reduced motion it stays lit.
 - When the level climbs back to 20 %, both warnings are armed again.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and use a wireless device that UPower sees. The bubble comes when its battery goes under 15 %.
+- Plug the device in to charge: a "charging" bubble shows.
 
 ## Why
 
@@ -29,5 +40,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A wireless mouse goes under 15 %, then starts charging.
 
+![A wireless mouse goes under 15 %, then starts charging](../media/faces-b-peripheral-battery/battery-low.gif)
+
+The low battery bubble of a mouse: device type and percent with the level gauge.
+
+![The low battery bubble of a mouse: device type and percent with the level gauge](../media/faces-b-peripheral-battery/battery-low.png)

@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Rule from a window: click Pick a window, click a window, the form fills itself](../media/niri-window-rules/rules-pick.gif)
+
+*Rule from a window: click Pick a window, click a window, the form fills itself*
+
+In one sentence: Make a niri window rule by clicking a window: its app ID and title are filled in, and a live count says how many open windows the rule matches.
+
 ## What it does
 
 - A "Window rules" card in the Windows section lists the user's DMS window rules and shows how many there are.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - It shows a live count: "No match: every window would get it", or "Matches N open windows". More options are behind "More options".
 - Rules found in the user's own compositor config are listed read only, with a "Convert to DMS" button that makes an editable copy.
 - The list shows each rule's options (opacity, float, maximize, fullscreen, output, workspace, size limits, blur, radius and others).
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri and run `dms ipc call settings openNiri windows`, then go to Window rules.
+- Click "Pick a window", then click any window: the form fills in its app ID and title and says how many open windows the rule matches.
 
 ## Why
 
@@ -30,5 +41,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Rule from a window: click Pick a window, click a window, the form fills itself.
 
+![Rule from a window: click Pick a window, click a window, the form fills itself](../media/niri-window-rules/rules-pick.gif)
+
+The Window rules card: one rule listed, with its options and a Pick a window button.
+
+![The Window rules card: one rule listed, with its options and a Pick a window button](../media/niri-window-rules/rules-list.png)
+
+A window was picked: app ID, title, workspace, floating, hide when sharing, and "Matches 1 open window".
+
+![A window was picked: app ID, title, workspace, floating, hide when sharing, and "Matches 1 open window"](../media/niri-window-rules/rules-form.png)

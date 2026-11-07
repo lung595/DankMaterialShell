@@ -2,11 +2,22 @@
 
 Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (closed)
 
+![Warning note in light mode, with this change (after)](../island/1-kit/apres-ton-avertissement-clair.png)
+
+*Warning note in light mode, with this change (after)*
+
+In one sentence: In light mode the stock orange warning colour becomes a dark brown that can be read on light surfaces, while the warning toast keeps its orange ground.
+
 ## What it does
 
 - In light mode, `Theme.warning` is now dark brown (#904A00) when the theme keeps the stock orange (#FF9800).
 - Dark mode does not change. A theme that sets its own warning colour does not change.
 - The new property `Theme.warningGround` keeps the theme's own value. The warning toast reads it, so it keeps its orange ground under dark text, as on master.
+
+## Try it
+
+- Check out `island/1-kit`, switch to light mode with the stock theme, then open Settings, Wallpaper & colors, App theming. The note at the top is drawn in `Theme.warning`.
+- Switch back to dark mode: nothing changes there.
 
 ## Why
 
@@ -17,7 +28,6 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 
 - [`Theme.qml`](https://github.com/lung595/DankMaterialShell/blob/island/1-kit/quickshell/Common/Theme.qml): `stockWarning`, `warningGround`, `lightWarning` and `warning` (around lines 474 to 478). `warning` is `lightWarning` when the mode is light and `warningGround` equals the stock orange.
 - [`Toast.qml`](https://github.com/lung595/DankMaterialShell/blob/island/1-kit/quickshell/Modules/Toast.qml) reads `Theme.warningGround` for the warning level (one line, around line 116).
-- To see it: switch to light mode with the stock theme, then open Settings, Wallpaper & colors, App theming. The note at the top is drawn in `Theme.warning`.
 - No setting is added.
 
 ## Known limits
@@ -28,11 +38,10 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 
 ## Images
 
-Warning note in light mode, master (before).
-
-![Warning note, light mode, master](../island/1-kit/avant-ton-avertissement-clair.png)
-
 Warning note in light mode, with this change (after).
 
-![Warning note, light mode, with the change](../island/1-kit/apres-ton-avertissement-clair.png)
+![Warning note in light mode, with this change (after)](../island/1-kit/apres-ton-avertissement-clair.png)
 
+Warning note in light mode, master (before).
+
+![Warning note in light mode, master (before)](../island/1-kit/avant-ton-avertissement-clair.png)

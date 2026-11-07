@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![The Styles popover: four presets (Compact, niri default, Comfortable, Focus) and a slot to save the current look](../media/niri-styles/styles-popover.png)
+
+*The Styles popover: four presets (Compact, niri default, Comfortable, Focus) and a slot to save the current look*
+
+In one sentence: A "Styles" button applies a whole look in one click (Compact, niri default, Comfortable, Focus) and saves, exports or imports your own.
+
 ## What it does
 
 - A "Styles" button in the header opens a popover.
@@ -9,6 +15,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - The user can save the current look as a named profile, apply it later, or delete it.
 - A style can be exported to a file and imported from a file. An imported style is shown before it is applied.
 - A style only sets a few look keys: gaps, focus ring on and width, border on and width, corner radius, shadow, how the focused column is centered, and the animation slowdown.
+
+## Try it
+
+- Check out `page-niri-pr`, run DMS under niri, open the niri page and click Styles in the header.
+- Pick Comfortable. A style only sets a few look keys, such as the gaps and the focus ring. Save the current look under a name to keep it.
 
 ## Why
 
@@ -29,5 +40,6 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+The Styles popover: four presets (Compact, niri default, Comfortable, Focus) and a slot to save the current look.
 
+![The Styles popover: four presets (Compact, niri default, Comfortable, Focus) and a slot to save the current look](../media/niri-styles/styles-popover.png)

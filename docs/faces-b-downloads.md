@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![A browser download grows on the island, then a card with Show and Open appears](../media/faces-b-downloads/download-done.gif)
+
+*A browser download grows on the island, then a card with Show and Open appears*
+
+In one sentence: A finished browser download, a file received from another device, or any notification with a progress value shows in the island, with Show and Open.
+
 ## What it does
 
 - When a browser finishes a download, the island shows the file name and size. The card has Show (opens the folder) and Open.
@@ -10,6 +16,12 @@ Status: working prototype
 - Any notification that carries the freedesktop `value` hint (0 to 100) becomes a progress bubble, updated in place when the app replaces the notification. A ring fills and turns into a check at the end.
 - The progress card shows files done / total, time left and speed, each only when it is known.
 - When the island is free, a finished download is shown on the island itself for a short time; when it is busy, or "brief info always in a bubble" is on, it is a brief bubble held while hovered.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and download a file in a browser.
+- When it ends, the island shows the name and size. The card has Show and Open, and its icon can be dragged into any app.
+- Any app can show progress: `notify-send -h int:value:40 "Export" "Rendering"`, then send it again with a higher value.
 
 ## Why
 
@@ -33,5 +45,10 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+A browser download grows on the island, then a card with Show and Open appears.
 
+![A browser download grows on the island, then a card with Show and Open appears](../media/faces-b-downloads/download-done.gif)
+
+The finished download card: file name, size, Show and Open.
+
+![The finished download card: file name, size, Show and Open](../media/faces-b-downloads/download-card.png)

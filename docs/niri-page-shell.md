@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![Tour of the Niri tab: windows, workspaces, keybinds, input, animations](../media/niri-page-shell/tour.gif)
+
+*Tour of the Niri tab: windows, workspaces, keybinds, input, animations*
+
+In one sentence: A "Niri" tab in DMS Settings that sets niri's windows, animations, workspaces, shortcuts, gestures and input from one page, with search, presets and a Simple or Expert mode.
+
 ## What it does
 
 - Adds a "Niri" tab to DMS Settings. The tab only shows when the compositor is niri.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - Simple mode hides the Startup and Advanced sections. The choice is saved.
 - Some sections add a side pane (workspaces per screen, the shortcut list, the gesture stage, the animation preview). On a wide page it sits in a right column. On a narrow page it moves below or inside the section.
 - Ctrl+K moves the focus to the search bar. Ctrl+E opens the KDL drawer in Expert mode. The menu shows how many settings were changed in each section.
+
+## Try it
+
+- Check out `page-niri-pr` and run DMS under niri. Open Settings and pick the "Niri" tab, or run `dms ipc call settings openNiri windows`.
+- Switch Simple and Expert in the header. Press Ctrl+K to search, Ctrl+E in Expert mode for the KDL drawer.
 
 ## Why
 
@@ -35,5 +46,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+Tour of the Niri tab: windows, workspaces, keybinds, input, animations.
 
+![Tour of the Niri tab: windows, workspaces, keybinds, input, animations](../media/niri-page-shell/tour.gif)
+
+The Niri tab at full width.
+
+![The Niri tab at full width](../media/niri-page-shell/windows-dark-wide.png)
+
+The same tab in a narrow window.
+
+![The same tab in a narrow window](../media/niri-page-shell/windows-dark-narrow.png)

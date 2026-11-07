@@ -2,6 +2,12 @@
 
 Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (closed)
 
+![The kit scene in motion on the spring clocks](../media/socle-spring-frame-cadence/kit-ressort-sombre.gif)
+
+*The kit scene in motion on the spring clocks*
+
+In one sentence: The springs of the bar, the dock and the island take at most 120 steps a second, even on a 240 Hz screen, and the motion looks the same.
+
 ## What it does
 
 - The springs of the bar, the dock and the island take at most 120 steps a second. On master they step on every screen frame, so 240 steps a second on a 240 Hz screen.
@@ -10,6 +16,10 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 - The alert rings of the kit run on their own clock, `IslandDecorClock`, which is a Timer and not an animation driver. It runs only while the rings play and its window is visible.
 - The rings draw at a rate that divides the panel rate, between 24 and 120 images a second. An image is drawn only if something moved by at least half a pixel.
 - The screen refresh comes from `NiriService.outputs`. Until it is known, the code assumes 60 Hz.
+
+## Try it
+
+- Check out `island/1-kit` and run `node --test quickshell/tests/spring-cadence.test.mjs`. It plays 480 frames at 60, 120, 144, 165, 240 and 480 Hz and checks that no time is lost.
 
 ## Why
 
@@ -38,5 +48,6 @@ Status: in [PR #4180](https://github.com/duxlabs-dev/dux-shell/pull/4180) (close
 
 ## Images
 
-No screenshot yet.
+The kit scene in motion on the spring clocks.
 
+![The kit scene in motion on the spring clocks](../media/socle-spring-frame-cadence/kit-ressort-sombre.gif)

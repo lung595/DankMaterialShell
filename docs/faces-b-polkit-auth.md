@@ -2,6 +2,8 @@
 
 Status: working prototype
 
+In one sentence: A request for administrator rights (polkit) shows in the island, with a password field or a fingerprint or face scan, instead of a separate dialog.
+
 ## What it does
 
 - A polkit request ("this app wants administrator rights") appears on the island instead of in a separate dialog.
@@ -10,6 +12,11 @@ Status: working prototype
 - A failed attempt turns the face red and shakes it. A success shows a check for a moment, then the island lets go.
 - The island is lifted over fullscreen windows while the request is shown (see the overlay layer page).
 - If the island is off, locked, or not on the focused screen, the usual DMS dialog is used instead.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout on the focused screen, and run a command that asks for administrator rights through polkit, for example `pkexec true`.
+- Type the password and press Authenticate, or press Escape to cancel. A wrong password shakes the face.
 
 ## Why
 
@@ -33,5 +40,4 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
-
+No screenshot yet: the test bench had no polkit daemon to send a request.

@@ -2,6 +2,12 @@
 
 Status: working prototype
 
+![Drag a file onto the Cloud zone, pick Nextcloud: the file is copied into the synced folder](../media/etagere-cloud/cloud-live.gif)
+
+*Drag a file onto the Cloud zone, pick Nextcloud: the file is copied into the synced folder*
+
+In one sentence: Drop a file on the shelf's Cloud zone and it is copied into one of your synced folders; DMS itself never talks to the network.
+
 ## What it does
 
 - The shelf card has three drop zones: Convert, Share and Cloud. They stay hidden until you drag a file, then they rise.
@@ -10,6 +16,12 @@ Status: working prototype
 - A "cloud folder" is a normal local folder that your own sync app keeps in step with the cloud. DMS only copies files into it. It has no account and no network access of its own.
 - In the settings, a card "Shelf" lets you turn each zone on or off and change their order, and add, rename, change the icon of, or remove cloud folders. Removing a cloud folder only forgets it, the folder stays on the disk. This settings card is in Bar settings, Dot settings and the options of the island widget.
 - The shelf card shows a note "Zones set in the settings" under the zones. It is a link to those settings.
+
+## Try it
+
+- Check out `island-prototype`, use a bar in the Island layout, and drag a file over the island: Convert, Share and Cloud rise.
+- Let go on Cloud, then on a folder. With no folder set yet, pick one with "Choose a folder...".
+- Add, rename or remove cloud folders and turn zones on or off in the settings card "Shelf".
 
 ## Why
 
@@ -32,5 +44,22 @@ Status: working prototype
 
 ## Images
 
-No screenshot yet.
+Drag a file onto the Cloud zone, pick Nextcloud: the file is copied into the synced folder.
 
+![Drag a file onto the Cloud zone, pick Nextcloud: the file is copied into the synced folder](../media/etagere-cloud/cloud-live.gif)
+
+A file over the Cloud zone, next to Convert and Share.
+
+![A file over the Cloud zone, next to Convert and Share](../media/etagere-cloud/cloud-hover.png)
+
+The Cloud zone asks which folder to copy into.
+
+![The Cloud zone asks which folder to copy into](../media/etagere-cloud/cloud-sync.png)
+
+The Cloud zone lights up under the dragged file.
+
+![The Cloud zone lights up under the dragged file](../media/etagere-cloud/cloud-zone-live.png)
+
+"Copied to the cloud folder" after choosing Nextcloud.
+
+!["Copied to the cloud folder" after choosing Nextcloud](../media/etagere-cloud/cloud-copied-live.png)

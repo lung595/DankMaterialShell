@@ -2,6 +2,12 @@
 
 Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
+![An empty keyboard, the More menu, then the default shortcuts in place](../media/niri-default-binds/default-binds.gif)
+
+*An empty keyboard, the More menu, then the default shortcuts in place*
+
+In one sentence: Add the DMS default shortcuts that are still free to your niri config in one action, checked by niri first and with Undo.
+
 ## What it does
 
 - A new command, `dms keybinds add-defaults niri`, adds the DMS default binds that are still free to `dms/binds.kdl` in the niri config folder.
@@ -10,6 +16,11 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 - `dms keybinds undo-defaults niri` puts the file back as it was. It refuses once the file changed after the add.
 - The Keybinds page offers the same action as "Add default shortcuts" in its More menu, shows how many were added, and gives an Undo.
 - The embedded default binds have one new entry: Mod+Delete, "Close Workspace Windows".
+
+## Try it
+
+- Check out `page-niri-pr` and run `dms keybinds add-defaults niri`, then `dms keybinds undo-defaults niri` to put the file back.
+- Or, on the Keybinds section of the niri page, open the More menu and pick "Add default shortcuts".
 
 ## Why
 
@@ -31,5 +42,14 @@ Status: in open [PR #4063](https://github.com/duxlabs-dev/dux-shell/pull/4063)
 
 ## Images
 
-No screenshot yet.
+An empty keyboard, the More menu, then the default shortcuts in place.
 
+![An empty keyboard, the More menu, then the default shortcuts in place](../media/niri-default-binds/default-binds.gif)
+
+The More menu of the Keybinds page, with "Add default shortcuts".
+
+![The More menu of the Keybinds page, with "Add default shortcuts"](../media/niri-default-binds/more-menu.png)
+
+After adding the default shortcuts, the keyboard shows them in color by category.
+
+![After adding the default shortcuts, the keyboard shows them in color by category](../media/niri-default-binds/defaults-added.png)
